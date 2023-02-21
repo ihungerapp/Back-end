@@ -52,7 +52,10 @@ uses
   System.Classes,
   Server.Controller.Interfaces in '..\..\lib\Server\Interfaces\Server.Controller.Interfaces.pas',
   Server.Controller in '..\..\lib\Server\Server.Controller.pas',
-  Server.ServerConsole in '..\..\lib\Server\Server.ServerConsole.pas';
+  Server.ServerConsole in '..\..\lib\Server\Server.ServerConsole.pas',
+  Resources.usuario in '..\..\Resources\Resources.usuario.pas',
+  DAO.Usuario in '..\..\DAO\DAO.Usuario.pas',
+  Controller.Usuario in '..\..\Controllers\Controller.Usuario.pas';
 
 begin
   try

@@ -48,7 +48,7 @@ begin
 
   except
     on E: Exception do
-      Writeln(E.Message);
+      Writeln('TConnection.Create ' + E.Message);
   end;
 end;
 

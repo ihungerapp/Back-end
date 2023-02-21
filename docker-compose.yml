@@ -1,0 +1,15 @@
+version: '3'
+services:
+#GenerateBackendBuild
+  HungerAPI:
+    build:
+     context: .
+     dockerfile: Dockerfile
+    image: "hunger-api"
+    container_name: dockerComposeHungerApi
+    networks:
+     - Network_1
+    ports:
+     - '8081:8081'
+networks :
+  Network_1 :

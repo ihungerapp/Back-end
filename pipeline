@@ -1,0 +1,30 @@
+String branchName = "main"
+String gitCredentials = "ihungerapp"
+String repoUrl = "git@github.com:ihungerapp/Back-end.git"
+node {
+
+  stage('Clone') {
+      
+      echo 'clonando repositorio'
+      sh 'mkdir -p build'
+
+      echo 'Clonando  (branch: "' + branchName + '" )'
+      dir('build') {
+          git branch: branchName, credentialsId: 	gitCredentials, url: repoUrl
+      }     
+  }       
+}
+node {
+  def remote = [:]
+  remote.name = 'server-hunger'
+  remote.host = '172.26.179.28'
+  remote.user = 'hunger'
+  remote.password = 'Hu*846964@'
+  remote.allowAnyHosts = true
+  stage('Remote SSH') {
+    sshPut remote: remote, from: 'build', into: '.'  
+    sshCommand remote: remote, command: "cd build"
+    sshCommand remote: remote,sudo:true, command: "docker-compose -f ./build/docker-compose.yml down --rmi all"  
+    sshCommand remote: remote,sudo:true, command: "docker-compose -f ./build/docker-compose.yml up -d" 
+  }
+}

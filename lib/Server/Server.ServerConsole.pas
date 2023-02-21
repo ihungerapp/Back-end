@@ -95,7 +95,7 @@ begin
     if CheckPort(AServer.DefaultPort) > 0 then
     begin
       AServer.Bindings.Clear;
-      TAuthentication.GetInstance('"Cadastros WMS".usuarios', 'login', 'senha');
+      TAuthentication.GetInstance('"Acessos".usuario', 'nome_usuario', 'senha');
       AServer.Active := True;
     end
     else
