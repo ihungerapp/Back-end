@@ -8,8 +8,8 @@ services:
     image: "hunger-api"
     container_name: dockerComposeHungerApi
     networks:
-     - Network_1
+     - hunger-net
     ports:
      - '8081:8081'
 networks :
-  Network_1 :
+  hunger-net :

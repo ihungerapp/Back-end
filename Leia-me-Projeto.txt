@@ -45,7 +45,7 @@ roteiro de preparação do ambiente
    
    sudo docker container run --name jenkins-server --detach --restart unless-stopped --network hunger-net --hostname server-hunger --publish 8080:8080 --volume jenkins-docker-data:/var jenkins/jenkins:lts-jdk11   
 
-sudo docker container run --name jenkins-server --detach --network hunger-net -u root --volume jenkins-docker-data:/var/jenkins_home --volume /var/run/docker.sock:/var/run/docker.sock --publish 8080:8080 --publish 50000:50000 jenkins/jenkins:lts-jdk11
+   sudo docker container run --name jenkins-server --detach --network hunger-net -u root --volume jenkins-docker-data:/var/jenkins_home --volume /var/run/docker.sock:/var/run/docker.sock --publish 8080:8080 --publish 50000:50000 jenkins/jenkins:lts-jdk11
 
    #sudo docker run -p 8080:8080 -p 50000:50000 --restart=on-failure -v jenkins_home:/var/jenkins_home jenkins/jenkins:lts-jdk11
    #sudo docker container run --name jenkins-server --detach --restart unless-stopped --network hunger-net --hostname jenkins --publish 8080:8080 --volume jenkins-docker-data:/var jenkins_home jenkins/jenkins:lts-jdk11
@@ -72,4 +72,9 @@ sudo docker container run --name jenkins-server --detach --network hunger-net -u
    //acessar pagina de configuraçao https://ipservidor:9443/ e criar a senha para o usuario admin  (na imagem esta diretrizportainer)
  
 
+//--------------------------------------------------------------------------------------------
+// 5-Iniciar a API
+----------------------------------------------------------------------------------------------
+sudo docker container run --name hunger-api --detach --restart unless-stopped --network back-end_Network_1 --hostname server-hunger --publish 8081:8081 -d hunger-api:latest   
 
+curl -X POST -H 'Content-Type: application/json' -d @data.json http://localhost:8081/v1/authorization
