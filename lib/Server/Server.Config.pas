@@ -38,7 +38,6 @@ end;
 
 procedure TServerConfig.ConfigDB;
 var
-  IniFile: TMemIniFile;
   Database: string;
   Server: string;
   UserName: string;
@@ -47,23 +46,20 @@ var
   Port: Integer;
   LPath: string;
 begin
+  {$IFDEF MSWINDOWS}
+  var IniFile: TIniFile;
+  IniFile := TIniFile.Create(TPath.Combine(GetCurrentDir, 'ConfigServer.Ini'));
+  {$ENDIF}
+  {$IFDEF LINUX} //path quando executa a API como container no Docker
+  var IniFile: TMemIniFile;
   IniFile := TMemIniFile.Create('/root/deploy/ConfigServer.ini');
-  //TIniFile.Create(ExtractFilePath(GetModuleName(HInstance)) + 'ConfigServer.Ini');//TIniFile.Create(TPath.Combine(GetCurrentDir, 'ConfigServer.Ini'));
+  {$ENDIF}
   try
-//    {$IFDEF MSWINDOWS}
-      Database := IniFile.ReadString('Config', 'Database', '');
-      Server := IniFile.ReadString('Config', 'Server', '');
-      UserName := IniFile.ReadString('Config', 'UserName', '');
-      Password := 'rm045369';//TCriptografia.Descriptografar(IniFile.ReadString('Config', 'Password', ''));
-      Port := StrToInt(IniFile.ReadString('Config', 'Port', '5432'));
-//    {$ENDIF}
-//    {$IFDEF LINUX}
-//      Database := 'HungerApp';
-//      Server := 'localhost';
-//      UserName := 'postgres';
-//      Password := 'rm045369';
-//      Port := 5432;
-//    {$ENDIF}
+    Database := IniFile.ReadString('Config', 'Database', '');
+    Server := IniFile.ReadString('Config', 'Server', '');
+    UserName := IniFile.ReadString('Config', 'UserName', '');
+    Password := 'rm045369';//TCriptografia.Descriptografar(IniFile.ReadString('Config', 'Password', ''));
+    Port := StrToInt(IniFile.ReadString('Config', 'Port', '5432'));
     Params := TStringList.Create;
     Params.AddPair('DriverID', 'PG');
     Params.AddPair('Server', Server);

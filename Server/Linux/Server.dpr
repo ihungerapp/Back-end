@@ -55,7 +55,25 @@ uses
   Server.ServerConsole in '..\..\lib\Server\Server.ServerConsole.pas',
   Resources.usuario in '..\..\Resources\Resources.usuario.pas',
   DAO.Usuario in '..\..\DAO\DAO.Usuario.pas',
-  Controller.Usuario in '..\..\Controllers\Controller.Usuario.pas';
+  Controller.Usuario in '..\..\Controllers\Controller.Usuario.pas',
+  Controller.Cidade in '..\..\Controllers\Controller.Cidade.pas',
+  Controller.Grupo in '..\..\Controllers\Controller.Grupo.pas',
+  Controller.Pessoa in '..\..\Controllers\Controller.Pessoa.pas',
+  Controller.Precificacao in '..\..\Controllers\Controller.Precificacao.pas',
+  Controller.Produto in '..\..\Controllers\Controller.Produto.pas',
+  Controller.Produto_precificacao in '..\..\Controllers\Controller.Produto_precificacao.pas',
+  DAO.Cidade in '..\..\DAO\DAO.Cidade.pas',
+  DAO.Grupo in '..\..\DAO\DAO.Grupo.pas',
+  DAO.Pessoa in '..\..\DAO\DAO.Pessoa.pas',
+  DAO.Precificacao in '..\..\DAO\DAO.Precificacao.pas',
+  DAO.Produto in '..\..\DAO\DAO.Produto.pas',
+  DAO.Produto_precificacao in '..\..\DAO\DAO.Produto_precificacao.pas',
+  Resources.cidade in '..\..\Resources\Resources.cidade.pas',
+  Resources.grupo in '..\..\Resources\Resources.grupo.pas',
+  Resources.pessoa in '..\..\Resources\Resources.pessoa.pas',
+  Resources.precificacao in '..\..\Resources\Resources.precificacao.pas',
+  Resources.produto in '..\..\Resources\Resources.produto.pas',
+  Resources.produto_precificacao in '..\..\Resources\Resources.produto_precificacao.pas';
 
 begin
   try

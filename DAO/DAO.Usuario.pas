@@ -41,7 +41,7 @@ begin
       Connection.Query.Open;
       Connection.Query.First;
       
-      //Result := TDAO.CreateJSONObject(Connection);
+      Result := TDAO.CreateJSONObject(Connection, Params);
     except
       on E: Exception do
         TMessage.Create(EErroGeral, 'Erro ao executar a consulta (' + E.Message + ')').SendMessage(Params[0].AsType<TWebResponse>);

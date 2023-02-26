@@ -1,0 +1,869 @@
+ { 
+ 	"info": { 
+ 		"_postman_id": "923871e0-5ccf-413f-ba24-4d5111ceefea", 
+ 		"name": "HungerApp_ORM", 
+ 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json", 
+ 		"_exporter_id": "20996876" 
+ 	}, 
+ 	"item": [ 
+ 		 		{ 
+ 			"name": "Cadastros", 
+ 			"item": [ { 
+ 	"name": "produto_precificacao", 
+ 	"item": [ 
+ 		{ 
+ 			"name": "produto_precificacao", 
+ 			"request": { 
+ 				"method": "GET", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}produto_precificacao", 
+ 					"host": [ 
+ 						"{{Url_Api}}produto_precificacao" 
+ 					], 
+ 					"query": [ 
+ 						{ 
+ 							"key": "pageSize", 
+ 							"value": "0", 
+ 							"disabled": true 
+ 						} 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "produto_precificacao", 
+ 			"request": { 
+ 				"method": "POST", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}produto_precificacao", 
+ 					"host": [ 
+ 						"{{Url_Api}}produto_precificacao" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "produto_precificacao", 
+ 			"request": { 
+ 				"method": "PUT", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "Content-Type", 
+ 						"value": "application/json", 
+ 						"type": "text" 
+ 					}, 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}produto_precificacao/1", 
+ 					"host": [ 
+ 						"{{Url_Api}}produto_precificacao" 
+ 					], 
+ 					"path": [ 
+ 						"1" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "produto_precificacao", 
+ 			"request": { 
+ 				"method": "DELETE", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "Content-Type", 
+ 						"value": "application/json", 
+ 						"type": "text" 
+ 					}, 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}produto_precificacao/2", 
+ 					"host": [ 
+ 						"{{Url_Api}}produto_precificacao" 
+ 					], 
+ 					"path": [ 
+ 						"2" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		} 
+ 	] 
+ }, 
+
+ { 
+ 	"name": "produto", 
+ 	"item": [ 
+ 		{ 
+ 			"name": "produto", 
+ 			"request": { 
+ 				"method": "GET", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}produto", 
+ 					"host": [ 
+ 						"{{Url_Api}}produto" 
+ 					], 
+ 					"query": [ 
+ 						{ 
+ 							"key": "pageSize", 
+ 							"value": "0", 
+ 							"disabled": true 
+ 						} 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "produto", 
+ 			"request": { 
+ 				"method": "POST", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}produto", 
+ 					"host": [ 
+ 						"{{Url_Api}}produto" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "produto", 
+ 			"request": { 
+ 				"method": "PUT", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "Content-Type", 
+ 						"value": "application/json", 
+ 						"type": "text" 
+ 					}, 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}produto/1", 
+ 					"host": [ 
+ 						"{{Url_Api}}produto" 
+ 					], 
+ 					"path": [ 
+ 						"1" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "produto", 
+ 			"request": { 
+ 				"method": "DELETE", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "Content-Type", 
+ 						"value": "application/json", 
+ 						"type": "text" 
+ 					}, 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}produto/2", 
+ 					"host": [ 
+ 						"{{Url_Api}}produto" 
+ 					], 
+ 					"path": [ 
+ 						"2" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		} 
+ 	] 
+ }, 
+
+ { 
+ 	"name": "precificacao", 
+ 	"item": [ 
+ 		{ 
+ 			"name": "precificacao", 
+ 			"request": { 
+ 				"method": "GET", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}precificacao", 
+ 					"host": [ 
+ 						"{{Url_Api}}precificacao" 
+ 					], 
+ 					"query": [ 
+ 						{ 
+ 							"key": "pageSize", 
+ 							"value": "0", 
+ 							"disabled": true 
+ 						} 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "precificacao", 
+ 			"request": { 
+ 				"method": "POST", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}precificacao", 
+ 					"host": [ 
+ 						"{{Url_Api}}precificacao" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "precificacao", 
+ 			"request": { 
+ 				"method": "PUT", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "Content-Type", 
+ 						"value": "application/json", 
+ 						"type": "text" 
+ 					}, 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}precificacao/1", 
+ 					"host": [ 
+ 						"{{Url_Api}}precificacao" 
+ 					], 
+ 					"path": [ 
+ 						"1" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "precificacao", 
+ 			"request": { 
+ 				"method": "DELETE", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "Content-Type", 
+ 						"value": "application/json", 
+ 						"type": "text" 
+ 					}, 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}precificacao/2", 
+ 					"host": [ 
+ 						"{{Url_Api}}precificacao" 
+ 					], 
+ 					"path": [ 
+ 						"2" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		} 
+ 	] 
+ }, 
+
+ { 
+ 	"name": "pessoa", 
+ 	"item": [ 
+ 		{ 
+ 			"name": "pessoa", 
+ 			"request": { 
+ 				"method": "GET", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}pessoa", 
+ 					"host": [ 
+ 						"{{Url_Api}}pessoa" 
+ 					], 
+ 					"query": [ 
+ 						{ 
+ 							"key": "pageSize", 
+ 							"value": "0", 
+ 							"disabled": true 
+ 						} 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "pessoa", 
+ 			"request": { 
+ 				"method": "POST", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}pessoa", 
+ 					"host": [ 
+ 						"{{Url_Api}}pessoa" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "pessoa", 
+ 			"request": { 
+ 				"method": "PUT", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "Content-Type", 
+ 						"value": "application/json", 
+ 						"type": "text" 
+ 					}, 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}pessoa/1", 
+ 					"host": [ 
+ 						"{{Url_Api}}pessoa" 
+ 					], 
+ 					"path": [ 
+ 						"1" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "pessoa", 
+ 			"request": { 
+ 				"method": "DELETE", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "Content-Type", 
+ 						"value": "application/json", 
+ 						"type": "text" 
+ 					}, 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}pessoa/2", 
+ 					"host": [ 
+ 						"{{Url_Api}}pessoa" 
+ 					], 
+ 					"path": [ 
+ 						"2" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		} 
+ 	] 
+ }, 
+
+ { 
+ 	"name": "grupo", 
+ 	"item": [ 
+ 		{ 
+ 			"name": "grupo", 
+ 			"request": { 
+ 				"method": "GET", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}grupo", 
+ 					"host": [ 
+ 						"{{Url_Api}}grupo" 
+ 					], 
+ 					"query": [ 
+ 						{ 
+ 							"key": "pageSize", 
+ 							"value": "0", 
+ 							"disabled": true 
+ 						} 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "grupo", 
+ 			"request": { 
+ 				"method": "POST", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}grupo", 
+ 					"host": [ 
+ 						"{{Url_Api}}grupo" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "grupo", 
+ 			"request": { 
+ 				"method": "PUT", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "Content-Type", 
+ 						"value": "application/json", 
+ 						"type": "text" 
+ 					}, 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}grupo/1", 
+ 					"host": [ 
+ 						"{{Url_Api}}grupo" 
+ 					], 
+ 					"path": [ 
+ 						"1" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "grupo", 
+ 			"request": { 
+ 				"method": "DELETE", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "Content-Type", 
+ 						"value": "application/json", 
+ 						"type": "text" 
+ 					}, 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}grupo/2", 
+ 					"host": [ 
+ 						"{{Url_Api}}grupo" 
+ 					], 
+ 					"path": [ 
+ 						"2" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		} 
+ 	] 
+ }, 
+
+ { 
+ 	"name": "cidade", 
+ 	"item": [ 
+ 		{ 
+ 			"name": "cidade", 
+ 			"request": { 
+ 				"method": "GET", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}cidade", 
+ 					"host": [ 
+ 						"{{Url_Api}}cidade" 
+ 					], 
+ 					"query": [ 
+ 						{ 
+ 							"key": "pageSize", 
+ 							"value": "0", 
+ 							"disabled": true 
+ 						} 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "cidade", 
+ 			"request": { 
+ 				"method": "POST", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}cidade", 
+ 					"host": [ 
+ 						"{{Url_Api}}cidade" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "cidade", 
+ 			"request": { 
+ 				"method": "PUT", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "Content-Type", 
+ 						"value": "application/json", 
+ 						"type": "text" 
+ 					}, 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}cidade/1", 
+ 					"host": [ 
+ 						"{{Url_Api}}cidade" 
+ 					], 
+ 					"path": [ 
+ 						"1" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "cidade", 
+ 			"request": { 
+ 				"method": "DELETE", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "Content-Type", 
+ 						"value": "application/json", 
+ 						"type": "text" 
+ 					}, 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}cidade/2", 
+ 					"host": [ 
+ 						"{{Url_Api}}cidade" 
+ 					], 
+ 					"path": [ 
+ 						"2" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		} 
+ 	] 
+ } 
+
+] 
+ 		}, 
+
+ 		{ 
+ 			"name": "Acessos", 
+ 			"item": [ { 
+ 	"name": "usuario", 
+ 	"item": [ 
+ 		{ 
+ 			"name": "usuario", 
+ 			"request": { 
+ 				"method": "GET", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}usuario", 
+ 					"host": [ 
+ 						"{{Url_Api}}usuario" 
+ 					], 
+ 					"query": [ 
+ 						{ 
+ 							"key": "pageSize", 
+ 							"value": "0", 
+ 							"disabled": true 
+ 						} 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "usuario", 
+ 			"request": { 
+ 				"method": "POST", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}usuario", 
+ 					"host": [ 
+ 						"{{Url_Api}}usuario" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "usuario", 
+ 			"request": { 
+ 				"method": "PUT", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "Content-Type", 
+ 						"value": "application/json", 
+ 						"type": "text" 
+ 					}, 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}usuario/1", 
+ 					"host": [ 
+ 						"{{Url_Api}}usuario" 
+ 					], 
+ 					"path": [ 
+ 						"1" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		}, 
+ 		{ 
+ 			"name": "usuario", 
+ 			"request": { 
+ 				"method": "DELETE", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "Content-Type", 
+ 						"value": "application/json", 
+ 						"type": "text" 
+ 					}, 
+ 					{ 
+ 						"key": "x-api-key", 
+ 						"value": "{{Token}}", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}usuario/2", 
+ 					"host": [ 
+ 						"{{Url_Api}}usuario" 
+ 					], 
+ 					"path": [ 
+ 						"2" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [] 
+ 		} 
+ 	] 
+ } 
+
+] 
+ 		}, 
+
+ 
+ 		{ 
+ 			"name": "autorizacao", 
+ 			"request": { 
+ 				"method": "POST", 
+ 				"header": [ 
+ 					{ 
+ 						"key": "Content-Type", 
+ 						"value": "application/json", 
+ 						"type": "text" 
+ 					} 
+ 				], 
+ 				"body": { 
+ 					"mode": "raw", 
+ 					"raw": "{\r\n\"user\":\"joab\",\r\n\"password\":\"123456\"\r\n}" 
+ 				}, 
+ 				"url": { 
+ 					"raw": "{{Url_Api}}authorization", 
+ 					"host": [ 
+ 						"{{Url_Api}}authorization" 
+ 					] 
+ 				} 
+ 			}, 
+ 			"response": [ 
+ 				{ 
+ 					"name": "autorizacao", 
+ 					"originalRequest": { 
+ 						"method": "POST", 
+ 						"header": [ 
+ 							{ 
+ 								"key": "Content-Type", 
+ 								"value": "application/json", 
+ 								"type": "text" 
+ 							} 
+ 						], 
+ 						"body": { 
+ 							"mode": "raw", 
+ 							"raw": "{\r\n\"user\":\"hunger\",\r\n\"password\":\"rm045369\"\r\n}" 
+ 						}, 
+ 						"url": { 
+ 							"raw": "{{Url_Api}}authorization", 
+ 							"host": [ 
+ 								"{{Url_Api}}authorization" 
+ 							] 
+ 						} 
+ 					}, 
+ 					"_postman_previewlanguage": "Text", 
+ 					"header": [], 
+ 					"cookie": [], 
+ 					"body": "" 
+ 				} 
+ 			] 
+ 		} 
+ 	], 
+ 	"event": [ 
+ 		{ 
+ 			"listen": "prerequest", 
+ 			"script": { 
+ 				"type": "text/javascript", 
+ 				"exec": [ 
+ 					"" 
+ 				] 
+ 			} 
+ 		}, 
+ 		{ 
+ 			"listen": "test", 
+ 			"script": { 
+ 				"type": "text/javascript", 
+ 				"exec": [ 
+ 					"" 
+ 				] 
+ 			} 
+ 		} 
+ 	], 
+ 	"variable": [ 
+ 		{ 
+ 			"key": "Url_Api", 
+ 			"value": "http://localhost:8081/v1/", 
+ 			"type": "string" 
+ 		}, 
+ 		{ 
+ 			"key": "Token", 
+ 			"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJodW5nZXIiLCJpYXQiOjE2NzczODAzOTksIlVzZXJJRCI6MX0.k6sf6VdWO0sDsTfaNkT4HGOrPcZpGFgSfku4h3fMJUo", 
+ 			"type": "string" 
+ 		} 
+ 	] 
+ } 
+
