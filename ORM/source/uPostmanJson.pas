@@ -45,7 +45,7 @@ begin
   aJson.Add(' 				], ');
   aJson.Add(' 				"body": { ');
   aJson.Add(' 					"mode": "raw", ');
-  aJson.Add(' 					"raw": "{\r\n\"user\":\"joab\",\r\n\"password\":\"123456\"\r\n}" ');
+  aJson.Add(' 					"raw": "{\r\n\"user\":\"hunger\",\r\n\"password\":\"rm045369\"\r\n}" ');
   aJson.Add(' 				}, ');
   aJson.Add(' 				"url": { ');
   aJson.Add(' 					"raw": "{{Url_Api}}authorization", ');
@@ -108,7 +108,7 @@ begin
   aJson.Add(' 	"variable": [ ');
   aJson.Add(' 		{ ');
   aJson.Add(' 			"key": "Url_Api", ');
-  aJson.Add(' 			"value": "http://localhost:8081/v1/", ');
+  aJson.Add(' 			"value": "http://rmti.tec.br:8081/v1/", ');
   aJson.Add(' 			"type": "string" ');
   aJson.Add(' 		}, ');
   aJson.Add(' 		{ ');
