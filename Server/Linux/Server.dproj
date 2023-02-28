@@ -152,10 +152,10 @@
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Linux64)'!=''">
-        <DCC_ExeOutput>..\..\bin\exe</DCC_ExeOutput>
-        <DCC_DcuOutput>..\..\bin\dcu</DCC_DcuOutput>
+        <DCC_ExeOutput>.\..\..\deploy</DCC_ExeOutput>
         <Debugger_Launcher>/usr/bin/xterm -e &quot;%debuggee%&quot;</Debugger_Launcher>
         <Manifest_File>(None)</Manifest_File>
+        <DCC_DcuOutput>.\..\..\bin\dcu</DCC_DcuOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
@@ -185,6 +185,7 @@
         <DCC_ExeOutput>.\..\..\deploy</DCC_ExeOutput>
         <Debugger_Launcher>/usr/bin/xterm -e &quot;%debuggee%&quot;</Debugger_Launcher>
         <Manifest_File>(None)</Manifest_File>
+        <DCC_DcuOutput>.\..\..\bin\dcu</DCC_DcuOutput>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_OSX64)'!=''">
         <BT_BuildType>Debug</BT_BuildType>
