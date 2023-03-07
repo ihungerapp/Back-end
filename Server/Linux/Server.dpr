@@ -73,7 +73,13 @@ uses
   Resources.pessoa in '..\..\Resources\Resources.pessoa.pas',
   Resources.precificacao in '..\..\Resources\Resources.precificacao.pas',
   Resources.produto in '..\..\Resources\Resources.produto.pas',
-  Resources.produto_precificacao in '..\..\Resources\Resources.produto_precificacao.pas';
+  Resources.produto_precificacao in '..\..\Resources\Resources.produto_precificacao.pas',
+  Controller.Pedido in '..\..\Controllers\Controller.Pedido.pas',
+  Controller.Pedido_item in '..\..\Controllers\Controller.Pedido_item.pas',
+  DAO.Pedido in '..\..\DAO\DAO.Pedido.pas',
+  DAO.Pedido_item in '..\..\DAO\DAO.Pedido_item.pas',
+  Resources.pedido in '..\..\Resources\Resources.pedido.pas',
+  Resources.pedido_item in '..\..\Resources\Resources.pedido_item.pas';
 
 begin
   try

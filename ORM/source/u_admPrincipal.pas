@@ -483,7 +483,7 @@ begin
       vTamanho:= ','+campos.FieldByName('TAMANHO').AsString;
     if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'VARCHAR|CHAR|TEXT') > 0 then
       vType:= 'String'
-    else if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'INT4|INT64|SMALLINT|INTEGER') > 0 then
+    else if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'INT4|INT8|INT64|SMALLINT|INTEGER') > 0 then
       vType:= 'Integer'
     else if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'DATETIME|TIMESTAMPTZ|TIMESTAMP') > 0 then
       vType:= 'TDateTime'

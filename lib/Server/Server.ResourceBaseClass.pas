@@ -247,11 +247,12 @@ begin
   if Pos('[', LJSONString) > 0 then
   begin
     LJSONString := TJSONObject(Dados.GetValue(GetResourceName(Self.ClassType))).ToJSON;
-    LJSONArray := TJSONObject.ParseJSONValue(TEncoding.UTF8.GetBytes(LJSONString), 0) as TJSONArray;
+    LJSONArray := TJSONObject.ParseJSONValue(TEncoding.ANSI.GetBytes(LJSONString), 0) as TJSONArray;
   end
   else
   begin
-    LJSONObject := Dados;
+    LJSONObject := TJSONObject.ParseJSONValue(TEncoding.ANSI.GetBytes(LJSONString), 0) as TJSONObject;
+    //LJSONObject := Dados;
     LResourceObject := Self;
   end;
 
@@ -301,7 +302,7 @@ begin
       else if (RttiField.FieldType.Name = 'TTime') then
         RttiValue := StrToTime(Value)
       else
-        RttiValue:= Value.ToDouble;
+        RttiValue:= StringReplace(Value, '.', ',', [rfReplaceAll]).ToDouble;
     end
     else if (RttiField.FieldType.Name = 'TMacAddress')then
       RttiValue := TMacAddress.Create(Value)

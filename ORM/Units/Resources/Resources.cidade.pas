@@ -27,7 +27,7 @@ type
     id_cidade: Integer;
 
     [DBField('CODIGO_IBGE', True, True, False, NotNull)]
-    codigo_ibge: String;
+    codigo_ibge: Integer;
 
     [DBField('NOME', True, True, False, NotNull)]
     nome: String;

@@ -6,7 +6,7 @@ uses
   System.JSON, 
   System.Rtti,
   Data.DB, 
-  WK.Server.Connection, 
+  Server.Connection, 
   System.SysUtils, 
   System.DateUtils,
   Server.Message, 
@@ -41,7 +41,7 @@ begin
       Connection.Query.Open;
       Connection.Query.First;
       
-      Result := TDAO.CreateJSONObject(Connection);
+      Result := TDAO.CreateJSONObject(Connection, Params);
     except
       on E: Exception do
         TMessage.Create(EErroGeral, 'Erro ao executar a consulta (' + E.Message + ')').SendMessage(Params[0].AsType<TWebResponse>);

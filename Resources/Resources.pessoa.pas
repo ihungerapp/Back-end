@@ -23,7 +23,7 @@ type
   Tpessoa = class(TResourceBaseClass)
   protected
   public
-    [DBField('ID_PESSOA', True, True, False, NotNull)]
+    [DBField('ID_PESSOA', True, True, False, PrimaryKey)]
     id_pessoa: Integer;
 
     [DBField('NOME', True, True, False, NotNull)]
@@ -50,7 +50,10 @@ type
     [DBField('ID_CIDADE', True, True, False, NotNull)]
     id_cidade: Integer;
 
-    [DBField('ID_USUARIO', True, True, False, PrimaryKey)]
+    [DBField('CIDADE_CODIGO_IBGE', True, True, False, NotNull)]
+    cidade_codigo_ibge: Integer;
+
+    [DBField('ID_USUARIO', True, True, False, NotNull)]
     id_usuario: Integer;
 
 
