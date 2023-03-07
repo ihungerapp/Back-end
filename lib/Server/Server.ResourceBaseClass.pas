@@ -166,38 +166,44 @@ begin
   if Method <> EmptyStr then
   begin
     List := TObjectList<TObject>.Create;
-    List.Add(Self);
-    for Controller in List do
-    begin
-      RttiType := GetRttiType(Controller);
-      for RttiAttribute in RttiType.GetAttributes do
-        if RttiAttribute is Controllers then
-        begin
-          ControllerClass := (RttiAttribute as Controllers).ControllerClass;
-          ControllerObj := ControllerClass.Create;
-          TController(ControllerObj).SetLengthParams(12);
-          TController(ControllerObj).SetParams(Response, 0);
-          TController(ControllerObj).SetParams(PageNumber, 1);
-          TController(ControllerObj).SetParams(PageSize, 2);
-          TController(ControllerObj).SetParams(Direction, 3);
-          TController(ControllerObj).SetParams(Sort, 4);
-          TController(ControllerObj).SetParams(Search, 5);
-          TController(ControllerObj).SetParams(ID, 6);
-          TController(ControllerObj).SetParams(GetWherePadrao, 7);
-          TController(ControllerObj).SetParams(Join, 8);
-          TController(ControllerObj).SetParams(Method, 9);
-          TController(ControllerObj).SetParams(JSON, 10);
-          TController(ControllerObj).SetParams(Request, 11);
-          LResultJSON := TController(ControllerObj).Execute(Method);
-        end;
-    end;
-
+    LResultJSON := TJSONObject.Create;
     try
-      Response.Content := LResultJSON.ToString;
-      Response.SendResponse;
-    except
-      on E: Exception do
-        TMessage.Create(EErroGeral, 'Erro ao executar a consulta (' + E.Message + ')').SendMessage(Response);
+      List.Add(Self);
+      for Controller in List do
+      begin
+        RttiType := GetRttiType(Controller);
+        for RttiAttribute in RttiType.GetAttributes do
+          if RttiAttribute is Controllers then
+          begin
+            ControllerClass := (RttiAttribute as Controllers).ControllerClass;
+            ControllerObj := ControllerClass.Create;
+            TController(ControllerObj).SetLengthParams(12);
+            TController(ControllerObj).SetParams(Response, 0);
+            TController(ControllerObj).SetParams(PageNumber, 1);
+            TController(ControllerObj).SetParams(PageSize, 2);
+            TController(ControllerObj).SetParams(Direction, 3);
+            TController(ControllerObj).SetParams(Sort, 4);
+            TController(ControllerObj).SetParams(Search, 5);
+            TController(ControllerObj).SetParams(ID, 6);
+            TController(ControllerObj).SetParams(GetWherePadrao, 7);
+            TController(ControllerObj).SetParams(Join, 8);
+            TController(ControllerObj).SetParams(Method, 9);
+            TController(ControllerObj).SetParams(JSON, 10);
+            TController(ControllerObj).SetParams(Request, 11);
+            LResultJSON := TController(ControllerObj).Execute(Method);
+          end;
+      end;
+
+      try
+        Response.ContentType  := 'application/json;charset=UTF-8';
+        Response.Content := LResultJSON.ToString;
+        Response.SendResponse;
+      except
+        on E: Exception do
+          TMessage.Create(EErroGeral, 'Erro ao executar a consulta (' + E.Message + ')').SendMessage(Response);
+      end;
+    finally
+      FreeAndNil(LResultJSON);
     end;
   end
   else
