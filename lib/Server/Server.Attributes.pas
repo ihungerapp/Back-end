@@ -17,6 +17,9 @@ type
   Put = class(TCustomAttribute)
   end;
 
+  Patch = class(TCustomAttribute)
+  end;
+
   Delete = class(TCustomAttribute)
   end;
 

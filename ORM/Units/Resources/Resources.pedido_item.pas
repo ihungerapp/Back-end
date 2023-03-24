@@ -47,6 +47,9 @@ type
     [DBField('DATA_HORA_STATUS', True, True, False, NotNull)]
     data_hora_status: TDateTime;
 
+    [DBField('PEDIDO_ITEM_STATUS', True, True, False, NotNull)]
+    pedido_item_status: String;
+
 
   end;
 

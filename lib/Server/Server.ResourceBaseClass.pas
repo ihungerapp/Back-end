@@ -15,11 +15,13 @@ type
     function GetRttiType(Instance: TObject): TRttiType; overload;
     function GetValueSequence(SequenceName: String): Integer;
     function GetRttiField(Name: String; Instance: TObject): TRttiField;
-    procedure SetDados(Dados: TJSONObject; List: TObjectList<TObject>);
-    procedure AddResourceList(Dados: TJSONObject; List: TObjectList<TObject>; Resource: TObject);
+    procedure SetDados(Dados: TJSONObject; List: TObjectList<TObject>;
+MethodType: TMethodType = mtAny);
+    procedure AddResourceList(Dados: TJSONObject;
+  List: TObjectList<TObject>; Resource: TObject; MethodType: TMethodType = mtAny);
     procedure SetValueObject(FieldName: String; Value: String; Instance: TObject);
     procedure ValidateInteger(FieldName, Value: String);
-    procedure ValidateNotNull(Instance: TObject);
+    procedure ValidateNotNull(Instance: TObject; MethodType: TMethodType = mtAny);
     procedure ValidateID(ID: Integer; Instance: TObject);
     procedure SetPrimaryKey(ID: Integer);
     function GetResourceName(AClass: TClass): String;
@@ -38,6 +40,9 @@ type
     procedure Post(Response: TWebResponse; Dados: TJSONObject); virtual;
     [Put]
     procedure Put(Response: TWebResponse; ID: Integer; Dados: TJSONObject); virtual;
+    [Patch]
+    procedure Patch(Response: TWebResponse; ID: Integer; Dados: TJSONObject;
+    Request: TWebRequest); virtual;
     [Delete]
     procedure Delete(Response: TWebResponse; ID: Integer); virtual;
   end;
@@ -49,7 +54,7 @@ uses
 
 { TResourceBaseClass }
 procedure TResourceBaseClass.AddResourceList(Dados: TJSONObject;
-  List: TObjectList<TObject>; Resource: TObject);
+  List: TObjectList<TObject>; Resource: TObject; MethodType: TMethodType = mtAny);
 var
   Item: TJSONPair;
   FieldName: String;
@@ -63,7 +68,7 @@ begin
     SetValueObject(FieldName, Value, Resource);
   end;
   SetAutoInc(Resource);
-  ValidateNotNull(Resource);
+  ValidateNotNull(Resource, MethodType);
   List.Add(Resource);
   ValidateBusiness(List);
 end;
@@ -215,6 +220,18 @@ begin
   Result := EmptyStr;
 end;
 
+procedure TResourceBaseClass.Patch(Response: TWebResponse; ID: Integer; Dados: TJSONObject;
+    Request: TWebRequest);
+var
+  List: TObjectList<TObject>;
+begin
+  FResponse := Response;
+  List := TObjectList<TObject>.Create;
+  SetDados(Dados, List, Request.MethodType);
+  //ValidateID(ID, Self);
+  TDAO.Update(Response, List, Dados, GetResourceName(Self.ClassType));
+end;
+
 procedure TResourceBaseClass.Post(Response: TWebResponse; Dados: TJSONObject);
 var
   List: TObjectList<TObject>;
@@ -232,13 +249,12 @@ begin
   FResponse := Response;
   List := TObjectList<TObject>.Create;
   SetDados(Dados, List);
-  ValidateID(ID, Self);
-  ValidateNotNull(Self);
-  List.Add(Self);
-  TDAO.Update(Response, List, Dados);
+  //ValidateID(ID, Self);
+  TDAO.Update(Response, List, Dados, GetResourceName(Self.ClassType));
 end;
 
-procedure TResourceBaseClass.SetDados(Dados: TJSONObject; List: TObjectList<TObject>);
+procedure TResourceBaseClass.SetDados(Dados: TJSONObject; List: TObjectList<TObject>;
+MethodType: TMethodType = mtAny);
 var
   LJSONString: String;
   LJSONArray: TJSONArray;
@@ -258,19 +274,18 @@ begin
   else
   begin
     LJSONObject := TJSONObject.ParseJSONValue(TEncoding.ANSI.GetBytes(LJSONString), 0) as TJSONObject;
-    //LJSONObject := Dados;
     LResourceObject := Self;
   end;
 
   try
     if LJSONObject.ToJson <> '{}' then
-      AddResourceList(LJSONObject, List, Self);
+      AddResourceList(LJSONObject, List, Self, MethodType);
     for i := 0 to Pred(LJSONArray.Count) do
     begin
       LJSONObject := LJSONArray.Items[i] as TJSONObject;
       LResourceClass := Self.ClassType;
       LResourceObject := LResourceClass.Create;
-      AddResourceList(LJSONObject, List, LResourceObject);
+      AddResourceList(LJSONObject, List, LResourceObject, MethodType);
     end;
   finally
     if LJSONArray.ToJson = '[]' then
@@ -328,7 +343,7 @@ begin
     TMessage.Create(EDadosNaoSalvos, FieldName + ' deve ser um número válido').SendMessage(FResponse);
 end;
 
-procedure TResourceBaseClass.ValidateNotNull(Instance: TObject);
+procedure TResourceBaseClass.ValidateNotNull(Instance: TObject; MethodType: TMethodType = mtAny);
 var
   RttiType: TRttiType;
   RttiField: TRttiField;
@@ -340,7 +355,12 @@ begin
       if RttiAttribute is DBField then
         if (RttiAttribute as DBField).Constraints in [NotNull] then
           if FFieldsJSON.IndexOf(RttiField.Name) < 0 then
-            TMessage.Create(ECampoNotNullNaoPreenchido, RttiField.Name + ' é obrigatório').SendMessage(FResponse);
+          begin
+            if MethodType = mtPatch then
+              (RttiAttribute as DBField).ListSelect := False
+            else
+              TMessage.Create(ECampoNotNullNaoPreenchido, RttiField.Name + ' é obrigatório').SendMessage(FResponse);
+          end;
 end;
 
 procedure TResourceBaseClass.SetAutoInc(Instance: TObject);

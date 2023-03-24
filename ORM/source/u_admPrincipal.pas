@@ -481,7 +481,7 @@ begin
     vType   := '';
     if campos.FieldByName('TAMANHO').AsString <> '' then
       vTamanho:= ','+campos.FieldByName('TAMANHO').AsString;
-    if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'VARCHAR|CHAR|TEXT') > 0 then
+    if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'VARCHAR|CHAR|TEXT|PEDIDO_STATUS|PEDIDO_ITEM_STATUS') > 0 then
       vType:= 'String'
     else if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'INT4|INT8|INT64|SMALLINT|INTEGER') > 0 then
       vType:= 'Integer'
@@ -492,7 +492,14 @@ begin
     else if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'FLOAT|FLOAT8|CURRENCY|NUMERIC|DOUBLE') > 0 then
       vType:= 'Currency'
     else if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'TIME') > 0 then
-      vType:= 'TTime';
+      vType:= 'TTime'
+    else if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'TIME') > 0 then
+      vType:= 'TTime'
+    else if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'BYTEA') > 0 then
+      vType:= 'TBytesField'
+    else if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'BOOL') > 0 then
+      vType:= 'Boolean';
+
 //    else if Pos(campos.FieldByName('TIPO').AsString, 'BLOB') > 0 then
 //      vType:= 'TBlob';
 

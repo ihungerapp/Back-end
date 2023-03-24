@@ -164,6 +164,8 @@ begin
       MethodType := mtPost
     else if AttributeMethod is Put then
       MethodType := mtPut
+    else if AttributeMethod is Patch then
+      MethodType := mtPatch
     else if AttributeMethod is Delete then
       MethodType := mtDelete;
     OnAction := WebModuleApiWebAction;
@@ -182,6 +184,7 @@ var
   lDados: TArray<String>;
   Body: TJSONObject;
   lParams: Array of TValue;
+  lMethodType: Array of TValue;
   Resource: String;
   ID: String;
   PageNumber: Integer;
@@ -196,6 +199,7 @@ var
   I: Integer;
 begin
   lDados := Name.Split(['.']);
+  lMethodType := [Request];
   MethodName := lDados[Length(lDados)-1];
   SetClassName(lDados, ClassName);
   Body := nil;
@@ -227,18 +231,21 @@ begin
   else if Request.MethodType in [mtPost] then
     lParams := [Response, Body]
   else if Request.MethodType in [mtPut] then
-    lParams := [Response, ID.ToInteger, Body]
+    lParams := [Response, StrToIntDef(ID, -1), Body]
+  else if Request.MethodType in [mtPatch] then
+    lParams := [Response, StrToIntDef(ID, -1), Body, Request]
   else if Request.MethodType in [mtDelete] then
     lParams := [Response, ID.ToInteger];
   Response.StatusCode := 200;
   Execute(ClassName, MethodName, lParams);
 end;
 
-procedure TWebModuleApi.Execute(AClassName: String; AMethodName: String; Params: Array of TValue);
+procedure TWebModuleApi.Execute(AClassName, AMethodName: String; Params: array of TValue);
 var
   RttiContext: TRttiContext;
   RttiInstanceType: TRttiInstanceType;
   RttiMethod: TRttiMethod;
+  RttiProperty: TRttiProperty;
   Instance: TObject;
 begin
   RttiContext := TRttiContext.Create;

@@ -30,18 +30,20 @@ const
   lSQL = 'SELECT to_json(r)'+
   ' FROM ('+
   ' SELECT'+
-  ' p.*,'+
+  ' pedido.*,'+
   ' (SELECT'+
   ' array_agg(pi2.*) as pedido_item'+
   ' FROM'+
   ' "Pedidos".pedido_item pi2'+
   ' WHERE'+
-  ' p.id_pedido = pi2.id_pedido and pi2.pedido_item_status = ''Aguardando'')'+
+  ' pedido.id_pedido = pi2.id_pedido)'+
   ' AS pedido_item'+
   ' FROM'+
-  ' "Pedidos".pedido p'+
-  ' where p.pedido_status = ''Em aberto'' '+
-  ' order by p.data_hora_abertura desc'+
+  ' "Pedidos".pedido pedido'+
+  ' inner join "Pedidos".pedido_item pedido_item using (id_pedido)'+
+  ' %s '+
+  ' group by pedido.id_pedido'+
+  ' order by pedido.data_hora_abertura desc'+
   ' ) r';
 var
   Connection: TConnection;

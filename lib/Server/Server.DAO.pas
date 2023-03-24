@@ -31,7 +31,7 @@ type
   public
     class procedure Select(Response: TWebResponse; Obj: TObject; PageNumber: Integer; PageSize: Integer; Direction: String; Sort: String; Search: String; ID: String; WherePadrao: String;Join:string; JSON:TJSONObject);overload;
     class procedure Insert(Response: TWebResponse; ListObj: TObjectList<TObject>; Dados: TJSONObject; aResourceName: String = '');
-    class procedure Update(Response: TWebResponse; ListObj: TObjectList<TObject>; Dados: TJSONObject);
+    class procedure Update(Response: TWebResponse; ListObj: TObjectList<TObject>; Dados: TJSONObject; aResourceName: String = '');
     class procedure Delete(Response: TWebResponse; Obj: TObject);
     class function CreateJSONObject(Connection: TConnection; Params: array of TValue):TJSONObject;static;
     class function GetWhere(Search: String; TipoPesquisa:TPesquisa; Response: TWebResponse): String; overload;
@@ -43,7 +43,8 @@ uses
   Data.DB, System.StrUtils;
 
 { TDAO }
-class procedure TDAO.Insert(Response: TWebResponse; ListObj: TObjectList<TObject>; Dados: TJSONObject; aResourceName: String = '');
+class procedure TDAO.Insert(Response: TWebResponse; ListObj: TObjectList<TObject>;
+Dados: TJSONObject; aResourceName: String = '');
 var
   Connection: TConnection;
   TableName: String;
@@ -197,7 +198,7 @@ begin
   for RttiField in RttiType.GetFields do
   begin
     for RttiAttribute in RttiField.GetAttributes do
-      if RttiAttribute is DBField then
+      if (RttiAttribute is DBField) and ((RttiAttribute as DBField).ListSelect) then
       begin
         if (((RttiAttribute as DBField).Constraints = PrimaryKey) and (Tipo in [teUpdate, teDelete])) then
         begin
@@ -212,7 +213,13 @@ begin
           FieldsName := FieldsName + (RttiAttribute as DBField).FieldName;
           if Tipo = teUpdate then
           begin
-            FieldsName := FieldsName + ' = :' + (RttiAttribute as DBField).FieldName;
+            if (RttiAttribute as DBField).FieldName = 'PEDIDO_STATUS' then
+              FieldsName := FieldsName + ' = :' + (RttiAttribute as DBField).FieldName + '::pedido_status'
+            else
+            if (RttiAttribute as DBField).FieldName = 'PEDIDO_ITEM_STATUS' then
+              FieldsName := FieldsName + ' = :' + (RttiAttribute as DBField).FieldName + '::pedido_item_status'
+            else
+              FieldsName := FieldsName + ' = :' + (RttiAttribute as DBField).FieldName;
             if RttiField.FieldType.Name = 'TMacAddress' then
               FieldsName := FieldsName + '::macaddr'
             else if RttiField.FieldType.Name = 'TBytea' then
@@ -233,7 +240,9 @@ begin
     for RttiField in RttiType.GetFields do
     begin
       for RttiAttribute in RttiField.GetAttributes do
-        if (RttiAttribute is DBField) and ((not Assigned((RttiAttribute as DBField).AutoIncrement)) and ((RttiAttribute as DBField).Constraints <> PrimaryKey)) then
+        if (RttiAttribute is DBField) and ((not Assigned((RttiAttribute as DBField).AutoIncrement))
+        and ((RttiAttribute as DBField).Constraints <> PrimaryKey))
+        and ((RttiAttribute as DBField).ListSelect) then
         begin
           ParamsOrWhereName := ParamsOrWhereName + ':' + (RttiAttribute as DBField).FieldName;
           if RttiField.FieldType.Name = 'TPoint' then
@@ -694,7 +703,8 @@ begin
   end;
 end;
 
-class procedure TDAO.Update(Response: TWebResponse; ListObj: TObjectList<TObject>; Dados: TJSONObject);
+class procedure TDAO.Update(Response: TWebResponse; ListObj: TObjectList<TObject>;
+Dados: TJSONObject; aResourceName: String = '');
 const
   SQL = 'UPDATE %s SET %s WHERE %s';
 var
@@ -706,9 +716,13 @@ var
   Mensagem: TMessageType;
   Obj: TObject;
   RttiType: TRttiType;
+  LJSONArray: TJSONArray;
 begin
+  Response.ContentType  := 'application/json;charset=UTF-8';
   Mensagem := IRegistroAlterado;
   Connection := TConnection.Create;
+  if ListObj.Count > 1 then
+    LJSONArray := TJSONArray.Create;
   try
     try
       Connection.DB.StartTransaction;
@@ -724,6 +738,11 @@ begin
         RttiType := GetRttiType(Obj);
         if RttiType.ToString = 'TAplicativos' then
           InsertAplicativosLojas(GetID(Obj), Dados, Connection);
+
+        if ListObj.Count = 1 then
+          SetDadosInMessage(Obj, Mensagem)
+        else
+          SetDadosInMessage(Obj, Mensagem, EmptyStr, aResourceName, LJSONArray);
       end;
       Connection.DB.Commit;
     except
@@ -736,8 +755,6 @@ begin
   finally
     Connection.Free;
   end;
-  Response.ContentType  := 'application/json;charset=UTF-8';
-  SetDadosInMessage(ListObj.First, Mensagem);
   TMessage.Create(Mensagem).SendMessage(Response);
 end;
 

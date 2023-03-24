@@ -53,6 +53,12 @@ type
     [DBField('DATA_HORA_FINALIZACAO', True, True, False, NotNull)]
     data_hora_finalizacao: TDateTime;
 
+    [DBField('PEDIDO_STATUS', True, True, False, NotNull)]
+    pedido_status: String;
+
+    [DBField('FECHAR_CONTA', True, True, False, Null)]
+    fechar_conta: Boolean;
+
 
   end;
 
