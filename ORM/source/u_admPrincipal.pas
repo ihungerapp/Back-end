@@ -496,7 +496,7 @@ begin
     else if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'TIME') > 0 then
       vType:= 'TTime'
     else if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'BYTEA') > 0 then
-      vType:= 'TBytesField'
+      vType:= 'TBytea'
     else if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'BOOL') > 0 then
       vType:= 'Boolean';
 

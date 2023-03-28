@@ -583,6 +583,7 @@ begin
   else if RttiField.FieldType.Name = 'TBytea' then
   begin
     lParam.DataType := ftString;
+    lParam.Size := TBytea(RttiField.GetValue(Obj).AsObject).Value.Text.Length;
     lParam.Value := TBytea(RttiField.GetValue(Obj).AsObject).Value.Text;
   end
   else

@@ -38,8 +38,14 @@ type
     [DBField('VALOR_PROMOCAO', True, True, False, NotNull)]
     valor_promocao: Currency;
 
+    [DBField('PROMOCAO_DO_DIA', True, True, False, NotNull)]
+    promocao_do_dia: Boolean;
+
     [DBField('ID_GRUPO', True, True, False, NotNull)]
     id_grupo: Integer;
+
+    [DBField('IMAGEM', True, True, False, Null)]
+    imagem: TBytea;
 
 
   end;

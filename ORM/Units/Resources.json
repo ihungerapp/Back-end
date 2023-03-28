@@ -9,10 +9,10 @@
  		 		{ 
  			"name": "Pedidos", 
  			"item": [ { 
- 	"name": "pedido_item", 
+ 	"name": "", 
  	"item": [ 
  		{ 
- 			"name": "pedido_item", 
+ 			"name": "", 
  			"request": { 
  				"method": "GET", 
  				"header": [ 
@@ -23,9 +23,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido_item", 
+ 					"raw": "{{Url_Api}}", 
  					"host": [ 
- 						"{{Url_Api}}pedido_item" 
+ 						"{{Url_Api}}" 
  					], 
  					"query": [ 
  						{ 
@@ -39,7 +39,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido_item", 
+ 			"name": "", 
  			"request": { 
  				"method": "POST", 
  				"header": [ 
@@ -50,16 +50,16 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido_item", 
+ 					"raw": "{{Url_Api}}", 
  					"host": [ 
- 						"{{Url_Api}}pedido_item" 
+ 						"{{Url_Api}}" 
  					] 
  				} 
  			}, 
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido_item", 
+ 			"name": "", 
  			"request": { 
  				"method": "PUT", 
  				"header": [ 
@@ -75,9 +75,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido_item/1", 
+ 					"raw": "{{Url_Api}}/1", 
  					"host": [ 
- 						"{{Url_Api}}pedido_item" 
+ 						"{{Url_Api}}" 
  					], 
  					"path": [ 
  						"1" 
@@ -87,7 +87,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido_item", 
+ 			"name": "", 
  			"request": { 
  				"method": "DELETE", 
  				"header": [ 
@@ -103,9 +103,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido_item/2", 
+ 					"raw": "{{Url_Api}}/2", 
  					"host": [ 
- 						"{{Url_Api}}pedido_item" 
+ 						"{{Url_Api}}" 
  					], 
  					"path": [ 
  						"2" 
@@ -118,10 +118,10 @@
  }, 
 
  { 
- 	"name": "pedido", 
+ 	"name": "", 
  	"item": [ 
  		{ 
- 			"name": "pedido", 
+ 			"name": "", 
  			"request": { 
  				"method": "GET", 
  				"header": [ 
@@ -132,9 +132,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido", 
+ 					"raw": "{{Url_Api}}", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}" 
  					], 
  					"query": [ 
  						{ 
@@ -148,7 +148,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "", 
  			"request": { 
  				"method": "POST", 
  				"header": [ 
@@ -159,16 +159,16 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido", 
+ 					"raw": "{{Url_Api}}", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}" 
  					] 
  				} 
  			}, 
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "", 
  			"request": { 
  				"method": "PUT", 
  				"header": [ 
@@ -184,9 +184,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido/1", 
+ 					"raw": "{{Url_Api}}/1", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}" 
  					], 
  					"path": [ 
  						"1" 
@@ -196,7 +196,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "", 
  			"request": { 
  				"method": "DELETE", 
  				"header": [ 
@@ -212,9 +212,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido/2", 
+ 					"raw": "{{Url_Api}}/2", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}" 
  					], 
  					"path": [ 
  						"2" 
@@ -232,10 +232,10 @@
  		{ 
  			"name": "Cadastros", 
  			"item": [ { 
- 	"name": "pedido", 
+ 	"name": "", 
  	"item": [ 
  		{ 
- 			"name": "pedido", 
+ 			"name": "", 
  			"request": { 
  				"method": "GET", 
  				"header": [ 
@@ -246,9 +246,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido", 
+ 					"raw": "{{Url_Api}}", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}" 
  					], 
  					"query": [ 
  						{ 
@@ -262,7 +262,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "", 
  			"request": { 
  				"method": "POST", 
  				"header": [ 
@@ -273,16 +273,16 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido", 
+ 					"raw": "{{Url_Api}}", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}" 
  					] 
  				} 
  			}, 
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "", 
  			"request": { 
  				"method": "PUT", 
  				"header": [ 
@@ -298,9 +298,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido/1", 
+ 					"raw": "{{Url_Api}}/1", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}" 
  					], 
  					"path": [ 
  						"1" 
@@ -310,7 +310,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "", 
  			"request": { 
  				"method": "DELETE", 
  				"header": [ 
@@ -326,9 +326,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido/2", 
+ 					"raw": "{{Url_Api}}/2", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}" 
  					], 
  					"path": [ 
  						"2" 
@@ -341,10 +341,10 @@
  }, 
 
  { 
- 	"name": "pedido", 
+ 	"name": "produto", 
  	"item": [ 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "GET", 
  				"header": [ 
@@ -355,9 +355,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido", 
+ 					"raw": "{{Url_Api}}produto", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"query": [ 
  						{ 
@@ -371,7 +371,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "POST", 
  				"header": [ 
@@ -382,16 +382,16 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido", 
+ 					"raw": "{{Url_Api}}produto", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					] 
  				} 
  			}, 
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "PUT", 
  				"header": [ 
@@ -407,9 +407,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido/1", 
+ 					"raw": "{{Url_Api}}produto/1", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"path": [ 
  						"1" 
@@ -419,7 +419,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "DELETE", 
  				"header": [ 
@@ -435,9 +435,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido/2", 
+ 					"raw": "{{Url_Api}}produto/2", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"path": [ 
  						"2" 
@@ -450,10 +450,10 @@
  }, 
 
  { 
- 	"name": "pedido", 
+ 	"name": "produto", 
  	"item": [ 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "GET", 
  				"header": [ 
@@ -464,9 +464,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido", 
+ 					"raw": "{{Url_Api}}produto", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"query": [ 
  						{ 
@@ -480,7 +480,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "POST", 
  				"header": [ 
@@ -491,16 +491,16 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido", 
+ 					"raw": "{{Url_Api}}produto", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					] 
  				} 
  			}, 
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "PUT", 
  				"header": [ 
@@ -516,9 +516,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido/1", 
+ 					"raw": "{{Url_Api}}produto/1", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"path": [ 
  						"1" 
@@ -528,7 +528,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "DELETE", 
  				"header": [ 
@@ -544,9 +544,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido/2", 
+ 					"raw": "{{Url_Api}}produto/2", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"path": [ 
  						"2" 
@@ -559,10 +559,10 @@
  }, 
 
  { 
- 	"name": "pedido", 
+ 	"name": "produto", 
  	"item": [ 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "GET", 
  				"header": [ 
@@ -573,9 +573,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido", 
+ 					"raw": "{{Url_Api}}produto", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"query": [ 
  						{ 
@@ -589,7 +589,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "POST", 
  				"header": [ 
@@ -600,16 +600,16 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido", 
+ 					"raw": "{{Url_Api}}produto", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					] 
  				} 
  			}, 
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "PUT", 
  				"header": [ 
@@ -625,9 +625,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido/1", 
+ 					"raw": "{{Url_Api}}produto/1", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"path": [ 
  						"1" 
@@ -637,7 +637,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "DELETE", 
  				"header": [ 
@@ -653,9 +653,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido/2", 
+ 					"raw": "{{Url_Api}}produto/2", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"path": [ 
  						"2" 
@@ -668,10 +668,10 @@
  }, 
 
  { 
- 	"name": "pedido", 
+ 	"name": "produto", 
  	"item": [ 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "GET", 
  				"header": [ 
@@ -682,9 +682,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido", 
+ 					"raw": "{{Url_Api}}produto", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"query": [ 
  						{ 
@@ -698,7 +698,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "POST", 
  				"header": [ 
@@ -709,16 +709,16 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido", 
+ 					"raw": "{{Url_Api}}produto", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					] 
  				} 
  			}, 
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "PUT", 
  				"header": [ 
@@ -734,9 +734,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido/1", 
+ 					"raw": "{{Url_Api}}produto/1", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"path": [ 
  						"1" 
@@ -746,7 +746,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "DELETE", 
  				"header": [ 
@@ -762,9 +762,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido/2", 
+ 					"raw": "{{Url_Api}}produto/2", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"path": [ 
  						"2" 
@@ -777,10 +777,10 @@
  }, 
 
  { 
- 	"name": "pedido", 
+ 	"name": "produto", 
  	"item": [ 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "GET", 
  				"header": [ 
@@ -791,9 +791,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido", 
+ 					"raw": "{{Url_Api}}produto", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"query": [ 
  						{ 
@@ -807,7 +807,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "POST", 
  				"header": [ 
@@ -818,16 +818,16 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido", 
+ 					"raw": "{{Url_Api}}produto", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					] 
  				} 
  			}, 
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "PUT", 
  				"header": [ 
@@ -843,9 +843,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido/1", 
+ 					"raw": "{{Url_Api}}produto/1", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"path": [ 
  						"1" 
@@ -855,7 +855,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "DELETE", 
  				"header": [ 
@@ -871,9 +871,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido/2", 
+ 					"raw": "{{Url_Api}}produto/2", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"path": [ 
  						"2" 
@@ -891,10 +891,10 @@
  		{ 
  			"name": "Acessos", 
  			"item": [ { 
- 	"name": "pedido", 
+ 	"name": "produto", 
  	"item": [ 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "GET", 
  				"header": [ 
@@ -905,9 +905,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido", 
+ 					"raw": "{{Url_Api}}produto", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"query": [ 
  						{ 
@@ -921,7 +921,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "POST", 
  				"header": [ 
@@ -932,16 +932,16 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido", 
+ 					"raw": "{{Url_Api}}produto", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					] 
  				} 
  			}, 
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "PUT", 
  				"header": [ 
@@ -957,9 +957,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido/1", 
+ 					"raw": "{{Url_Api}}produto/1", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"path": [ 
  						"1" 
@@ -969,7 +969,7 @@
  			"response": [] 
  		}, 
  		{ 
- 			"name": "pedido", 
+ 			"name": "produto", 
  			"request": { 
  				"method": "DELETE", 
  				"header": [ 
@@ -985,9 +985,9 @@
  					} 
  				], 
  				"url": { 
- 					"raw": "{{Url_Api}}pedido/2", 
+ 					"raw": "{{Url_Api}}produto/2", 
  					"host": [ 
- 						"{{Url_Api}}pedido" 
+ 						"{{Url_Api}}produto" 
  					], 
  					"path": [ 
  						"2" 
