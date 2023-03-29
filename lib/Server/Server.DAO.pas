@@ -223,7 +223,7 @@ begin
             if RttiField.FieldType.Name = 'TMacAddress' then
               FieldsName := FieldsName + '::macaddr'
             else if RttiField.FieldType.Name = 'TBytea' then
-              FieldsName := FieldsName + '::bytea'
+              FieldsName := FieldsName + '::bytea';
           end;
           FieldsName := FieldsName + ',';
         end;
@@ -244,7 +244,13 @@ begin
         and ((RttiAttribute as DBField).Constraints <> PrimaryKey))
         and ((RttiAttribute as DBField).ListSelect) then
         begin
-          ParamsOrWhereName := ParamsOrWhereName + ':' + (RttiAttribute as DBField).FieldName;
+          if (RttiAttribute as DBField).FieldName = 'PEDIDO_STATUS' then
+            ParamsOrWhereName := ParamsOrWhereName + ':' + (RttiAttribute as DBField).FieldName + '::pedido_status'
+          else
+          if (RttiAttribute as DBField).FieldName = 'PEDIDO_ITEM_STATUS' then
+            ParamsOrWhereName := ParamsOrWhereName + ':' + (RttiAttribute as DBField).FieldName + '::pedido_item_status'
+          else
+            ParamsOrWhereName := ParamsOrWhereName + ':' + (RttiAttribute as DBField).FieldName;
           if RttiField.FieldType.Name = 'TPoint' then
             ParamsOrWhereName := ParamsOrWhereName + '::point'
           else if RttiField.FieldType.Name = 'TMacAddress' then
