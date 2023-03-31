@@ -205,10 +205,12 @@ begin
           if ParamsOrWhereName <> EmptyStr then
             ParamsOrWhereName := ParamsOrWhereName + ' AND ';
           ParamsOrWhereName := ParamsOrWhereName + (RttiAttribute as DBField).FieldName + ' = :' + (RttiAttribute as DBField).FieldName;
+          SetParams(Obj, RttiField, RttiAttribute, Params);
         end
         else
-        if not Assigned((RttiAttribute as DBField).AutoIncrement)
-          and ((RttiAttribute as DBField).Constraints <> PrimaryKey) then
+//        if not Assigned((RttiAttribute as DBField).AutoIncrement)
+//        and ((RttiAttribute as DBField).Constraints <> PrimaryKey) then
+        if (RttiAttribute as DBField).Constraints <> PrimaryKey then
         begin
           FieldsName := FieldsName + (RttiAttribute as DBField).FieldName;
           if Tipo = teUpdate then
@@ -226,8 +228,8 @@ begin
               FieldsName := FieldsName + '::bytea';
           end;
           FieldsName := FieldsName + ',';
+          SetParams(Obj, RttiField, RttiAttribute, Params);
         end;
-        SetParams(Obj, RttiField, RttiAttribute, Params);
       end;
   end;
   FieldsName := FieldsName.TrimRight([',']);
