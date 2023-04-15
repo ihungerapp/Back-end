@@ -198,7 +198,8 @@ begin
   for RttiField in RttiType.GetFields do
   begin
     for RttiAttribute in RttiField.GetAttributes do
-      if (RttiAttribute is DBField) and ((RttiAttribute as DBField).ListSelect) then
+      if (RttiAttribute is DBField)
+      and (((RttiAttribute as DBField).ListSelect) or (Tipo = teInsert)) then
       begin
         if (((RttiAttribute as DBField).Constraints = PrimaryKey) and (Tipo in [teUpdate, teDelete])) then
         begin

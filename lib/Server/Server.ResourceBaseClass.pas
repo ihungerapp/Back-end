@@ -354,6 +354,7 @@ begin
     for RttiAttribute in RttiField.GetAttributes do
       if RttiAttribute is DBField then
         if (RttiAttribute as DBField).Constraints in [NotNull] then
+        begin
           if FFieldsJSON.IndexOf(RttiField.Name) < 0 then
           begin
             if MethodType = mtPatch then
@@ -361,6 +362,10 @@ begin
             else
               TMessage.Create(ECampoNotNullNaoPreenchido, RttiField.Name + ' é obrigatório').SendMessage(FResponse);
           end;
+        end
+        else
+        if (FFieldsJSON.IndexOf(RttiField.Name) < 0) and (MethodType = mtPatch) then
+          (RttiAttribute as DBField).ListSelect := False
 end;
 
 procedure TResourceBaseClass.SetAutoInc(Instance: TObject);
