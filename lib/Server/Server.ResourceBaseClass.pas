@@ -316,7 +316,7 @@ begin
       RttiValue := Value.ToBoolean
     else if RttiField.FieldType.TypeKind in [tkFloat] then
     begin
-      if (RttiField.FieldType.Name = 'TDateTime')then
+      if (RttiField.FieldType.Name = 'TDateTime') then
         RttiValue := StrToDateTime(Value)
       else if (RttiField.FieldType.Name = 'TDate') then
         RttiValue := StrToDate(Value)
@@ -325,7 +325,7 @@ begin
       else
         RttiValue:= StringReplace(Value, '.', ',', [rfReplaceAll]).ToDouble;
     end
-    else if (RttiField.FieldType.Name = 'TMacAddress')then
+    else if (RttiField.FieldType.Name = 'TMacAddress') then
       RttiValue := TMacAddress.Create(Value)
     else if (RttiField.FieldType.Name = 'TBytea')then
       RttiValue := TBytea.Create(Value);

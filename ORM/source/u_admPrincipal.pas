@@ -291,11 +291,10 @@ begin
                   ' 	, inf.column_default '+
                   ' 	, SUBSTRING(inf.column_default FROM (STRPOS(inf.column_default, ''.'') + 1) FOR ((STRPOS(inf.column_default, '':'') - 1) - (STRPOS(inf.column_default, ''.'') + 1))) LSEQUENCE '+
                   '  FROM INFORMATION_SCHEMA.tables tab   '+
-                  '  left join INFORMATION_SCHEMA.columns col on col.table_name = tab.table_name   '+
                   '  left join information_schema.columns inf on inf.table_name = tab.table_name   '+
-                  '  where col.is_nullable = ''NO''  '+
-                  '   	and col.udt_name = ''int4''  '+
-                  '  	and col.table_schema <> ''pg_catalog''  '+
+                  '  where inf.is_nullable = ''NO''  '+
+                  '   	and inf.udt_name = ''int4''  '+
+                  '  	and inf.table_schema <> ''pg_catalog''  '+
                   ' 	and inf.table_name = tab.table_name  '+
                   ' 	and inf.column_default is not null '+
                   ' 	and substring(inf.column_default FROM 1 FOR 1) LIKE ''n'' '+
@@ -497,6 +496,8 @@ begin
       vType:= 'TTime'
     else if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'BYTEA') > 0 then
       vType:= 'TBytea'
+    else if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'UUID') > 0 then
+      vType:= 'String'
     else if Pos(UpperCase(campos.FieldByName('TIPO').AsString), 'BOOL') > 0 then
       vType:= 'Boolean';
 

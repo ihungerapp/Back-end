@@ -223,6 +223,7 @@ begin
               FieldsName := FieldsName + ' = :' + (RttiAttribute as DBField).FieldName + '::pedido_item_status'
             else
               FieldsName := FieldsName + ' = :' + (RttiAttribute as DBField).FieldName;
+
             if RttiField.FieldType.Name = 'TMacAddress' then
               FieldsName := FieldsName + '::macaddr'
             else if RttiField.FieldType.Name = 'TBytea' then
@@ -519,6 +520,17 @@ begin
 end;
 
 class procedure TDAO.SetParams(Obj: TObject; RttiField: TRttiField; RttiAttribute: TCustomAttribute; Params: TFDParams);
+
+  function IsValidGuid(GUID: String): Boolean;
+  begin
+    try
+      StringToGUID(GUID);
+      Result := True;
+    except
+      Result := False;
+    end;
+  end;
+
 var
   lParam: TFDParam;
   LAttribute: TCustomAttribute;
@@ -533,7 +545,10 @@ begin
   end
   else if RttiField.FieldType.TypeKind in [tkString, tkUString, tkUnicodeString, tkWString, tkWideChar, tkWideString, tkChar] then
   begin
-    lParam.DataType := ftString;
+    if IsValidGuid(RttiField.GetValue(Obj).AsString) then
+      lParam.DataType := ftGuid
+    else
+      lParam.DataType := ftString;
     for LAttribute in RttiField.GetAttributes do
     begin
       if (LAttribute is DBFieldTypeMemo) then

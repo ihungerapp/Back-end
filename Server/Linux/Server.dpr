@@ -79,7 +79,10 @@ uses
   DAO.Pedido in '..\..\DAO\DAO.Pedido.pas',
   DAO.Pedido_item in '..\..\DAO\DAO.Pedido_item.pas',
   Resources.pedido in '..\..\Resources\Resources.pedido.pas',
-  Resources.pedido_item in '..\..\Resources\Resources.pedido_item.pas';
+  Resources.pedido_item in '..\..\Resources\Resources.pedido_item.pas',
+  Resources.mesa in '..\..\Resources\Resources.mesa.pas',
+  Controller.Mesa in '..\..\Controllers\Controller.Mesa.pas',
+  DAO.Mesa in '..\..\DAO\DAO.Mesa.pas';
 
 begin
   try
