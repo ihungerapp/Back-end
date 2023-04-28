@@ -545,7 +545,8 @@ begin
   end
   else if RttiField.FieldType.TypeKind in [tkString, tkUString, tkUnicodeString, tkWString, tkWideChar, tkWideString, tkChar] then
   begin
-    if IsValidGuid(RttiField.GetValue(Obj).AsString) then
+    if (Length(RttiField.GetValue(Obj).AsString) = 38)
+    and (IsValidGuid(RttiField.GetValue(Obj).AsString)) then
       lParam.DataType := ftGuid
     else
       lParam.DataType := ftString;

@@ -26,16 +26,11 @@ type
     [DBField('ID_MESA', True, True, False, PrimaryKey)]
     id_mesa: Integer;
 
-    [DBField('ID_MESA_RMCOMANDA', True, True, False, NotNull)]
-    id_mesa_rmcomanda: Integer;
-
     [DBField('DESCRICAO', True, True, False, NotNull)]
     descricao: String;
 
     [DBField('MESA_UUID', True, True, False, NotNull)]
     mesa_uuid: String;
-
-
   end;
 
 implementation
