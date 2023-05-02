@@ -30,7 +30,14 @@ const
   lSQL = ' SELECT to_json(r)'+
   ' FROM ('+
   ' SELECT'+
-  ' produto.*,'+
+  ' produto.id_produto,'+
+  ' produto.descricao,'+
+  ' produto.complemento,'+
+  ' produto.valor_inicial,'+
+  ' produto.valor_promocao,'+
+  ' produto.promocao_do_dia,'+
+  ' produto.id_grupo,'+
+  ' encode(produto.imagem, ''escape'') as imagem,'+
   ' (select json_build_object(''id_grupo'', g.id_grupo, ''descricao'', g.descricao)'+
   ' FROM'+
   ' "Cadastros".grupo g where produto.id_grupo = g.id_grupo) as grupo'+
