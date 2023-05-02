@@ -130,7 +130,9 @@ begin
     else if LValueTypeSearch = 'all' then
       LTpPesquisa := tpTodoCampo
     else if LValueTypeSearch = 'last' then
-      LTpPesquisa := tpFim;
+      LTpPesquisa := tpFim
+    else if LValueTypeSearch = 'no incidence' then
+      LTpPesquisa := tpSemIncidencia
   end;
   if ID = 'list-select' then
     lFields := GetFields(Obj, False, True)
@@ -856,6 +858,15 @@ begin
                       Filter := '%' + Filter + '%'
                     else if (TipoPesquisa = tpFim) then
                       Filter := '%'+Filter;
+
+                    if TipoPesquisa = tpSemIncidencia then
+                    begin
+                      if Result = EmptyStr then
+                        Result := ' WHERE ' + (RttiAttribute as DBField).FieldName + ' = ' + QuotedStr(Filter)
+                      else
+                        Result := Result + ' AND ' + (RttiAttribute as DBField).FieldName + ' = ' + QuotedStr(Filter);
+                    end
+                    else
                     if Result = EmptyStr then
                       Result := ' WHERE lower(' + (RttiAttribute as DBField).FieldName + ') LIKE lower(' + QuotedStr(Filter) + ')'
                     else

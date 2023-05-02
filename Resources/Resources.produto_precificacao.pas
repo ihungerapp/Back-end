@@ -32,7 +32,8 @@ type
     [DBField('ID_PRODUTO', True, True, False, NotNull)]
     id_produto: Integer;
 
-
+    [DBField('VALOR', True, True, False, NotNull)]
+    valor: Currency;
   end;
 
 implementation

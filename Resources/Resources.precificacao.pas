@@ -28,11 +28,6 @@ type
 
     [DBField('TIPO', True, True, False, NotNull)]
     tipo: String;
-
-    [DBField('VALOR', True, True, False, NotNull)]
-    valor: Currency;
-
-
   end;
 
 implementation

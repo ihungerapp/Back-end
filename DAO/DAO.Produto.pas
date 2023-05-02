@@ -18,30 +18,66 @@ type
   TDAOProduto = class
     private
     public
-      class function ProcedimentoBase(const Params: array of TValue): TJSONObject;
+      class function ListarProdutos(const Params: array of TValue): TJSONObject;
   end;
 
 implementation
 
 { TDAOProduto }
 
-class function TDAOProduto.ProcedimentoBase(const Params: array of TValue): TJSONObject;
+class function TDAOProduto.ListarProdutos(const Params: array of TValue): TJSONObject;
 const
-  lSQL = 'COLOCAR O SQL AQUI';
+  lSQL = ' SELECT to_json(r)'+
+  ' FROM ('+
+  ' SELECT'+
+  ' produto.*,'+
+  ' (select json_build_object(''id_grupo'', g.id_grupo, ''descricao'', g.descricao)'+
+  ' FROM'+
+  ' "Cadastros".grupo g where produto.id_grupo = g.id_grupo) as grupo'+
+  ' , array_agg(produto_precificacao.*) as produto_precificacao'+
+  ' FROM (select *,'+
+  ' (SELECT'+
+  ' json_build_object(''id_precificacao'', pf.id_precificacao,'+
+  ' ''tipo'', pf.tipo) as precificacao'+
+  ' FROM'+
+  ' "Cadastros".precificacao pf'+
+  ' WHERE'+
+  ' produto_precificacao.id_precificacao = pf.id_precificacao)'+
+  ' from "Cadastros".produto_precificacao'+
+  ' ) as produto_precificacao,'+
+  ' "Cadastros".produto produto'+
+  ' %s'+
+  ' group by produto.id_produto'+
+  ' order by produto.descricao'+
+  ' ) r;';
 var
   Connection: TConnection;
+  lWhere,
+  lJsonString: String;
+  lJsonArray: TJSONArray;
+  lJsonPair: TJSONPair;
 begin
   Result := TJSONObject.Create;
   Connection := TConnection.Create;
+  lJsonArray := TJSONArray.Create;
+  lJsonPair := TJSONPair.Create('produtos', lJsonArray);
   try
-    Connection.Query.SQL.Add(lSQL);
+    lWhere := TDAO.GetWhere(Params[5].ToString, tpTodoCampo, Params[0].AsType<TWebResponse>);
+    if lWhere = EmptyStr then
+      lWhere := ' where produto.id_produto = produto_precificacao.id_produto '
+    else
+      lWhere := lWhere + ' and produto.id_produto = produto_precificacao.id_produto ';
+    Connection.Query.SQL.Add(Format(lSQL, [lWhere]));
     try
-	  //PASSAGEM DE PARAMETROS ATRAVÉS DOS PARAMS 	
-      //Connection.Query.ParamByName('ID').AsInteger := StrToInt(Params[6].ToString);
       Connection.Query.Open;
       Connection.Query.First;
-      
-      Result := TDAO.CreateJSONObject(Connection, Params);
+      while not Connection.Query.Eof do
+      begin
+        lJsonString := Connection.Query.FieldByName('to_json').Value;
+        lJsonArray.AddElement(TJSONValue.ParseJSONValue(TEncoding.UTF8.GetBytes(LJSONString), 0) as TJSONValue);
+        Connection.Query.Next;
+      end;
+      Result := Result.AddPair(lJsonPair);
     except
       on E: Exception do
         TMessage.Create(EErroGeral, 'Erro ao executar a consulta (' + E.Message + ')').SendMessage(Params[0].AsType<TWebResponse>);

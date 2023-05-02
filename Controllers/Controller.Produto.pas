@@ -24,7 +24,7 @@ uses
  type
     TControllerProduto = class(TController)
   published
-    procedure ProcedimentoBase;
+    procedure ListarProdutos;
  private
     FJSONObject: TJSONOBject;
     FParams: array of TValue;
@@ -78,9 +78,9 @@ begin
   Result := JSONObject;
 end;
 
-procedure TControllerProduto.ProcedimentoBase;
+procedure TControllerProduto.ListarProdutos;
 begin
-  JSONObject := TDAOProduto.ProcedimentoBase(FParams);
+  JSONObject := TDAOProduto.ListarProdutos(FParams);
 end;
 
 procedure TControllerProduto.SetJSONObject(const Value: TJSONOBject);
