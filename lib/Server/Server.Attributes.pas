@@ -89,7 +89,6 @@ type
     property Relationship: TObject read FRelationship write SetRelationship;
     property NameRelationship: String read FNameRelationship write SetNameRelationship;
     constructor Create(pNameRelationship: String); overload;
-    destructor Destroy();override;
   end;
 
   TMacAddress = class
@@ -191,26 +190,20 @@ begin
   Self.FListRelationship := TObjectList<TObject>.Create;
 end;
 
-destructor DBRelationship.Destroy;
-begin
-  FreeAndNil(Self.FListRelationship);
-  inherited;
-end;
-
 procedure DBRelationship.SetListRelationship(const Value: TObjectList<TObject>);
 begin
-  FListRelationship := Value;
+  Self.FListRelationship := Value;
 end;
 
 procedure DBRelationship.SetNameRelationship(const Value: String);
 begin
-  FNameRelationship := Value;
+  Self.FNameRelationship := Value;
 end;
 
 procedure DBRelationship.SetRelationship(const Value: TObject);
 begin
-  FRelationship := Value;
-  FListRelationship.Add(Value);
+  Self.FRelationship := Value;
+  Self.FListRelationship.Add(Value);
 end;
 
 end.

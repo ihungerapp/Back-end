@@ -4,8 +4,8 @@ interface
 
 uses
   System.Classes, System.Rtti, System.JSON, Web.HTTPApp, Server.Attributes,
-  Server.Message, Server.MessageList, System.Generics.Collections,
-  Server.Connection, System.DateUtils, REST.Json;
+  Server.Message, Server.MessageList,
+  Server.Connection, System.DateUtils, REST.Json, System.Generics.Collections;
 
 type
   TResourceBaseClass = class(TPersistent)
@@ -51,7 +51,7 @@ MethodType: TMethodType = mtAny);
 implementation
 
 uses
-  System.SysUtils, Server.DAO, Server.Controller;
+  System.SysUtils, Server.DAO, Server.Controller, Resources.pedidoItem;
 
 { TResourceBaseClass }
 
@@ -76,7 +76,7 @@ begin
       else
       if Dados.TryGetValue(FieldName, LJsonObject) then
         Value := LJsonObject.ToString;
-  end
+    end
     else
       SetValueObject(FieldName, Value, Resource);
   end;
@@ -326,12 +326,13 @@ begin
   RttiField := GetRttiField(ArrayName, Instance);
   if RttiField <> nil then
   begin
-    RttiContext := TRttiContext.Create;
-    RttiInstanceType := RttiContext.FindType('Resources.' + ArrayName + '.T' + ArrayName).AsInstance;
-    RttiMethod := RttiInstanceType.GetMethod('Create');
-    InstanceObj := RttiMethod.Invoke(RttiInstanceType.MetaclassType,[]).AsObject;
     for LJSONValue in aJsonArray do
     begin
+      RttiContext := TRttiContext.Create;
+      RttiInstanceType := RttiContext.FindType('Resources.' + ArrayName + '.T' + ArrayName).AsInstance;
+      RttiMethod := RttiInstanceType.GetMethod('Create');
+      InstanceObj := RttiMethod.Invoke(RttiInstanceType.MetaclassType,[]).AsObject;
+
       LJSONObject := TJSONObject.ParseJSONValue(LJSONValue.ToString) as TJSONObject;
       for Item in LJSONObject do
       begin
@@ -346,7 +347,9 @@ begin
           if (RttiAttribute is DBRelationship) then
           begin
             (RttiAttribute as DBRelationship).NameRelationship := ArrayName;
-            (RttiAttribute as DBRelationship).ListRelationship.Add(InstanceObj);
+            if Assigned((RttiAttribute as DBRelationship).ListRelationship) then
+              (RttiAttribute as DBRelationship).ListRelationship.Add(InstanceObj);
+            //(RttiAttribute as DBRelationship).Relationship := InstanceObj;
           end;
       end;
     end;

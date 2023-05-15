@@ -64,6 +64,7 @@ var
   RttiType: TRttiType;
   LJSONArray: TJSONArray;
   ListRelationship: TObjectList<TObject>;
+  I: Integer;
 begin
   Response.ContentType  := 'application/json;charset=UTF-8';
   Mensagem := IRegistroInserido;
@@ -90,23 +91,46 @@ begin
         ListRelationship := GetRelationship(Obj);
         if Assigned(ListRelationship) and (ListRelationship.Count > 0) then
         begin
-          lParam := Params.Add;
-          lParam.Name := PrimaryKeyName;
-          lParam.ParamType := ptInput;
-          lParam.DataType := ftInteger;
-          lParam.Value := LChave.ToInteger;
+//          while ListRelationship.Count > 0 do
+//          begin
+//            lParam := Params.Add;
+//            lParam.Name := PrimaryKeyName;
+//            lParam.ParamType := ptInput;
+//            lParam.DataType := ftInteger;
+//            lParam.Value := LChave.ToInteger;
+//
+//            PrimaryKeyName := GetPrimaryKeyName(ListRelationship.Items[1]);
+//            SQL := 'INSERT INTO %s (%s) VALUES (%s) RETURNING ' + PrimaryKeyName;
+//            ParamsRelationship := TFDParams.Create;
+//            TableName := GetTableName(ListRelationship.Items[1]);
+//            SetFieldsAndParams(teInsert, ListRelationship.Items[1], FieldsName,
+//              ParamsName, ParamsRelationship, Params);
+//            Connection.Query.SQL.Clear;
+//            Connection.Query.SQL.Add(Format(SQL, [TableName, FieldsName, ParamsName]));
+//            Connection.Query.Params := ParamsRelationship;
+//            Connection.Query.Open;
+//            ListRelationship.Delete(ListRelationship.Count - 1);
+//          end;
 
-          PrimaryKeyName := GetPrimaryKeyName(ListRelationship.Items[0]);
-          SQL := 'INSERT INTO %s (%s) VALUES (%s) RETURNING ' + PrimaryKeyName;
-          ParamsRelationship := TFDParams.Create;
-          TableName := GetTableName(ListRelationship.Items[0]);
-          SetFieldsAndParams(teInsert, ListRelationship.Items[0], FieldsName,
-            ParamsName, ParamsRelationship, Params);
-          Connection.Query.SQL.Clear;
-          Connection.Query.SQL.Add(Format(SQL, [TableName, FieldsName, ParamsName]));
-          Connection.Query.Params := ParamsRelationship;
-          Connection.Query.Open;
-          ListRelationship.Delete(0);
+          for I := 0 to Pred(ListRelationship.Count) do
+          begin
+            lParam := Params.Add;
+            lParam.Name := PrimaryKeyName;
+            lParam.ParamType := ptInput;
+            lParam.DataType := ftInteger;
+            lParam.Value := LChave.ToInteger;
+
+            PrimaryKeyName := GetPrimaryKeyName(ListRelationship.Items[I]);
+            SQL := 'INSERT INTO %s (%s) VALUES (%s) RETURNING ' + PrimaryKeyName;
+            ParamsRelationship := TFDParams.Create;
+            TableName := GetTableName(ListRelationship.Items[I]);
+            SetFieldsAndParams(teInsert, ListRelationship.Items[I], FieldsName,
+              ParamsName, ParamsRelationship, Params);
+            Connection.Query.SQL.Clear;
+            Connection.Query.SQL.Add(Format(SQL, [TableName, FieldsName, ParamsName]));
+            Connection.Query.Params := ParamsRelationship;
+            Connection.Query.Open;
+          end;
         end;
 
         RttiType := GetRttiType(Obj);
@@ -127,6 +151,8 @@ begin
       end;
     end;
   finally
+    if Assigned(ListRelationship) then
+      FreeAndNil(ListRelationship);
     Connection.DB.Connected := False;
     Connection.Free;
   end;
