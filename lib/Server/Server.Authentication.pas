@@ -75,6 +75,7 @@ begin
     UserID := Connection.Query.FieldByName(lPrimaryKeyName).AsInteger;
     Result := Connection.Query.RecordCount > 0;
   finally
+    Connection.DB.Connected := False;
     Connection.Free;
   end;
 end;

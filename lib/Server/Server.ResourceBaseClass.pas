@@ -399,6 +399,7 @@ begin
     Connection.Query.Open;
     Result := Connection.Query.FieldByName('seq').AsInteger;
   finally
+    Connection.DB.Connected := False;
     Connection.Free;
   end;
 end;

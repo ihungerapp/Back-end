@@ -98,6 +98,7 @@ begin
       end;
     end;
   finally
+    Connection.DB.Connected := False;
     Connection.Free;
   end;
   TMessage.Create(Mensagem).SendMessage(Response);
@@ -360,6 +361,7 @@ begin
     Connection.Query.Open;
     Result := Connection.Query.FieldByName('QTD').AsInteger;
   finally
+    Connection.DB.Connected := False;
     Connection.Free;
   end;
 end;
@@ -440,6 +442,7 @@ begin
     end;
   finally
     Itens.Free;
+    Connection.DB.Connected := False;
     Connection.Free;
   end;
 end;
@@ -690,6 +693,7 @@ begin
       end;
     end;
   finally
+    Connection.DB.Connected := False;
     Connection.Free;
   end;
 end;
@@ -727,6 +731,7 @@ begin
         TMessage.Create(EErroGeral, 'Erro ao executar a consulta (' + E.Message + ')').SendMessage(Response);
     end;
   finally
+    Connection.DB.Connected := False;
     Connection.Free;
   end;
 end;
@@ -781,6 +786,7 @@ begin
       end;
     end;
   finally
+    Connection.DB.Connected := False;
     Connection.Free;
   end;
   TMessage.Create(Mensagem).SendMessage(Response);
