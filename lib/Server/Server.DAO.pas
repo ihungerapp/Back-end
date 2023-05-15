@@ -14,13 +14,16 @@ type
   private
     class function GetRttiType(Obj: TObject): TRttiType; static;
     class function GetTableName(Obj: TObject): String; static;
+    class function GetRelationship(Obj: TObject): TObjectList<TObject>; static;
     class function GetFields(Obj: TObject; ListHeader: Boolean = False; ListSelect: Boolean = False): String;
     class function GetWhere(Obj: TObject; ID: String; Search: String; WherePadrao: String; TipoPesquisa:TPesquisa): String; overload;
     class function GetOrder(Obj: TObject; Sort: String; Direction: String): String;
     class function GetTotalElements(lSQL: String): Integer;
-    class procedure SetFieldsAndParams(Tipo: TExec; Obj: TObject; var FieldsName: String; var ParamsOrWhereName: String; Params: TFDParams);
+    class procedure SetFieldsAndParams(Tipo: TExec; Obj: TObject; var FieldsName: String; var ParamsOrWhereName: String;
+    Params: TFDParams; ParamsRelationship: TFDParams = nil);
     class procedure ExecQuery(var Result: TMessageType; lSQL: string; Params: TFDParams);
-    class procedure SetParams(Obj: TObject; RttiField: TRttiField; RttiAttribute: TCustomAttribute; Params: TFDParams);
+    class procedure SetParams(Obj: TObject; RttiField: TRttiField; RttiAttribute: TCustomAttribute;
+    Params: TFDParams; ParamsRelationship: TFDParams = nil);
     class procedure SetDadosInMessage(Obj: TObject; var Result: TMessageType; pChave: string = ''; aResourceName: String = ''; aJSONArray: TJSONArray = nil);
     class procedure InsertAplicativosLojas(ID: Integer; Dados: TJSONObject; Connection: TConnection); static;
     class function GetID(Obj: TObject): Integer; static;
@@ -54,10 +57,13 @@ var
   SQL: String;
   LChave: String;
   Params: TFDParams;
+  lParam: TFDParam;
+  ParamsRelationship: TFDParams;
   Mensagem: TMessageType;
   Obj: TObject;
   RttiType: TRttiType;
   LJSONArray: TJSONArray;
+  ListRelationship: TObjectList<TObject>;
 begin
   Response.ContentType  := 'application/json;charset=UTF-8';
   Mensagem := IRegistroInserido;
@@ -79,6 +85,29 @@ begin
         Connection.Query.Params := Params;
         Connection.Query.Open;
         LChave := Connection.Query.FieldByName(PrimaryKeyName).AsString;
+
+        ListRelationship := nil;
+        ListRelationship := GetRelationship(Obj);
+        if Assigned(ListRelationship) and (ListRelationship.Count > 0) then
+        begin
+          lParam := Params.Add;
+          lParam.Name := PrimaryKeyName;
+          lParam.ParamType := ptInput;
+          lParam.DataType := ftInteger;
+          lParam.Value := LChave.ToInteger;
+
+          PrimaryKeyName := GetPrimaryKeyName(ListRelationship.Items[0]);
+          SQL := 'INSERT INTO %s (%s) VALUES (%s) RETURNING ' + PrimaryKeyName;
+          ParamsRelationship := TFDParams.Create;
+          TableName := GetTableName(ListRelationship.Items[0]);
+          SetFieldsAndParams(teInsert, ListRelationship.Items[0], FieldsName,
+            ParamsName, ParamsRelationship, Params);
+          Connection.Query.SQL.Clear;
+          Connection.Query.SQL.Add(Format(SQL, [TableName, FieldsName, ParamsName]));
+          Connection.Query.Params := ParamsRelationship;
+          Connection.Query.Open;
+          ListRelationship.Delete(0);
+        end;
 
         RttiType := GetRttiType(Obj);
         if RttiType.ToString = 'TAplicativos' then
@@ -133,7 +162,7 @@ begin
     else if LValueTypeSearch = 'last' then
       LTpPesquisa := tpFim
     else if LValueTypeSearch = 'no incidence' then
-      LTpPesquisa := tpSemIncidencia
+      LTpPesquisa := tpSemIncidencia;
   end;
   if ID = 'list-select' then
     lFields := GetFields(Obj, False, True)
@@ -189,7 +218,8 @@ begin
   end;
 end;
 
-class procedure TDAO.SetFieldsAndParams(Tipo: TExec; Obj: TObject; var FieldsName: String; var ParamsOrWhereName: String; Params: TFDParams);
+class procedure TDAO.SetFieldsAndParams(Tipo: TExec; Obj: TObject; var FieldsName: String; var ParamsOrWhereName: String;
+    Params: TFDParams; ParamsRelationship: TFDParams = nil);
 var
   RttiType: TRttiType;
   RttiField: TRttiField;
@@ -226,14 +256,13 @@ begin
               FieldsName := FieldsName + ' = :' + (RttiAttribute as DBField).FieldName + '::pedido_item_status'
             else
               FieldsName := FieldsName + ' = :' + (RttiAttribute as DBField).FieldName;
-
             if RttiField.FieldType.Name = 'TMacAddress' then
               FieldsName := FieldsName + '::macaddr'
             else if RttiField.FieldType.Name = 'TBytea' then
               FieldsName := FieldsName + '::bytea';
           end;
           FieldsName := FieldsName + ',';
-          SetParams(Obj, RttiField, RttiAttribute, Params);
+          SetParams(Obj, RttiField, RttiAttribute, Params, ParamsRelationship);
         end;
       end;
   end;
@@ -524,7 +553,8 @@ begin
   TMessage.Create(Mensagem).SendMessage(Response);
 end;
 
-class procedure TDAO.SetParams(Obj: TObject; RttiField: TRttiField; RttiAttribute: TCustomAttribute; Params: TFDParams);
+class procedure TDAO.SetParams(Obj: TObject; RttiField: TRttiField; RttiAttribute: TCustomAttribute;
+    Params: TFDParams; ParamsRelationship: TFDParams = nil);
 
   function IsValidGuid(GUID: String): Boolean;
   begin
@@ -620,6 +650,16 @@ begin
   begin
     lParam.DataType := ftString;
     lParam.Value := RttiField.GetValue(Obj).AsString;
+  end;
+
+  //Ao modelar o banco definir o nome das FKs igual das referentes PKs para que possa atribuir valor na FK
+  //durante a inserção de tabelas que possuem um ou mais relacionamentos
+  if Assigned(ParamsRelationship) then
+  begin
+    if Assigned(ParamsRelationship.FindParam(lParam.Name)) then
+    begin
+      lParam.Value :=  ParamsRelationship.FindParam(lParam.Name).Value;
+    end;
   end;
 end;
 
@@ -750,6 +790,7 @@ var
   Obj: TObject;
   RttiType: TRttiType;
   LJSONArray: TJSONArray;
+  ListRelationship: TObjectList<TObject>;
 begin
   Response.ContentType  := 'application/json;charset=UTF-8';
   Mensagem := IRegistroAlterado;
@@ -772,6 +813,21 @@ begin
         if RttiType.ToString = 'TAplicativos' then
           InsertAplicativosLojas(GetID(Obj), Dados, Connection);
 
+        ListRelationship := nil;
+        ListRelationship := GetRelationship(Obj);
+        if Assigned(ListRelationship) and (ListRelationship.Count > 0) then
+        begin
+          Params.Clear;
+          TableName := GetTableName(ListRelationship.Items[0]);
+          SetFieldsAndParams(teUpdate, ListRelationship.Items[0], FieldsName,
+            WhereCondition, Params);
+          Connection.Query.SQL.Clear;
+          Connection.Query.SQL.Add(Format(SQL, [TableName, FieldsName, WhereCondition]));
+          Connection.Query.Params := Params;
+          Connection.Query.ExecSQL;
+          ListRelationship.Delete(0);
+        end;
+
         if ListObj.Count = 1 then
           SetDadosInMessage(Obj, Mensagem)
         else
@@ -790,6 +846,20 @@ begin
     Connection.Free;
   end;
   TMessage.Create(Mensagem).SendMessage(Response);
+end;
+
+class function TDAO.GetRelationship(Obj: TObject): TObjectList<TObject>;
+var
+  RttiType: TRttiType;
+  RttiAttribute: TCustomAttribute;
+  RttiField: TRttiField;
+begin
+  Result := nil;
+  RttiType := GetRttiType(Obj);
+  for RttiField in RttiType.GetFields do
+    for RttiAttribute in RttiField.GetAttributes do
+      if (RttiAttribute is DBRelationship) then
+        Result := (RttiAttribute as DBRelationship).ListRelationship;
 end;
 
 class function TDAO.GetRttiType(Obj: TObject): TRttiType;

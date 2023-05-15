@@ -1,4 +1,4 @@
-unit Resources.pedido_item;
+unit Resources.pedidoItem;
 
 interface
 
@@ -16,11 +16,11 @@ uses
 
 type
 
-  [Resource('pedido_item')]
+  [Resource('pedidoItem')]
   [Table('"Pedidos".pedido_item')]
   [AutoInc('pedido_item_id_pedido_item_seq')]
   [Controllers(TControllerpedido_item)]
-  Tpedido_item = class(TResourceBaseClass)
+  TpedidoItem = class(TResourceBaseClass)
   protected
   public
     [DBField('ID_PEDIDO_ITEM', True, True, False, PrimaryKey)]
@@ -49,8 +49,6 @@ type
 
     [DBField('PEDIDO_ITEM_STATUS', True, True, False, NotNull)]
     pedido_item_status: String;
-
-
   end;
 
 implementation
@@ -59,7 +57,7 @@ implementation
 
 initialization
 
-RegisterClass(Tpedido_item);
+RegisterClass(TpedidoItem);
 
 end.
 

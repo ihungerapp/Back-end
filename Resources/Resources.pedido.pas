@@ -3,8 +3,7 @@ unit Resources.pedido;
 interface
 
 uses
-  System.Classes, 
-  System.Generics.Collections, 
+  System.Classes,
   System.SysUtils,
   Web.HTTPApp,
   Server.Attributes, 
@@ -12,7 +11,9 @@ uses
   Server.Message,
   Server.MessageList, 
   Server.Connection,
-  Controller.pedido;
+  System.Generics.Collections,
+  Controller.pedido,
+  Resources.pedidoItem;
 
 type
 
@@ -59,7 +60,8 @@ type
     [DBField('FECHAR_CONTA', True, True, False, Null)]
     fechar_conta: Boolean;
 
-
+    [DBRelationship('PEDIDOITEM')]
+    pedidoItem: TObjectList<TpedidoItem>;
   end;
 
 implementation

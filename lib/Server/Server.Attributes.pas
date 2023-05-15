@@ -5,7 +5,7 @@ interface
 uses
   System.Classes, System.SysUtils,
   Server.Controller.Interfaces,
-  Server.Controller;
+  Server.Controller, System.Generics.Collections;
 
 type
   Get = class(TCustomAttribute)
@@ -74,6 +74,22 @@ type
     property Sort: Boolean read FSort write FSort;
     property Size: Integer read FSize write FSize;
     constructor Create(pFieldName: String; pHeader: Boolean; pListSelect: Boolean; pSort: Boolean; pConstraints: TConstraints); overload;
+  end;
+
+  DBRelationship = class(TCustomAttribute)
+  private
+    FNameRelationship: String;
+    FListRelationship: TObjectList<TObject>;
+    FRelationship: TObject;
+    procedure SetNameRelationship(const Value: String);
+    procedure SetListRelationship(const Value: TObjectList<TObject>);
+    procedure SetRelationship(const Value: TObject);
+  public
+    property ListRelationship: TObjectList<TObject> read FListRelationship write SetListRelationship;
+    property Relationship: TObject read FRelationship write SetRelationship;
+    property NameRelationship: String read FNameRelationship write SetNameRelationship;
+    constructor Create(pNameRelationship: String); overload;
+    destructor Destroy();override;
   end;
 
   TMacAddress = class
@@ -165,6 +181,36 @@ destructor TBytea.Destroy;
 begin
   FreeAndNil(Self.Value);
   inherited;
+end;
+
+{ DBRelationship }
+
+constructor DBRelationship.Create(pNameRelationship: String);
+begin
+  Self.NameRelationship := pNameRelationship;
+  Self.FListRelationship := TObjectList<TObject>.Create;
+end;
+
+destructor DBRelationship.Destroy;
+begin
+  FreeAndNil(Self.FListRelationship);
+  inherited;
+end;
+
+procedure DBRelationship.SetListRelationship(const Value: TObjectList<TObject>);
+begin
+  FListRelationship := Value;
+end;
+
+procedure DBRelationship.SetNameRelationship(const Value: String);
+begin
+  FNameRelationship := Value;
+end;
+
+procedure DBRelationship.SetRelationship(const Value: TObject);
+begin
+  FRelationship := Value;
+  FListRelationship.Add(Value);
 end;
 
 end.

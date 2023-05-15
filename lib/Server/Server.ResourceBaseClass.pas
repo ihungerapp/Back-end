@@ -5,7 +5,7 @@ interface
 uses
   System.Classes, System.Rtti, System.JSON, Web.HTTPApp, Server.Attributes,
   Server.Message, Server.MessageList, System.Generics.Collections,
-  Server.Connection, System.DateUtils;
+  Server.Connection, System.DateUtils, REST.Json;
 
 type
   TResourceBaseClass = class(TPersistent)
@@ -20,6 +20,7 @@ MethodType: TMethodType = mtAny);
     procedure AddResourceList(Dados: TJSONObject;
   List: TObjectList<TObject>; Resource: TObject; MethodType: TMethodType = mtAny);
     procedure SetValueObject(FieldName: String; Value: String; Instance: TObject);
+    procedure SetJsonArray(ArrayName: String; aJsonArray: TJSONArray; Instance: TObject);
     procedure ValidateInteger(FieldName, Value: String);
     procedure ValidateNotNull(Instance: TObject; MethodType: TMethodType = mtAny);
     procedure ValidateID(ID: Integer; Instance: TObject);
@@ -53,19 +54,31 @@ uses
   System.SysUtils, Server.DAO, Server.Controller;
 
 { TResourceBaseClass }
+
 procedure TResourceBaseClass.AddResourceList(Dados: TJSONObject;
   List: TObjectList<TObject>; Resource: TObject; MethodType: TMethodType = mtAny);
 var
   Item: TJSONPair;
   FieldName: String;
   Value: String;
+  LJsonObject: TJSONObject;
+  LJsonArray: TJSONArray;
 begin
   FFieldsJSON := TStringList.Create;
   for Item in Dados do
   begin
     FieldName := Item.JsonString.Value;
     Value := Item.JsonValue.Value;
-    SetValueObject(FieldName, Value, Resource);
+    if (Value = EmptyStr) then
+    begin
+      if Dados.TryGetValue(FieldName, LJsonArray) then
+        SetJsonArray(FieldName, LJsonArray, Resource)
+      else
+      if Dados.TryGetValue(FieldName, LJsonObject) then
+        Value := LJsonObject.ToString;
+  end
+    else
+      SetValueObject(FieldName, Value, Resource);
   end;
   SetAutoInc(Resource);
   ValidateNotNull(Resource, MethodType);
@@ -294,6 +307,53 @@ begin
   end;
 end;
 
+//Instancia os resources referentes aos objetos dentro do array que representa o relacionamento com outra tabela
+procedure TResourceBaseClass.SetJsonArray(ArrayName: String; aJsonArray: TJSONArray; Instance: TObject);
+var
+  RttiContext: TRttiContext;
+  RttiInstanceType: TRttiInstanceType;
+  RttiMethod: TRttiMethod;
+  RttiAttribute: TCustomAttribute;
+  RttiType: TRttiType;
+  InstanceObj: TObject;
+  RttiField: TRttiField;
+  LJSONValue: TJSONValue;
+  LJSONObject: TJSONObject;
+  Item: TJSONPair;
+  FieldName,
+  Value: String;
+begin
+  RttiField := GetRttiField(ArrayName, Instance);
+  if RttiField <> nil then
+  begin
+    RttiContext := TRttiContext.Create;
+    RttiInstanceType := RttiContext.FindType('Resources.' + ArrayName + '.T' + ArrayName).AsInstance;
+    RttiMethod := RttiInstanceType.GetMethod('Create');
+    InstanceObj := RttiMethod.Invoke(RttiInstanceType.MetaclassType,[]).AsObject;
+    for LJSONValue in aJsonArray do
+    begin
+      LJSONObject := TJSONObject.ParseJSONValue(LJSONValue.ToString) as TJSONObject;
+      for Item in LJSONObject do
+      begin
+        FieldName := Item.JsonString.Value;
+        Value := Item.JsonValue.Value;
+        SetValueObject(FieldName, Value, InstanceObj);
+      end;
+      RttiType := GetRttiType(Instance);
+      for RttiField in RttiType.GetFields do
+      begin
+        for RttiAttribute in RttiField.GetAttributes do
+          if (RttiAttribute is DBRelationship) then
+          begin
+            (RttiAttribute as DBRelationship).NameRelationship := ArrayName;
+            (RttiAttribute as DBRelationship).ListRelationship.Add(InstanceObj);
+          end;
+      end;
+    end;
+    FFieldsJSON.Add(ArrayName);
+  end;
+end;
+
 procedure TResourceBaseClass.SetValueObject(FieldName: String; Value: String; Instance: TObject);
 var
   RttiField: TRttiField;
@@ -316,8 +376,12 @@ begin
       RttiValue := Value.ToBoolean
     else if RttiField.FieldType.TypeKind in [tkFloat] then
     begin
-      if (RttiField.FieldType.Name = 'TDateTime') then
+      if (RttiField.FieldType.Name = 'TDateTime')then
+      begin
+        if Pos('T', Value) > 0 then //se data no formato ISO8601 fazer a conversão
+          Value := ISO8601ToDate(Value, True).ToString;
         RttiValue := StrToDateTime(Value)
+      end
       else if (RttiField.FieldType.Name = 'TDate') then
         RttiValue := StrToDate(Value)
       else if (RttiField.FieldType.Name = 'TTime') then
@@ -325,13 +389,14 @@ begin
       else
         RttiValue:= StringReplace(Value, '.', ',', [rfReplaceAll]).ToDouble;
     end
-    else if (RttiField.FieldType.Name = 'TMacAddress') then
+    else if (RttiField.FieldType.Name = 'TMacAddress')then
       RttiValue := TMacAddress.Create(Value)
     else if (RttiField.FieldType.Name = 'TBytea')then
       RttiValue := TBytea.Create(Value);
 
     RttiField.SetValue(Instance, RttiValue);
-    FFieldsJSON.Add(FieldName);
+    if Instance.ClassName = Self.ClassName then
+      FFieldsJSON.Add(FieldName);
   end;
 end;
 
@@ -399,7 +464,6 @@ begin
     Connection.Query.Open;
     Result := Connection.Query.FieldByName('seq').AsInteger;
   finally
-    Connection.DB.Connected := False;
     Connection.Free;
   end;
 end;

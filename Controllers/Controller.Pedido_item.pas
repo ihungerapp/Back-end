@@ -50,7 +50,7 @@ type
 implementation
 
 uses 
-  Resources.pedido_item;
+  Resources.pedidoItem;
 
 { TPedido_item }
 
