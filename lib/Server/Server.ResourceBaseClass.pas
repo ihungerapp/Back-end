@@ -71,11 +71,15 @@ begin
     Value := Item.JsonValue.Value;
     if (Value = EmptyStr) then
     begin
-      if Dados.TryGetValue(FieldName, LJsonArray) then
+      if (Dados.FindValue(FieldName) is TJSONArray)
+      and (Dados.TryGetValue(FieldName, LJsonArray)) then
         SetJsonArray(FieldName, LJsonArray, Resource)
       else
-      if Dados.TryGetValue(FieldName, LJsonObject) then
-        Value := LJsonObject.ToString;
+      if (Dados.FindValue(FieldName) is TJSONObject)
+      and (Dados.TryGetValue(FieldName, LJsonObject)) then
+        Value := LJsonObject.ToString
+      else
+        SetValueObject(FieldName, Value, Resource);
     end
     else
       SetValueObject(FieldName, Value, Resource);

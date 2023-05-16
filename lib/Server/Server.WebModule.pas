@@ -330,7 +330,7 @@ end;
 
 function TWebModuleApi.ValidarUsuarioPadrao(AParams: TDictionary<string, string>): Boolean;
 const
-  USER = 'WK_TECNOLOGY';
+  USER = 'HUNGER_APP';
   PASSWORD = '12345';
 var
   LUser,LPassword:String;
