@@ -348,7 +348,7 @@ begin
           begin
             (RttiAttribute as DBRelationship).NameRelationship := ArrayName;
             if Assigned((RttiAttribute as DBRelationship).ListRelationship) then
-              (RttiAttribute as DBRelationship).ListRelationship.Add(InstanceObj);
+              DBRelationship(RttiAttribute).ListRelationship.Add(InstanceObj);
             //(RttiAttribute as DBRelationship).Relationship := InstanceObj;
           end;
       end;

@@ -68,6 +68,7 @@ begin
     Params.AddPair('Password', Password);
     Params.AddPair('Port', Port.ToString);
     Params.AddPair('Pooled', 'True');
+    Params.AddPair('GUIDEndian', 'Big');
 
     FInstance.FDManager := TFDManager.Create(nil);
     FInstance.FDManager.AddConnectionDef('WKServer', 'PG', Params);

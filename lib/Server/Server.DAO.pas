@@ -31,6 +31,8 @@ type
     class function OpenQuery(Response: TWebResponse; lSQL: string): TJSONArray; overload;
     class function OpenQuery(Response: TWebResponse; lSQL: string; Connection: TConnection): TConnection; overload;
     class function GetPrimaryKeyName(Instance: TObject): String;
+    class function IsValidGuid(GUID: String): Boolean;
+
   public
     class procedure Select(Response: TWebResponse; Obj: TObject; PageNumber: Integer; PageSize: Integer; Direction: String; Sort: String; Search: String; ID: String; WherePadrao: String;Join:string; JSON:TJSONObject);overload;
     class procedure Insert(Response: TWebResponse; ListObj: TObjectList<TObject>; Dados: TJSONObject; aResourceName: String = '');
@@ -91,27 +93,6 @@ begin
         ListRelationship := GetRelationship(Obj);
         if Assigned(ListRelationship) and (ListRelationship.Count > 0) then
         begin
-//          while ListRelationship.Count > 0 do
-//          begin
-//            lParam := Params.Add;
-//            lParam.Name := PrimaryKeyName;
-//            lParam.ParamType := ptInput;
-//            lParam.DataType := ftInteger;
-//            lParam.Value := LChave.ToInteger;
-//
-//            PrimaryKeyName := GetPrimaryKeyName(ListRelationship.Items[1]);
-//            SQL := 'INSERT INTO %s (%s) VALUES (%s) RETURNING ' + PrimaryKeyName;
-//            ParamsRelationship := TFDParams.Create;
-//            TableName := GetTableName(ListRelationship.Items[1]);
-//            SetFieldsAndParams(teInsert, ListRelationship.Items[1], FieldsName,
-//              ParamsName, ParamsRelationship, Params);
-//            Connection.Query.SQL.Clear;
-//            Connection.Query.SQL.Add(Format(SQL, [TableName, FieldsName, ParamsName]));
-//            Connection.Query.Params := ParamsRelationship;
-//            Connection.Query.Open;
-//            ListRelationship.Delete(ListRelationship.Count - 1);
-//          end;
-
           for I := 0 to Pred(ListRelationship.Count) do
           begin
             lParam := Params.Add;
@@ -151,8 +132,6 @@ begin
       end;
     end;
   finally
-    if Assigned(ListRelationship) then
-      FreeAndNil(ListRelationship);
     Connection.DB.Connected := False;
     Connection.Free;
   end;
@@ -581,17 +560,6 @@ end;
 
 class procedure TDAO.SetParams(Obj: TObject; RttiField: TRttiField; RttiAttribute: TCustomAttribute;
     Params: TFDParams; ParamsRelationship: TFDParams = nil);
-
-  function IsValidGuid(GUID: String): Boolean;
-  begin
-    try
-      StringToGUID(GUID);
-      Result := True;
-    except
-      Result := False;
-    end;
-  end;
-
 var
   lParam: TFDParam;
   LAttribute: TCustomAttribute;
@@ -917,7 +885,8 @@ var
   Item: String;
   FieldName: String;
   Filter: String;
-  LFilter:string;
+  LFilter: String;
+  LFieldConverter: String;
 begin
   Result := EmptyStr;
   if ((ID <> EmptyStr) and (ID <> 'list-select')) then
@@ -954,6 +923,11 @@ begin
                   end
                   else
                   begin
+                    LFieldConverter := EmptyStr;
+                    if (Length(Filter) = 36)
+                    and (IsValidGuid('{' + Filter + '}')) then
+                      LFieldConverter := '::uuid';
+
                     if (TipoPesquisa = tpInicio) then
                       Filter := Filter+'%'
                     else if(TipoPesquisa = tpTodoCampo) then
@@ -964,15 +938,19 @@ begin
                     if TipoPesquisa = tpSemIncidencia then
                     begin
                       if Result = EmptyStr then
-                        Result := ' WHERE ' + (RttiAttribute as DBField).FieldName + ' = ' + QuotedStr(Filter)
+                        Result := ' WHERE ' + (RttiAttribute as DBField).FieldName +
+                                  ' = ' + QuotedStr(Filter) + LFieldConverter
                       else
-                        Result := Result + ' AND ' + (RttiAttribute as DBField).FieldName + ' = ' + QuotedStr(Filter);
+                        Result := Result + ' AND ' + (RttiAttribute as DBField).FieldName +
+                                 ' = ' + QuotedStr(Filter) + LFieldConverter;
                     end
                     else
                     if Result = EmptyStr then
-                      Result := ' WHERE lower(' + (RttiAttribute as DBField).FieldName + ') LIKE lower(' + QuotedStr(Filter) + ')'
+                      Result := ' WHERE lower(' + (RttiAttribute as DBField).FieldName +
+                                ') LIKE lower(' + QuotedStr(Filter) + ')'
                     else
-                      Result := Result + ' AND lower(' + (RttiAttribute as DBField).FieldName + ') LIKE lower(' + QuotedStr('%' + Filter + '%') + ')';
+                      Result := Result + ' AND lower(' + (RttiAttribute as DBField).FieldName +
+                                ') LIKE lower(' + QuotedStr('%' + Filter + '%') + ')';
                   end;
       end;
     end;
@@ -996,6 +974,16 @@ begin
     if Item.Count > 0 then
       for Elemento in Item do
         Connection.Query.ExecSQL('INSERT INTO aplicativos_lojas (id_aplicativos, id_lojas) VALUES(:id_aplicativos, :id_lojas)', [ID, Elemento.Value.ToInteger], [ftInteger, ftInteger]);
+end;
+
+class function TDAO.IsValidGuid(GUID: String): Boolean;
+begin
+  try
+    StringToGUID(GUID);
+    Result := True;
+  except
+    Result := False;
+  end;
 end;
 
 class function TDAO.OpenQuery(Response: TWebResponse; lSQL: string; Connection: TConnection): TConnection;
