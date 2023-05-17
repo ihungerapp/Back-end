@@ -247,8 +247,6 @@ begin
           SetParams(Obj, RttiField, RttiAttribute, Params);
         end
         else
-//        if not Assigned((RttiAttribute as DBField).AutoIncrement)
-//        and ((RttiAttribute as DBField).Constraints <> PrimaryKey) then
         if (RttiAttribute as DBField).Constraints <> PrimaryKey then
         begin
           FieldsName := FieldsName + (RttiAttribute as DBField).FieldName;
@@ -261,6 +259,7 @@ begin
               FieldsName := FieldsName + ' = :' + (RttiAttribute as DBField).FieldName + '::pedido_item_status'
             else
               FieldsName := FieldsName + ' = :' + (RttiAttribute as DBField).FieldName;
+
             if RttiField.FieldType.Name = 'TMacAddress' then
               FieldsName := FieldsName + '::macaddr'
             else if RttiField.FieldType.Name = 'TBytea' then

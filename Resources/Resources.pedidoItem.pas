@@ -49,6 +49,9 @@ type
 
     [DBField('PEDIDO_ITEM_STATUS', True, True, False, NotNull)]
     pedido_item_status: String;
+
+    [DBField('ID_PRODUTO_PRECIFICACAO', True, True, False, NotNull)]
+    id_produto_precificacao: Integer;
   end;
 
 implementation
