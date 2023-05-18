@@ -112,6 +112,7 @@ begin
             Connection.Query.Params := ParamsRelationship;
             Connection.Query.Open;
           end;
+          ListRelationship.Clear;
         end;
 
         RttiType := GetRttiType(Obj);
@@ -258,6 +259,9 @@ begin
             if (RttiAttribute as DBField).FieldName = 'PEDIDO_ITEM_STATUS' then
               FieldsName := FieldsName + ' = :' + (RttiAttribute as DBField).FieldName + '::pedido_item_status'
             else
+            if (RttiAttribute as DBField).FieldName = 'MESA_UUID' then
+              FieldsName := FieldsName + ' = :' + (RttiAttribute as DBField).FieldName + '::uuid'
+            else
               FieldsName := FieldsName + ' = :' + (RttiAttribute as DBField).FieldName;
 
             if RttiField.FieldType.Name = 'TMacAddress' then
@@ -272,17 +276,22 @@ begin
   end;
   FieldsName := FieldsName.TrimRight([',']);
   if Tipo = teInsert then
-    ParamsOrWhereName := ':' + StringReplace(FieldsName, ',', ',:', [rfReplaceAll]);
-  if Tipo = teInsert then
   begin
+    ParamsOrWhereName := ':' + StringReplace(FieldsName, ',', ',:', [rfReplaceAll]);
     ParamsOrWhereName := EmptyStr;
     RttiType := GetRttiType(Obj);
     for RttiField in RttiType.GetFields do
     begin
       for RttiAttribute in RttiField.GetAttributes do
-        if (RttiAttribute is DBField) and ((not Assigned((RttiAttribute as DBField).AutoIncrement))
-        and ((RttiAttribute as DBField).Constraints <> PrimaryKey))
-        and ((RttiAttribute as DBField).ListSelect) then
+//        if (RttiAttribute is DBField) and ((not Assigned((RttiAttribute as DBField).AutoIncrement))
+//        and ((RttiAttribute as DBField).Constraints <> PrimaryKey))
+//        and ((RttiAttribute as DBField).ListSelect) then
+
+        if RttiAttribute is DBField then
+          if not Assigned((RttiAttribute as DBField).AutoIncrement) then
+            if (RttiAttribute as DBField).Constraints <> PrimaryKey then
+              if (RttiAttribute as DBField).ListSelect then
+
         begin
           if (RttiAttribute as DBField).FieldName = 'PEDIDO_STATUS' then
             ParamsOrWhereName := ParamsOrWhereName + ':' + (RttiAttribute as DBField).FieldName + '::pedido_status'
@@ -291,6 +300,7 @@ begin
             ParamsOrWhereName := ParamsOrWhereName + ':' + (RttiAttribute as DBField).FieldName + '::pedido_item_status'
           else
             ParamsOrWhereName := ParamsOrWhereName + ':' + (RttiAttribute as DBField).FieldName;
+
           if RttiField.FieldType.Name = 'TPoint' then
             ParamsOrWhereName := ParamsOrWhereName + '::point'
           else if RttiField.FieldType.Name = 'TMacAddress' then
