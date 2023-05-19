@@ -283,15 +283,14 @@ begin
     for RttiField in RttiType.GetFields do
     begin
       for RttiAttribute in RttiField.GetAttributes do
-//        if (RttiAttribute is DBField) and ((not Assigned((RttiAttribute as DBField).AutoIncrement))
-//        and ((RttiAttribute as DBField).Constraints <> PrimaryKey))
-//        and ((RttiAttribute as DBField).ListSelect) then
+//        if RttiAttribute is DBField then
+//          if not Assigned((RttiAttribute as DBField).AutoIncrement) then
+//            if (RttiAttribute as DBField).Constraints <> PrimaryKey then
+//              if (RttiAttribute as DBField).ListSelect then
 
-        if RttiAttribute is DBField then
-          if not Assigned((RttiAttribute as DBField).AutoIncrement) then
-            if (RttiAttribute as DBField).Constraints <> PrimaryKey then
-              if (RttiAttribute as DBField).ListSelect then
-
+        if (RttiAttribute is DBField)
+        and ((RttiAttribute as DBField).Constraints <> PrimaryKey)
+        and not Assigned((RttiAttribute as DBField).AutoIncrement) then
         begin
           if (RttiAttribute as DBField).FieldName = 'PEDIDO_STATUS' then
             ParamsOrWhereName := ParamsOrWhereName + ':' + (RttiAttribute as DBField).FieldName + '::pedido_status'
