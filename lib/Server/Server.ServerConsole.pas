@@ -103,7 +103,6 @@ begin
   end
   else
     Writeln(sServerRunning);
-
 end;
 
 procedure TServerConsole.StopServer(const AServer: TIdHTTPWebBrokerBridge);

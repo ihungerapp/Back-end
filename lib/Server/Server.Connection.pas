@@ -35,7 +35,7 @@ begin
   try
     Fdriver := TFDPhysPGDriverLink.Create(Nil);
     {$IFDEF WINDOWS}
-      Fdriver.VendorLib := ExtractFilePath(GetModuleName(HInstance)) + 'fbclient.dll';
+      Fdriver.VendorLib := ExtractFilePath(GetModuleName(HInstance)) + 'libpq.dll';
     {$ENDIF}
     {$IFDEF LINUX}
     //Rodar o comando: sudo apt-get install libpq-dev
@@ -48,7 +48,6 @@ begin
     end;
     Query := TFDQuery.Create(nil);
     Query.Connection := DB;
-
   except
     on E: Exception do
       Writeln('TConnection.Create ' + E.Message);

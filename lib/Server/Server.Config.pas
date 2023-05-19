@@ -9,7 +9,11 @@ uses
   FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
   FireDAC.Phys.PGDef, FireDAC.Phys.IBBase, FireDAC.Phys.PG, FireDAC.Comp.UI,
   Data.DB, FireDAC.Comp.DataSet, System.Classes, System.IOUtils,
-  Server.Connection, Utils.Criptografia;
+  Server.Connection,
+  {$IFDEF MSWINDOWS}
+  Vcl.Forms,
+  {$ENDIF MSWINDOWS}
+  Utils.Criptografia;
 
 type
   TServerConfig = class
@@ -48,7 +52,8 @@ var
 begin
   {$IFDEF MSWINDOWS}
   var IniFile: TIniFile;
-  IniFile := TIniFile.Create(TPath.Combine(GetCurrentDir, 'ConfigServer.Ini'));
+  //IniFile := TIniFile.Create(TPath.Combine(GetCurrentDir, 'ConfigServer.Ini'));
+  IniFile := TIniFile.Create(ChangeFileExt( Application.ExeName, '.ini'));
   {$ENDIF}
   {$IFDEF LINUX} //path quando executa a API como container no Docker
   var IniFile: TMemIniFile;
@@ -73,14 +78,13 @@ begin
     FInstance.FDManager := TFDManager.Create(nil);
     FInstance.FDManager.AddConnectionDef('WKServer', 'PG', Params);
     FInstance.FDManager.Active := True;
-    Writeln('Conectando com o servidor ->> ' + Server);
-
-    Writeln(Database + #13,
-    Server + #13,
-    UserName + #13,
-    Password + #13,
-    Port.ToString + #13)
-
+//    Writeln('Conectando com o servidor ->> ' + Server);
+//
+//    Writeln(Database + #13,
+//    Server + #13,
+//    UserName + #13,
+//    Password + #13,
+//    Port.ToString + #13)
   finally
     IniFile.Free;
   end;
