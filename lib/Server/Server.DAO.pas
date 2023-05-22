@@ -891,6 +891,7 @@ var
   RttiAttribute: TCustomAttribute;
   ListWhere: TArray<String>;
   Item: String;
+  TableName: String;
   FieldName: String;
   Filter: String;
   LFilter: String;
@@ -913,10 +914,22 @@ begin
     ListWhere := Search.Split(['@@@']);
     for Item in ListWhere do
     begin
-      if Length(Item.Split([':'])) = 2  then
+      if (Length(Item.Split([':'])) = 2)
+      or (Length(Item.Split([':'])) = 3)  then
       begin
-        FieldName := Item.Split([':'])[0];
-        Filter := Item.Split([':'])[1];
+        if Length(Item.Split([':'])) = 2 then
+        begin
+          FieldName := Item.Split([':'])[0];
+          Filter := Item.Split([':'])[1];
+        end;
+
+        if Length(Item.Split([':'])) = 3 then
+        begin
+          TableName := Item.Split([':'])[0];
+          FieldName := Item.Split([':'])[1];
+          Filter := Item.Split([':'])[2];
+        end;
+
         RttiType := GetRttiType(Obj);
         for RttiField in RttiType.GetFields do
           for RttiAttribute in RttiField.GetAttributes do
@@ -924,10 +937,16 @@ begin
               if LowerCase(RttiField.Name) = LowerCase(FieldName) then
                 if ((RttiField.FieldType.ToString) = 'Integer') or (RttiField.FieldType.ToString = 'Boolean') then
                   begin
-                    if Result = EmptyStr then
-                      Result := ' WHERE (' + (RttiAttribute as DBField).FieldName + ') = ' + Filter
-                    else
-                      Result := Result + ' AND (' + (RttiAttribute as DBField).FieldName + ') = ' + Filter;
+                    if Length(Item.Split([':'])) = 2 then
+                      if Result = EmptyStr then
+                        Result := ' WHERE (' + (RttiAttribute as DBField).FieldName + ') = ' + Filter
+                      else
+                        Result := Result + ' AND (' + (RttiAttribute as DBField).FieldName + ') = ' + Filter;
+                    if Length(Item.Split([':'])) = 3 then
+                      if Result = EmptyStr then
+                        Result := ' WHERE ' + TableName + '.' + FieldName + ' = ' + Filter
+                      else
+                        Result := Result + ' AND ' + TableName + '.' + FieldName + ' = ' + Filter;
                   end
                   else
                   begin
@@ -943,22 +962,37 @@ begin
                     else if (TipoPesquisa = tpFim) then
                       Filter := '%'+Filter;
 
-                    if TipoPesquisa = tpSemIncidencia then
-                    begin
-                      if Result = EmptyStr then
-                        Result := ' WHERE ' + (RttiAttribute as DBField).FieldName +
-                                  ' = ' + QuotedStr(Filter) + LFieldConverter
+                    if Length(Item.Split([':'])) = 2 then
+                      if TipoPesquisa = tpSemIncidencia then
+                      begin
+                        if Result = EmptyStr then
+                          Result := ' WHERE ' + (RttiAttribute as DBField).FieldName +
+                                    ' = ' + QuotedStr(Filter) + LFieldConverter
+                        else
+                          Result := Result + ' AND ' + (RttiAttribute as DBField).FieldName +
+                                   ' = ' + QuotedStr(Filter) + LFieldConverter;
+                      end
                       else
-                        Result := Result + ' AND ' + (RttiAttribute as DBField).FieldName +
-                                 ' = ' + QuotedStr(Filter) + LFieldConverter;
-                    end
-                    else
-                    if Result = EmptyStr then
-                      Result := ' WHERE lower(' + (RttiAttribute as DBField).FieldName +
-                                ') LIKE lower(' + QuotedStr(Filter) + ')'
-                    else
-                      Result := Result + ' AND lower(' + (RttiAttribute as DBField).FieldName +
-                                ') LIKE lower(' + QuotedStr('%' + Filter + '%') + ')';
+                      if Result = EmptyStr then
+                        Result := ' WHERE lower(' + (RttiAttribute as DBField).FieldName +
+                                  ') LIKE lower(' + QuotedStr(Filter) + ')'
+                      else
+                        Result := Result + ' AND lower(' + (RttiAttribute as DBField).FieldName +
+                                  ') LIKE lower(' + QuotedStr('%' + Filter + '%') + ')';
+
+                    if Length(Item.Split([':'])) = 3 then
+                      if TipoPesquisa = tpSemIncidencia then
+                      begin
+                        if Result = EmptyStr then
+                          Result := ' WHERE ' + TableName + '.' + FieldName + ' = ' + QuotedStr(Filter)
+                        else
+                          Result := Result + ' AND ' + TableName + '.' + FieldName + ' = ' + QuotedStr(Filter);
+                      end
+                      else
+                      if Result = EmptyStr then
+                        Result := ' WHERE lower(' + TableName + '.' + FieldName + ') LIKE lower(' + QuotedStr(Filter) + ')'
+                      else
+                        Result := Result + ' AND lower(' + TableName + '.' + FieldName + ') LIKE lower(' + QuotedStr(Filter) + ')';
                   end;
       end;
     end;
