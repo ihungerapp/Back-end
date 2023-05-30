@@ -25,6 +25,7 @@ uses
     TControllerPedido = class(TController)
   published
     procedure ListarPedidos;
+    procedure ListarPedidosComProduto;
  private
     FJSONObject: TJSONOBject;
     FParams: array of TValue;
@@ -81,6 +82,11 @@ end;
 procedure TControllerPedido.ListarPedidos;
 begin
   JSONObject := TDAOPedido.ListarPedidos(FParams);
+end;
+
+procedure TControllerPedido.ListarPedidosComProduto;
+begin
+  JSONObject := TDAOPedido.ListarPedidosComProduto(FParams);
 end;
 
 procedure TControllerPedido.SetJSONObject(const Value: TJSONOBject);

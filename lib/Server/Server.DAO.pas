@@ -658,9 +658,9 @@ begin
   //durante a inserção de tabelas que possuem um ou mais relacionamentos
   if Assigned(ParamsRelationship) then
   begin
-    if Assigned(ParamsRelationship.FindParam(lParam.Name)) then
+    if Assigned(ParamsRelationship.FindParam(lParam.Name)) and (lParam.DataType = ftInteger)then
     begin
-      lParam.Value :=  ParamsRelationship.FindParam(lParam.Name).Value;
+      lParam.Value := ParamsRelationship.FindParam(lParam.Name).Value;
     end;
   end;
 end;
