@@ -21,17 +21,17 @@ uses
   System.Rtti,  
   DAO.Mesa;
 
- type
+  type
     TControllerMesa = class(TController)
   published
-    procedure ProcedimentoBase;
- private
+    procedure ListarMesasComPedido;
+  private
     FJSONObject: TJSONOBject;
     FParams: array of TValue;
     function GetParams(Index: Integer): TValue;
     procedure SetJSONObject(const Value: TJSONOBject);
 
-public
+  public
     constructor Create;
     destructor Destroy; override;
     function Execute(pMethod: string): TJSONObject; override;
@@ -78,9 +78,9 @@ begin
   Result := JSONObject;
 end;
 
-procedure TControllerMesa.ProcedimentoBase;
+procedure TControllerMesa.ListarMesasComPedido;
 begin
-  JSONObject := TDAOMesa.ProcedimentoBase(FParams);
+  JSONObject := TDAOMesa.ListarMesasComPedido(FParams);
 end;
 
 procedure TControllerMesa.SetJSONObject(const Value: TJSONOBject);
