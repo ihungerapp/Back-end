@@ -74,6 +74,13 @@ begin
     Params.AddPair('Port', Port.ToString);
     Params.AddPair('Pooled', 'True');
     Params.AddPair('GUIDEndian', 'Big');
+    Params.AddPair('POOL_CleanupTimeout', '3600000');
+    Params.AddPair('POOL_ExpireTimeout', '3600000');
+    Params.AddPair('POOL_MaximumItems', '1000');
+
+//POOL_CleanupTimeout	O tempo (msecs) até que o FireDAC remova as conexões que não foram usadas por mais tempo que o tempo POOL_ExpireTimeout. O valor padrão é 30.000 ms (30 segundos).	3600000
+//POOL_ExpireTimeout	O tempo (msecs) após o qual a conexão inativa pode ser excluída do pool e destruída. O valor padrão é 90.000 ms (90 segundos).	600000
+//POOL_MaximumItems	O número máximo de conexões no pool. Quando o aplicativo requer mais conexões, uma exceção é gerada. O valor padrão é 50.	100
 
     FInstance.FDManager := TFDManager.Create(nil);
     FInstance.FDManager.AddConnectionDef('WKServer', 'PG', Params);

@@ -44,8 +44,7 @@ begin
     begin
       DB := TFDConnection.Create(nil);
       DB.ConnectionDefName := 'WKServer';
-      if not DB.Connected then
-        DB.Connected := True;
+      DB.Connected := True;
     end;
     Query := TFDQuery.Create(nil);
     Query.Connection := DB;
