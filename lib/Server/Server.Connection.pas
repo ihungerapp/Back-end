@@ -40,14 +40,15 @@ begin
     {$IFDEF LINUX}
     //Rodar o comando: sudo apt-get install libpq-dev
     {$ENDIF}
-    if not Assigned(DB) then
-    begin
-      DB := TFDConnection.Create(nil);
-      DB.ConnectionDefName := 'WKServer';
-      DB.Connected := True;
-    end;
+//    if not Assigned(DB) then
+//    begin
+//      DB := TFDConnection.Create(nil);
+//      DB.ConnectionDefName := 'WKServer';
+//      DB.Connected := True;
+//    end;
     Query := TFDQuery.Create(nil);
-    Query.Connection := DB;
+    Query.ConnectionName := 'WKServer'
+//    Query.Connection := DB;
   except
     on E: Exception do
       Writeln('TConnection.Create ' + E.Message);

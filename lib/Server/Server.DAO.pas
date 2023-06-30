@@ -75,7 +75,7 @@ begin
     LJSONArray := TJSONArray.Create;
   try
     try
-      Connection.DB.StartTransaction;
+      //Connection.DB.StartTransaction;
       for Obj in ListObj do
       begin
         PrimaryKeyName := GetPrimaryKeyName(Obj);
@@ -124,17 +124,17 @@ begin
         else
           SetDadosInMessage(Obj, Mensagem, LChave, aResourceName, LJSONArray);
       end;
-      Connection.DB.Commit;
+      //Connection.DB.Commit;
     except
       on E: Exception do
       begin
-        Connection.DB.Rollback;
+        //Connection.DB.Rollback;
         TMessage.Create(EDadosNaoSalvos, E.Message).SendMessage(Response);
       end;
     end;
   finally
-    Connection.DB.Connected := False;
-    Connection.Free;
+//    Connection.DB.Connected := False;
+//    Connection.Free;
   end;
   TMessage.Create(Mensagem).SendMessage(Response);
 end;
@@ -403,8 +403,8 @@ begin
     Connection.Query.Open;
     Result := Connection.Query.FieldByName('QTD').AsInteger;
   finally
-    Connection.DB.Connected := False;
-    Connection.Free;
+//    Connection.DB.Connected := False;
+//    Connection.Free;
   end;
 end;
 
@@ -484,8 +484,8 @@ begin
     end;
   finally
     Itens.Free;
-    Connection.DB.Connected := False;
-    Connection.Free;
+//    Connection.DB.Connected := False;
+//    Connection.Free;
   end;
 end;
 
@@ -735,8 +735,8 @@ begin
       end;
     end;
   finally
-    Connection.DB.Connected := False;
-    Connection.Free;
+//    Connection.DB.Connected := False;
+//    Connection.Free;
   end;
 end;
 
@@ -773,8 +773,8 @@ begin
         TMessage.Create(EErroGeral, 'Erro ao executar a consulta (' + E.Message + ')').SendMessage(Response);
     end;
   finally
-    Connection.DB.Connected := False;
-    Connection.Free;
+//    Connection.DB.Connected := False;
+//    Connection.Free;
   end;
 end;
 
@@ -801,7 +801,7 @@ begin
     LJSONArray := TJSONArray.Create;
   try
     try
-      Connection.DB.StartTransaction;
+      //Connection.DB.StartTransaction;
       for Obj in ListObj do
       begin
         Params := TFDParams.Create;
@@ -835,17 +835,17 @@ begin
         else
           SetDadosInMessage(Obj, Mensagem, EmptyStr, aResourceName, LJSONArray);
       end;
-      Connection.DB.Commit;
+      //Connection.DB.Commit;
     except
       on E: Exception do
       begin
-        Connection.DB.Rollback;
+        //Connection.DB.Rollback;
         TMessage.Create(EDadosNaoSalvos, E.Message).SendMessage(Response);
       end;
     end;
   finally
-    Connection.DB.Connected := False;
-    Connection.Free;
+//    Connection.DB.Connected := False;
+//    Connection.Free;
   end;
   TMessage.Create(Mensagem).SendMessage(Response);
 end;

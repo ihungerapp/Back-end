@@ -471,7 +471,7 @@ begin
     Connection.Query.Open;
     Result := Connection.Query.FieldByName('seq').AsInteger;
   finally
-    Connection.Free;
+    //Connection.Free;
   end;
 end;
 

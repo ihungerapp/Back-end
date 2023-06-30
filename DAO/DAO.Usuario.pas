@@ -47,8 +47,8 @@ begin
         TMessage.Create(EErroGeral, 'Erro ao executar a consulta (' + E.Message + ')').SendMessage(Params[0].AsType<TWebResponse>);
     end;
   finally
-    Connection.DB.Connected := False;
-    Connection.Free;
+//    Connection.DB.Connected := False;
+//    Connection.Free;
   end;
 end;
 
