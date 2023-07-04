@@ -52,6 +52,9 @@ type
 
     [DBField('ID_PRODUTO_PRECIFICACAO', True, True, False, NotNull)]
     id_produto_precificacao: Integer;
+
+    [DBField('OBS', True, True, False, Null)]
+    obs: String;
   end;
 
 implementation

@@ -28,6 +28,12 @@ type
 
     [DBField('TIPO', True, True, False, NotNull)]
     tipo: String;
+
+    [DBField('GRUPO', True, True, False, NotNull)]
+    grupo: String;
+
+    [DBField('QTDE_MAX_SELECAO', True, True, False, NotNull)]
+    qtde_max_selecao: Integer;
   end;
 
 implementation

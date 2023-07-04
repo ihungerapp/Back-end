@@ -45,12 +45,15 @@ const
   ' FROM (select *,'+
   ' (SELECT'+
   ' json_build_object(''id_precificacao'', pf.id_precificacao,'+
-  ' ''tipo'', pf.tipo) as precificacao'+
+  ' ''tipo'', pf.tipo,'+
+  ' ''grupo'', pf.grupo,'+
+  ' ''qtde_max_selecao'', pf.qtde_max_selecao) as precificacao'+
   ' FROM'+
   ' "Cadastros".precificacao pf'+
   ' WHERE'+
   ' produto_precificacao.id_precificacao = pf.id_precificacao)'+
-  ' from "Cadastros".produto_precificacao'+
+  ' from "Cadastros".produto_precificacao join "Cadastros".precificacao pf2 using'+
+  ' (id_precificacao) order by pf2.grupo desc, pf2.tipo desc'+
   ' ) as produto_precificacao,'+
   ' "Cadastros".produto produto'+
   ' %s'+
