@@ -37,7 +37,7 @@ const
   ' FROM'+
   ' "Pedidos".pedido_item pi2'+
   ' WHERE'+
-  ' pedido.id_pedido = pi2.id_pedido)'+
+  ' pedido.id_pedido = pi2.id_pedido AND pi2.pedido_item_status = ''Aguardando'')'+
   ' AS pedido_item'+
   ' FROM'+
   ' "Pedidos".pedido pedido'+

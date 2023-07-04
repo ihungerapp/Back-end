@@ -46,8 +46,6 @@ type
 
     [DBField('IMAGEM', True, True, False, Null)]
     imagem: TBytea;
-
-
   end;
 
 implementation
