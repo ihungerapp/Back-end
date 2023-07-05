@@ -51,7 +51,7 @@ type
     pedido_item_status: String;
 
     [DBField('ID_PRODUTO_PRECIFICACAO', True, True, False, NotNull)]
-    id_produto_precificacao: Integer;
+    id_produto_precificacao: String;
 
     [DBField('OBS', True, True, False, Null)]
     obs: String;
