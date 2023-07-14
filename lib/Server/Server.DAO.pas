@@ -248,7 +248,8 @@ begin
           SetParams(Obj, RttiField, RttiAttribute, Params);
         end
         else
-        if (RttiAttribute as DBField).Constraints <> PrimaryKey then
+        if ((RttiAttribute as DBField).Constraints <> PrimaryKey)
+        and (Tipo <> teDelete) then
         begin
           FieldsName := FieldsName + (RttiAttribute as DBField).FieldName;
           if Tipo = teUpdate then
@@ -283,11 +284,6 @@ begin
     for RttiField in RttiType.GetFields do
     begin
       for RttiAttribute in RttiField.GetAttributes do
-//        if RttiAttribute is DBField then
-//          if not Assigned((RttiAttribute as DBField).AutoIncrement) then
-//            if (RttiAttribute as DBField).Constraints <> PrimaryKey then
-//              if (RttiAttribute as DBField).ListSelect then
-
         if (RttiAttribute is DBField)
         and ((RttiAttribute as DBField).Constraints <> PrimaryKey)
         and not Assigned((RttiAttribute as DBField).AutoIncrement) then

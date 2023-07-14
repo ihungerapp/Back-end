@@ -46,6 +46,9 @@ type
 
     [DBField('IMAGEM', True, True, False, Null)]
     imagem: TBytea;
+
+    [DBField('EXIBIR_APP', True, True, False, NotNull)]
+    exibir_app: Boolean;
   end;
 
 implementation
