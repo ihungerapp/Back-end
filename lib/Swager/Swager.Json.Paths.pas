@@ -1,12 +1,4 @@
-﻿{
-  ____________________________________________________________________________
-
-  █░█░█ █ █░░ █▀ █▀█ █▄░█   █░░ █░█ ▀█
-  ▀▄▀▄▀ █ █▄▄ ▄█ █▄█ █░▀█   █▄▄ █▄█ █▄ ©  2023
-  Map paths to swager Json
-  ______________________________________________________________________________
-}
-unit Swager.Json.Paths;
+﻿unit Swager.Json.Paths;
 
 interface
 
@@ -81,20 +73,26 @@ type
     destructor Destroy; override;
   end;
 
+  TParametersSchema = class
+  private
+    FType: String;
+    FFormat: String;
+  published
+    property &Type: string read FType write FType;
+    property Format: string read FFormat write FFormat;
+  end;
+
   TParametersBodyId = class(TParameters)
   private
-
     FIn: string;
     FName: string;
     FRequired: Boolean;
-    FType: string;
+    FSchema: TParametersSchema;
   published
-
     property &In: string read FIn write FIn;
     property Name: string read FName write FName;
     property Required: Boolean read FRequired write FRequired;
-    property &Type: string read FType write FType;
-
+    property Schema: TParametersSchema read FSchema write FSchema;
   public
     constructor Create;
     destructor Destroy; override;
@@ -103,19 +101,16 @@ type
   TParametersHeader = class(TParameters)
   private
     FDescription: string;
-    FExample: string;
     FIn: string;
     FName: string;
     FRequired: Boolean;
-    FType: string;
-
+    FSchema: TParametersSchema;
   published
     property Name: string read FName write FName;
     property &In: string read FIn write FIn;
     property Description: string read FDescription write FDescription;
-    property Example: string read FExample write FExample;
     property Required: Boolean read FRequired write FRequired;
-    property &Type: string read FType write FType;
+    property Schema: TParametersSchema read FSchema write FSchema;
   public
     constructor Create;
     destructor Destroy; override;
@@ -131,11 +126,8 @@ type
     [GenericListReflect]
     FParameters: TObjectList<TParameters>;
     FResponses: TResponses;
-
     [JSONMarshalled(False)]
-
     function GetParameters: TObjectList<TParameters>;
-
   protected
     function GetAsJson: string; override;
   published
@@ -144,7 +136,6 @@ type
     property OperationId: string read FOperationId write FOperationId;
     property Parameters: TObjectList<TParameters> read GetParameters;
     property Responses: TResponses read FResponses;
-
   public
     constructor Create; override;
     destructor Destroy; override;
@@ -186,7 +177,6 @@ type
     FResponses: TResponses;
     [JSONMarshalled(False)]
     function GetParameters: TObjectList<TParameters>;
-
   protected
     function GetAsJson: string; override;
   published
@@ -195,7 +185,6 @@ type
     property OperationId: string read FOperationId write FOperationId;
     property Parameters: TObjectList<TParameters> read GetParameters;
     property Responses: TResponses read FResponses;
-
   public
     constructor Create; override;
     destructor Destroy; override;
@@ -212,9 +201,7 @@ type
     FParameters: TObjectList<TParameters>;
     FResponses: TResponses;
     [JSONMarshalled(False)]
-
     function GetParameters: TObjectList<TParameters>;
-
   protected
     function GetAsJson: string; override;
   published
@@ -223,7 +210,6 @@ type
     property OperationId: string read FOperationId write FOperationId;
     property Parameters: TObjectList<TParameters> read GetParameters;
     property Responses: TResponses read FResponses;
-
   public
     constructor Create(); override;
     destructor Destroy; override;
@@ -248,16 +234,13 @@ type
     FTags: TArray<string>;
     FDescription: string;
     FOperationId: string;
-
     [JSONName('parameters'), JSONMarshalled(False)]
     FParametersArray: TArray<TParameters>;
     [GenericListReflect]
     FParameters: TObjectList<TParameters>;
     FResponses: TResponses;
     [JSONMarshalled(False)]
-
     function GetParameters: TObjectList<TParameters>;
-
   protected
     function GetAsJson: string; override;
   published
@@ -266,7 +249,6 @@ type
     property OperationId: string read FOperationId write FOperationId;
     property Parameters: TObjectList<TParameters> read GetParameters;
     property Responses: TResponses read FResponses;
-
   public
     constructor Create; override;
     destructor Destroy; override;
@@ -338,26 +320,32 @@ constructor TDelete.Create;
 var
   _header: TParametersHeader;
   _body: TParametersBodyId;
+  _schema: TParametersSchema;
 begin
   inherited;
   FResponses := TResponses.Create;
   SetLength(FTags, 1);
   FTags[0] := '$ResourceBase';
-  Description := 'Apagar  $ResourceBase (s)';
+  Description := 'Apagar $ResourceBase';
+
   FParameters := TObjectList<TParameters>.Create;
   _header := TParametersHeader.Create;
   _header.Name := 'x-api-key';
   _header.&In := 'header';
   _header.Description := 'token bearer';
-  _header.Example := _ctToken;
   _header.Required := true;
-  _header.&Type := 'string';
+  _schema := TParametersSchema.Create;
+  _schema.&Type := 'string';
+  _header.Schema := _schema;
+
   FParameters.Add(_header);
   _body := TParametersBodyId.Create;
   _body.&In := 'path';
   _body.Name := 'id';
   _body.Required := true;
-  _body.&Type := 'integer';
+  _schema := TParametersSchema.Create;
+  _schema.&Type := 'integer';
+  _body.Schema := _schema;
 
   FParameters.Add(_body);
   FResponses := TResponses.Create;
@@ -395,6 +383,7 @@ var
   _header: TParametersHeader;
   _bodyId: TParametersBodyId;
   _body: TParametersBody;
+  _schema: TParametersSchema;
 begin
   inherited;
   FResponses := TResponses.Create;
@@ -402,19 +391,24 @@ begin
   FTags[0] := '$ResourceBase';
   Description := 'Atualizar  $ResourceBase (s)';
   FParameters := TObjectList<TParameters>.Create;
+
   _header := TParametersHeader.Create;
   _header.Name := 'x-api-key';
   _header.&In := 'header';
   _header.Description := 'token bearer';
-  _header.Example := _ctToken;
   _header.Required := true;
-  _header.&Type := 'string';
+  _schema := TParametersSchema.Create;
+  _schema.&Type := 'string';
+  _header.Schema := _schema;
+
   FParameters.Add(_header);
   _bodyId := TParametersBodyId.Create;
   _bodyId.&In := 'path';
   _bodyId.Name := 'id';
   _bodyId.Required := true;
-  _bodyId.&Type := 'integer';
+  _schema := TParametersSchema.Create;
+  _schema.&Type := 'integer';
+  _bodyId.Schema := _schema;
   FParameters.Add(_bodyId);
 
   _body := TParametersBody.Create;
@@ -459,27 +453,27 @@ end;
 constructor TGet.Create();
 var
   _header: TParametersHeader;
-
+  _schema: TParametersSchema;
 begin
   inherited;
   FResponses := TResponses.Create;
   SetLength(FTags, 1);
   FTags[0] := '$ResourceBase';
-  Description := 'Rtornar lista de  $ResourceBase (s)';
+  Description := 'Retorna lista de $ResourceBase';
   FParameters := TObjectList<TParameters>.Create;
   _header := TParametersHeader.Create;
-  _header.Name := 'x-api-key';
-  _header.&In := 'header';
-  _header.Description := 'token bearer';
-  _header.Example := _ctToken;
+  _header.Name := 'id';
+  _header.&In := 'path';
+  _header.Description := 'Retorna por id';
   _header.Required := true;
-  _header.&Type := 'string';
+  _schema := TParametersSchema.Create;
+  _schema.&Type := 'integer';
+  _schema.Format := 'int64';
+  _header.Schema := _schema;
   FParameters.Add(_header);
 
   FResponses.F_200.FRef := '/resources/ResponseConsulta.json#/200';
-
   FResponses.F_500.FRef := '/resources/ResponseConsulta.json#/500';
-
 end;
 
 destructor TGet.Destroy;
@@ -505,6 +499,7 @@ end;
 constructor TResourceBaseId.Create;
 var
   _bodyId: TParametersBodyId;
+  _schema: TParametersSchema;
 begin
   inherited;
   FGet := TGet.Create;
@@ -514,7 +509,9 @@ begin
     _bodyId.&In := 'path';
     _bodyId.Name := 'id';
     _bodyId.Required := true;
-    _bodyId.&Type := 'integer';
+    _schema := TParametersSchema.Create;
+    _schema.&Type := 'integer';
+    _bodyId.Schema := _schema;
     FGet.FParameters.Add(_bodyId);
   end;
   FPut := TPut.Create;
@@ -535,6 +532,7 @@ constructor TPost.Create;
 var
   _header: TParametersHeader;
   _body: TParametersBody;
+  _schema: TParametersSchema;
 begin
   inherited;
   FResponses := TResponses.Create;
@@ -546,9 +544,11 @@ begin
   _header.Name := 'x-api-key';
   _header.&In := 'header';
   _header.Description := 'token bearer';
-  _header.Example := _ctToken;
   _header.Required := true;
-  _header.&Type := 'string';
+  _schema := TParametersSchema.Create;
+  _schema.&Type := 'string';
+  _header.Schema := _schema;
+
   FParameters.Add(_header);
   _body := TParametersBody.Create;
   _body.&In := 'body';

@@ -134,7 +134,6 @@ procedure TSwagerAPI.setSchemaProps(sFieldType, sDescription, sSize, sName,
 var
   Obj: TjsonObject;
   SwagerDataType: string;
-
 begin
   SwagerDataType := LowerCase(sFieldType);
 
@@ -182,7 +181,6 @@ begin
     FAngularModel.FieldsList.Add(sName + '?:' + SwagerDataType)
   else
     FAngularModel.FieldsList.Add(sName + ':' + SwagerDataType)
-
 end;
 
 procedure TSwagerAPI.ParseClass(AClassName: String);

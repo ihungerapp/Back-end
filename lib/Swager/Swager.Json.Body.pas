@@ -74,7 +74,7 @@ type
     constructor Create;
   end;
 
-  TsecurityDTO = class
+  TSecurity = class
   private
     FBearerAuth: TArray<string>;
   published
@@ -115,9 +115,13 @@ type
     [GenericListReflect]
     FServers: TObjectList<TServer>;
     Fcomponents: TcomponentsDTO;
-    Fsecurity: TsecurityDTO;
+    [JSONName('security'), JSONMarshalled(False)]
+    FSecuritysArray: TArray<TSecurity>;
+    [GenericListReflect]
+    FSecurity: TObjectList<TSecurity>;
     Fpaths: Tpaths;
     Fdefinitions: Tdefinitions;
+    function GetSecuritys: TObjectList<TSecurity>;
     function GetServers: TObjectList<TServer>;
   protected
     function GetAsJson: string; override;
@@ -126,7 +130,7 @@ type
     property info: TinfoDTO read Finfo write Finfo;
     property servers: TObjectList<TServer> read GetServers;
     property components: TcomponentsDTO read Fcomponents write Fcomponents;
-    property security: TsecurityDTO read Fsecurity write Fsecurity;
+    property Security: TObjectList<TSecurity> read GetSecuritys;
     property paths: Tpaths read Fpaths write Fpaths;
     property definitions: Tdefinitions read Fdefinitions write Fdefinitions;
   public
@@ -138,14 +142,18 @@ implementation
 
 { TRootDTO }
 constructor TRootDTO.Create;
+var
+  security: TSecurity;
 begin
   inherited;
-  Fopenapi := '3.0.3';
-  Finfo := TinfoDTO.Create;
-  Fcomponents := TcomponentsDTO.Create;
-  Fsecurity := TsecurityDTO.Create;
-  Fpaths := Tpaths.Create;
-  Fdefinitions := Tdefinitions.Create;
+  FOpenapi := '3.0.3';
+  FInfo := TinfoDTO.Create;
+  FComponents := TcomponentsDTO.Create;
+  FPaths := Tpaths.Create;
+  FDefinitions := Tdefinitions.Create;
+  security := TSecurity.Create;
+  FSecurity := TObjectList<TSecurity>.Create;
+  FSecurity.Add(security);
 end;
 
 destructor TRootDTO.Destroy;
@@ -157,12 +165,18 @@ end;
 function TRootDTO.GetAsJson: string;
 begin
   RefreshArray<TServer>(FServers, FServersArray);
+  RefreshArray<TSecurity>(FSecurity, FSecuritysArray);
   Result := inherited;
 end;
 
 function TRootDTO.GetServers: TObjectList<TServer>;
 begin
   Result := ObjectList<TServer>(FServers, FServersArray);
+end;
+
+function TRootDTO.GetSecuritys: TObjectList<TSecurity>;
+begin
+  Result := ObjectList<TSecurity>(FSecurity, FSecuritysArray);
 end;
 
 { TcomponentsDTO }

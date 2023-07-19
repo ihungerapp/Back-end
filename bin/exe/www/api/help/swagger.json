@@ -3,19 +3,21 @@
 	"info": {
 		"version": "1.0.0",
 		"title": "HungerApp API v1.0.0",
-		"description": "Documenta\u00E7ao do projeto",
-		"termsOfService": "http:\/\/www.apache.org\/licenses\/LICENSE-2.0.txt",
+		"description": "Documentaçao do projeto",
+		"termsOfService": "http://www.apache.org/licenses/LICENSE-2.0.txt",
 		"contact": {
 			"email": "matheus@rmti.tec.br"
 		},
 		"license": {
 			"name": "Apache License - Version 2.0, January 2004",
-			"url": "http:\/\/www.apache.org\/licenses\/LICENSE-2.0"
+			"url": "http://www.apache.org/licenses/LICENSE-2.0"
 		}
 	},
-	"servers": [{
-		"url": "http:\/\/rmti.tec.br:8081\/v1"
-	}],
+	"servers": [
+		{
+			"url": "http://rmti.tec.br:8081/v1"
+		}
+	],
 	"components": {
 		"securitySchemes": {
 			"bearerAuth": {
@@ -25,1386 +27,1828 @@
 			}
 		}
 	},
-	"security": {
-		"bearerAuth": []
-	},
+	"security": [
+		{
+			"bearerAuth": []
+		}
+	],
 	"paths": {
-		"\/pedidoitem": {
+		"/pedidoitem": {
 			"get": {
-				"tags": ["pedidoitem"],
-				"description": "Rtornar lista de  pedidoitem (s)",
+				"tags": [
+					"pedidoitem"
+				],
+				"description": "Retorna lista de pedidoitem",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"post": {
-				"tags": ["pedidoitem"],
+				"tags": [
+					"pedidoitem"
+				],
 				"description": "Incluir novo  pedidoitem (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/pedidoitem"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/pedidoitem"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/pedidoitem\/{id}": {
+		"/pedidoitem/{id}": {
 			"delete": {
-				"tags": ["pedidoitem"],
-				"description": "Apagar  pedidoitem (s)",
+				"tags": [
+					"pedidoitem"
+				],
+				"description": "Apagar pedidoitem",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			},
 			"get": {
-				"tags": ["pedidoitem"],
-				"description": "Rtornar lista de  pedidoitem (s)",
+				"tags": [
+					"pedidoitem"
+				],
+				"description": "Retorna lista de pedidoitem",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"put": {
-				"tags": ["pedidoitem"],
+				"tags": [
+					"pedidoitem"
+				],
 				"description": "Atualizar  pedidoitem (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/pedidoitem"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/pedidoitem"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/usuario": {
+		"/usuario": {
 			"get": {
-				"tags": ["usuario"],
-				"description": "Rtornar lista de  usuario (s)",
+				"tags": [
+					"usuario"
+				],
+				"description": "Retorna lista de usuario",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"post": {
-				"tags": ["usuario"],
+				"tags": [
+					"usuario"
+				],
 				"description": "Incluir novo  usuario (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/usuario"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/usuario"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/usuario\/{id}": {
+		"/usuario/{id}": {
 			"delete": {
-				"tags": ["usuario"],
-				"description": "Apagar  usuario (s)",
+				"tags": [
+					"usuario"
+				],
+				"description": "Apagar usuario",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			},
 			"get": {
-				"tags": ["usuario"],
-				"description": "Rtornar lista de  usuario (s)",
+				"tags": [
+					"usuario"
+				],
+				"description": "Retorna lista de usuario",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"put": {
-				"tags": ["usuario"],
+				"tags": [
+					"usuario"
+				],
 				"description": "Atualizar  usuario (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/usuario"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/usuario"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/produto": {
+		"/produto": {
 			"get": {
-				"tags": ["produto"],
-				"description": "Rtornar lista de  produto (s)",
+				"tags": [
+					"produto"
+				],
+				"description": "Retorna lista de produto",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"post": {
-				"tags": ["produto"],
+				"tags": [
+					"produto"
+				],
 				"description": "Incluir novo  produto (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/produto"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/produto"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/produto\/{id}": {
+		"/produto/{id}": {
 			"delete": {
-				"tags": ["produto"],
-				"description": "Apagar  produto (s)",
+				"tags": [
+					"produto"
+				],
+				"description": "Apagar produto",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			},
 			"get": {
-				"tags": ["produto"],
-				"description": "Rtornar lista de  produto (s)",
+				"tags": [
+					"produto"
+				],
+				"description": "Retorna lista de produto",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"put": {
-				"tags": ["produto"],
+				"tags": [
+					"produto"
+				],
 				"description": "Atualizar  produto (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/produto"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/produto"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/precificacao": {
+		"/precificacao": {
 			"get": {
-				"tags": ["precificacao"],
-				"description": "Rtornar lista de  precificacao (s)",
+				"tags": [
+					"precificacao"
+				],
+				"description": "Retorna lista de precificacao",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"post": {
-				"tags": ["precificacao"],
+				"tags": [
+					"precificacao"
+				],
 				"description": "Incluir novo  precificacao (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/precificacao"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/precificacao"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/precificacao\/{id}": {
+		"/precificacao/{id}": {
 			"delete": {
-				"tags": ["precificacao"],
-				"description": "Apagar  precificacao (s)",
+				"tags": [
+					"precificacao"
+				],
+				"description": "Apagar precificacao",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			},
 			"get": {
-				"tags": ["precificacao"],
-				"description": "Rtornar lista de  precificacao (s)",
+				"tags": [
+					"precificacao"
+				],
+				"description": "Retorna lista de precificacao",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"put": {
-				"tags": ["precificacao"],
+				"tags": [
+					"precificacao"
+				],
 				"description": "Atualizar  precificacao (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/precificacao"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/precificacao"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/pessoa": {
+		"/pessoa": {
 			"get": {
-				"tags": ["pessoa"],
-				"description": "Rtornar lista de  pessoa (s)",
+				"tags": [
+					"pessoa"
+				],
+				"description": "Retorna lista de pessoa",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"post": {
-				"tags": ["pessoa"],
+				"tags": [
+					"pessoa"
+				],
 				"description": "Incluir novo  pessoa (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/pessoa"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/pessoa"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/pessoa\/{id}": {
+		"/pessoa/{id}": {
 			"delete": {
-				"tags": ["pessoa"],
-				"description": "Apagar  pessoa (s)",
+				"tags": [
+					"pessoa"
+				],
+				"description": "Apagar pessoa",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			},
 			"get": {
-				"tags": ["pessoa"],
-				"description": "Rtornar lista de  pessoa (s)",
+				"tags": [
+					"pessoa"
+				],
+				"description": "Retorna lista de pessoa",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"put": {
-				"tags": ["pessoa"],
+				"tags": [
+					"pessoa"
+				],
 				"description": "Atualizar  pessoa (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/pessoa"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/pessoa"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/cidade": {
+		"/cidade": {
 			"get": {
-				"tags": ["cidade"],
-				"description": "Rtornar lista de  cidade (s)",
+				"tags": [
+					"cidade"
+				],
+				"description": "Retorna lista de cidade",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"post": {
-				"tags": ["cidade"],
+				"tags": [
+					"cidade"
+				],
 				"description": "Incluir novo  cidade (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/cidade"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/cidade"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/cidade\/{id}": {
+		"/cidade/{id}": {
 			"delete": {
-				"tags": ["cidade"],
-				"description": "Apagar  cidade (s)",
+				"tags": [
+					"cidade"
+				],
+				"description": "Apagar cidade",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			},
 			"get": {
-				"tags": ["cidade"],
-				"description": "Rtornar lista de  cidade (s)",
+				"tags": [
+					"cidade"
+				],
+				"description": "Retorna lista de cidade",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"put": {
-				"tags": ["cidade"],
+				"tags": [
+					"cidade"
+				],
 				"description": "Atualizar  cidade (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/cidade"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/cidade"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/pedido": {
+		"/pedido": {
 			"get": {
-				"tags": ["pedido"],
-				"description": "Rtornar lista de  pedido (s)",
+				"tags": [
+					"pedido"
+				],
+				"description": "Retorna lista de pedido",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"post": {
-				"tags": ["pedido"],
+				"tags": [
+					"pedido"
+				],
 				"description": "Incluir novo  pedido (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/pedido"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/pedido"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/pedido\/{id}": {
+		"/pedido/{id}": {
 			"delete": {
-				"tags": ["pedido"],
-				"description": "Apagar  pedido (s)",
+				"tags": [
+					"pedido"
+				],
+				"description": "Apagar pedido",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			},
 			"get": {
-				"tags": ["pedido"],
-				"description": "Rtornar lista de  pedido (s)",
+				"tags": [
+					"pedido"
+				],
+				"description": "Retorna lista de pedido",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"put": {
-				"tags": ["pedido"],
+				"tags": [
+					"pedido"
+				],
 				"description": "Atualizar  pedido (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/pedido"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/pedido"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/produto_precificacao": {
+		"/produto_precificacao": {
 			"get": {
-				"tags": ["produto_precificacao"],
-				"description": "Rtornar lista de  produto_precificacao (s)",
+				"tags": [
+					"produto_precificacao"
+				],
+				"description": "Retorna lista de produto_precificacao",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"post": {
-				"tags": ["produto_precificacao"],
+				"tags": [
+					"produto_precificacao"
+				],
 				"description": "Incluir novo  produto_precificacao (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/produto_precificacao"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/produto_precificacao"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/produto_precificacao\/{id}": {
+		"/produto_precificacao/{id}": {
 			"delete": {
-				"tags": ["produto_precificacao"],
-				"description": "Apagar  produto_precificacao (s)",
+				"tags": [
+					"produto_precificacao"
+				],
+				"description": "Apagar produto_precificacao",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			},
 			"get": {
-				"tags": ["produto_precificacao"],
-				"description": "Rtornar lista de  produto_precificacao (s)",
+				"tags": [
+					"produto_precificacao"
+				],
+				"description": "Retorna lista de produto_precificacao",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"put": {
-				"tags": ["produto_precificacao"],
+				"tags": [
+					"produto_precificacao"
+				],
 				"description": "Atualizar  produto_precificacao (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/produto_precificacao"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/produto_precificacao"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/grupo": {
+		"/grupo": {
 			"get": {
-				"tags": ["grupo"],
-				"description": "Rtornar lista de  grupo (s)",
+				"tags": [
+					"grupo"
+				],
+				"description": "Retorna lista de grupo",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"post": {
-				"tags": ["grupo"],
+				"tags": [
+					"grupo"
+				],
 				"description": "Incluir novo  grupo (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/grupo"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/grupo"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/grupo\/{id}": {
+		"/grupo/{id}": {
 			"delete": {
-				"tags": ["grupo"],
-				"description": "Apagar  grupo (s)",
+				"tags": [
+					"grupo"
+				],
+				"description": "Apagar grupo",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			},
 			"get": {
-				"tags": ["grupo"],
-				"description": "Rtornar lista de  grupo (s)",
+				"tags": [
+					"grupo"
+				],
+				"description": "Retorna lista de grupo",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"put": {
-				"tags": ["grupo"],
+				"tags": [
+					"grupo"
+				],
 				"description": "Atualizar  grupo (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/grupo"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/grupo"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/mesa": {
+		"/mesa": {
 			"get": {
-				"tags": ["mesa"],
-				"description": "Rtornar lista de  mesa (s)",
+				"tags": [
+					"mesa"
+				],
+				"description": "Retorna lista de mesa",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"post": {
-				"tags": ["mesa"],
+				"tags": [
+					"mesa"
+				],
 				"description": "Incluir novo  mesa (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/mesa"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/mesa"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
 		},
-		"\/mesa\/{id}": {
+		"/mesa/{id}": {
 			"delete": {
-				"tags": ["mesa"],
-				"description": "Apagar  mesa (s)",
+				"tags": [
+					"mesa"
+				],
+				"description": "Apagar mesa",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			},
 			"get": {
-				"tags": ["mesa"],
-				"description": "Rtornar lista de  mesa (s)",
+				"tags": [
+					"mesa"
+				],
+				"description": "Retorna lista de mesa",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}],
+				"parameters": [
+					{
+						"description": "Retorna por id",
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": "int64"
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					}
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+						"$ref": "/resources/ResponseConsulta.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+						"$ref": "/resources/ResponseConsulta.json#/500"
 					}
 				}
 			},
 			"put": {
-				"tags": ["mesa"],
+				"tags": [
+					"mesa"
+				],
 				"description": "Atualizar  mesa (s)",
 				"operationId": "",
-				"parameters": [{
-					"description": "token bearer",
-					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
-					"in": "header",
-					"name": "x-api-key",
-					"required": true,
-					"type": "string"
-				}, {
-					"in": "path",
-					"name": "id",
-					"required": true,
-					"type": "integer"
-				}, {
-					"in": "body",
-					"name": "id",
-					"required": true,
-					"schema": {
-						"$ref": "#\/definitions\/mesa"
+				"parameters": [
+					{
+						"description": "token bearer",
+						"in": "header",
+						"name": "x-api-key",
+						"required": true,
+						"schema": {
+							"type": "string",
+							"format": ""
+						}
+					},
+					{
+						"in": "path",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"type": "integer",
+							"format": ""
+						}
+					},
+					{
+						"in": "body",
+						"name": "id",
+						"required": true,
+						"schema": {
+							"$ref": "#/definitions/mesa"
+						}
 					}
-				}],
+				],
 				"responses": {
 					"200": {
-						"$ref": "\/resources\/ResponseBase.json#\/200"
+						"$ref": "/resources/ResponseBase.json#/200"
 					},
 					"204": {
-						"$ref": "\/resources\/ResponseBase.json#\/500"
+						"$ref": "/resources/ResponseBase.json#/500"
 					}
 				}
 			}
@@ -1414,7 +1858,9 @@
 		"pedidoitem": {
 			"type": "object",
 			"description": "Dados pedidoitem",
-			"required": ["id_pedido_item"],
+			"required": [
+				"id_pedido_item"
+			],
 			"properties": {
 				"id_pedido_item": {
 					"type": "integer",
@@ -1449,13 +1895,13 @@
 				"data_hora_emissao": {
 					"type": "date",
 					"description": "Campo data_hora_emissao",
-					"pattern": "\/([0-9]{4})-(?:[0-9]{2})-([0-9]{2})\/",
+					"pattern": "/([0-9]{4})-(?:[0-9]{2})-([0-9]{2})/",
 					"example": "2023-01-17"
 				},
 				"data_hora_status": {
 					"type": "date",
 					"description": "Campo data_hora_status",
-					"pattern": "\/([0-9]{4})-(?:[0-9]{2})-([0-9]{2})\/",
+					"pattern": "/([0-9]{4})-(?:[0-9]{2})-([0-9]{2})/",
 					"example": "2023-01-17"
 				},
 				"pedido_item_status": {
@@ -1475,7 +1921,9 @@
 		"usuario": {
 			"type": "object",
 			"description": "Dados usuario",
-			"required": ["id_usuario"],
+			"required": [
+				"id_usuario"
+			],
 			"properties": {
 				"id_usuario": {
 					"type": "integer",
@@ -1496,7 +1944,9 @@
 		"produto": {
 			"type": "object",
 			"description": "Dados produto",
-			"required": ["id_produto"],
+			"required": [
+				"id_produto"
+			],
 			"properties": {
 				"id_produto": {
 					"type": "integer",
@@ -1543,7 +1993,9 @@
 		"precificacao": {
 			"type": "object",
 			"description": "Dados precificacao",
-			"required": ["id_precificacao"],
+			"required": [
+				"id_precificacao"
+			],
 			"properties": {
 				"id_precificacao": {
 					"type": "integer",
@@ -1570,7 +2022,9 @@
 		"pessoa": {
 			"type": "object",
 			"description": "Dados pessoa",
-			"required": ["id_pessoa"],
+			"required": [
+				"id_pessoa"
+			],
 			"properties": {
 				"id_pessoa": {
 					"type": "integer",
@@ -1629,7 +2083,9 @@
 		"cidade": {
 			"type": "object",
 			"description": "Dados cidade",
-			"required": ["id_cidade"],
+			"required": [
+				"id_cidade"
+			],
 			"properties": {
 				"id_cidade": {
 					"type": "integer",
@@ -1656,7 +2112,9 @@
 		"pedido": {
 			"type": "object",
 			"description": "Dados pedido",
-			"required": ["id_pedido"],
+			"required": [
+				"id_pedido"
+			],
 			"properties": {
 				"id_pedido": {
 					"type": "integer",
@@ -1701,13 +2159,13 @@
 				"data_hora_abertura": {
 					"type": "date",
 					"description": "Campo data_hora_abertura",
-					"pattern": "\/([0-9]{4})-(?:[0-9]{2})-([0-9]{2})\/",
+					"pattern": "/([0-9]{4})-(?:[0-9]{2})-([0-9]{2})/",
 					"example": "2023-01-17"
 				},
 				"data_hora_finalizacao": {
 					"type": "date",
 					"description": "Campo data_hora_finalizacao",
-					"pattern": "\/([0-9]{4})-(?:[0-9]{2})-([0-9]{2})\/",
+					"pattern": "/([0-9]{4})-(?:[0-9]{2})-([0-9]{2})/",
 					"example": "2023-01-17"
 				},
 				"pedido_status": {
@@ -1723,7 +2181,9 @@
 		"produto_precificacao": {
 			"type": "object",
 			"description": "Dados produto_precificacao",
-			"required": ["id_produto_precificacao"],
+			"required": [
+				"id_produto_precificacao"
+			],
 			"properties": {
 				"id_produto_precificacao": {
 					"type": "integer",
@@ -1752,7 +2212,9 @@
 		"grupo": {
 			"type": "object",
 			"description": "Dados grupo",
-			"required": ["id_grupo"],
+			"required": [
+				"id_grupo"
+			],
 			"properties": {
 				"id_grupo": {
 					"type": "integer",
@@ -1769,7 +2231,9 @@
 		"mesa": {
 			"type": "object",
 			"description": "Dados mesa",
-			"required": ["id_mesa"],
+			"required": [
+				"id_mesa"
+			],
 			"properties": {
 				"id_mesa": {
 					"type": "integer",
