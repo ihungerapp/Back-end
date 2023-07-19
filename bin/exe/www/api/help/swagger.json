@@ -1,0 +1,1791 @@
+{
+	"openapi": "3.0.3",
+	"info": {
+		"version": "1.0.0",
+		"title": "HungerApp API v1.0.0",
+		"description": "Documenta\u00E7ao do projeto",
+		"termsOfService": "http:\/\/www.apache.org\/licenses\/LICENSE-2.0.txt",
+		"contact": {
+			"email": "matheus@rmti.tec.br"
+		},
+		"license": {
+			"name": "Apache License - Version 2.0, January 2004",
+			"url": "http:\/\/www.apache.org\/licenses\/LICENSE-2.0"
+		}
+	},
+	"servers": [{
+		"url": "http:\/\/rmti.tec.br:8081\/v1"
+	}],
+	"components": {
+		"securitySchemes": {
+			"bearerAuth": {
+				"type": "apiKey",
+				"in": "header",
+				"name": "x-api-key"
+			}
+		}
+	},
+	"security": {
+		"bearerAuth": []
+	},
+	"paths": {
+		"\/pedidoitem": {
+			"get": {
+				"tags": ["pedidoitem"],
+				"description": "Rtornar lista de  pedidoitem (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"post": {
+				"tags": ["pedidoitem"],
+				"description": "Incluir novo  pedidoitem (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/pedidoitem"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/pedidoitem\/{id}": {
+			"delete": {
+				"tags": ["pedidoitem"],
+				"description": "Apagar  pedidoitem (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			},
+			"get": {
+				"tags": ["pedidoitem"],
+				"description": "Rtornar lista de  pedidoitem (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"put": {
+				"tags": ["pedidoitem"],
+				"description": "Atualizar  pedidoitem (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/pedidoitem"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/usuario": {
+			"get": {
+				"tags": ["usuario"],
+				"description": "Rtornar lista de  usuario (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"post": {
+				"tags": ["usuario"],
+				"description": "Incluir novo  usuario (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/usuario"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/usuario\/{id}": {
+			"delete": {
+				"tags": ["usuario"],
+				"description": "Apagar  usuario (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			},
+			"get": {
+				"tags": ["usuario"],
+				"description": "Rtornar lista de  usuario (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"put": {
+				"tags": ["usuario"],
+				"description": "Atualizar  usuario (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/usuario"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/produto": {
+			"get": {
+				"tags": ["produto"],
+				"description": "Rtornar lista de  produto (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"post": {
+				"tags": ["produto"],
+				"description": "Incluir novo  produto (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/produto"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/produto\/{id}": {
+			"delete": {
+				"tags": ["produto"],
+				"description": "Apagar  produto (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			},
+			"get": {
+				"tags": ["produto"],
+				"description": "Rtornar lista de  produto (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"put": {
+				"tags": ["produto"],
+				"description": "Atualizar  produto (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/produto"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/precificacao": {
+			"get": {
+				"tags": ["precificacao"],
+				"description": "Rtornar lista de  precificacao (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"post": {
+				"tags": ["precificacao"],
+				"description": "Incluir novo  precificacao (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/precificacao"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/precificacao\/{id}": {
+			"delete": {
+				"tags": ["precificacao"],
+				"description": "Apagar  precificacao (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			},
+			"get": {
+				"tags": ["precificacao"],
+				"description": "Rtornar lista de  precificacao (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"put": {
+				"tags": ["precificacao"],
+				"description": "Atualizar  precificacao (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/precificacao"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/pessoa": {
+			"get": {
+				"tags": ["pessoa"],
+				"description": "Rtornar lista de  pessoa (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"post": {
+				"tags": ["pessoa"],
+				"description": "Incluir novo  pessoa (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/pessoa"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/pessoa\/{id}": {
+			"delete": {
+				"tags": ["pessoa"],
+				"description": "Apagar  pessoa (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			},
+			"get": {
+				"tags": ["pessoa"],
+				"description": "Rtornar lista de  pessoa (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"put": {
+				"tags": ["pessoa"],
+				"description": "Atualizar  pessoa (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/pessoa"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/cidade": {
+			"get": {
+				"tags": ["cidade"],
+				"description": "Rtornar lista de  cidade (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"post": {
+				"tags": ["cidade"],
+				"description": "Incluir novo  cidade (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/cidade"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/cidade\/{id}": {
+			"delete": {
+				"tags": ["cidade"],
+				"description": "Apagar  cidade (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			},
+			"get": {
+				"tags": ["cidade"],
+				"description": "Rtornar lista de  cidade (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"put": {
+				"tags": ["cidade"],
+				"description": "Atualizar  cidade (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/cidade"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/pedido": {
+			"get": {
+				"tags": ["pedido"],
+				"description": "Rtornar lista de  pedido (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"post": {
+				"tags": ["pedido"],
+				"description": "Incluir novo  pedido (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/pedido"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/pedido\/{id}": {
+			"delete": {
+				"tags": ["pedido"],
+				"description": "Apagar  pedido (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			},
+			"get": {
+				"tags": ["pedido"],
+				"description": "Rtornar lista de  pedido (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"put": {
+				"tags": ["pedido"],
+				"description": "Atualizar  pedido (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/pedido"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/produto_precificacao": {
+			"get": {
+				"tags": ["produto_precificacao"],
+				"description": "Rtornar lista de  produto_precificacao (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"post": {
+				"tags": ["produto_precificacao"],
+				"description": "Incluir novo  produto_precificacao (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/produto_precificacao"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/produto_precificacao\/{id}": {
+			"delete": {
+				"tags": ["produto_precificacao"],
+				"description": "Apagar  produto_precificacao (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			},
+			"get": {
+				"tags": ["produto_precificacao"],
+				"description": "Rtornar lista de  produto_precificacao (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"put": {
+				"tags": ["produto_precificacao"],
+				"description": "Atualizar  produto_precificacao (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/produto_precificacao"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/grupo": {
+			"get": {
+				"tags": ["grupo"],
+				"description": "Rtornar lista de  grupo (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"post": {
+				"tags": ["grupo"],
+				"description": "Incluir novo  grupo (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/grupo"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/grupo\/{id}": {
+			"delete": {
+				"tags": ["grupo"],
+				"description": "Apagar  grupo (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			},
+			"get": {
+				"tags": ["grupo"],
+				"description": "Rtornar lista de  grupo (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"put": {
+				"tags": ["grupo"],
+				"description": "Atualizar  grupo (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/grupo"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/mesa": {
+			"get": {
+				"tags": ["mesa"],
+				"description": "Rtornar lista de  mesa (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"post": {
+				"tags": ["mesa"],
+				"description": "Incluir novo  mesa (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/mesa"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		},
+		"\/mesa\/{id}": {
+			"delete": {
+				"tags": ["mesa"],
+				"description": "Apagar  mesa (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			},
+			"get": {
+				"tags": ["mesa"],
+				"description": "Rtornar lista de  mesa (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseConsulta.json#\/500"
+					}
+				}
+			},
+			"put": {
+				"tags": ["mesa"],
+				"description": "Atualizar  mesa (s)",
+				"operationId": "",
+				"parameters": [{
+					"description": "token bearer",
+					"example": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbkB3a3RlY2hub2xvZ3kuY29tLmJyIiwiaWF0IjoxODkzNDY2ODAwLCJjdXN0b21lciI6IiJ9.lti3M5epV7aEnQLncX6gy4dges02XSk6oSuBqpTSmb8",
+					"in": "header",
+					"name": "x-api-key",
+					"required": true,
+					"type": "string"
+				}, {
+					"in": "path",
+					"name": "id",
+					"required": true,
+					"type": "integer"
+				}, {
+					"in": "body",
+					"name": "id",
+					"required": true,
+					"schema": {
+						"$ref": "#\/definitions\/mesa"
+					}
+				}],
+				"responses": {
+					"200": {
+						"$ref": "\/resources\/ResponseBase.json#\/200"
+					},
+					"204": {
+						"$ref": "\/resources\/ResponseBase.json#\/500"
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"pedidoitem": {
+			"type": "object",
+			"description": "Dados pedidoitem",
+			"required": ["id_pedido_item"],
+			"properties": {
+				"id_pedido_item": {
+					"type": "integer",
+					"description": "Campo id_pedido_item",
+					"format": "int64",
+					"example": "1"
+				},
+				"id_pedido": {
+					"type": "integer",
+					"description": "Campo id_pedido",
+					"format": "int64",
+					"example": "1"
+				},
+				"id_produto": {
+					"type": "integer",
+					"description": "Campo id_produto",
+					"format": "int64",
+					"example": "1"
+				},
+				"qtde": {
+					"type": "number",
+					"description": "Campo qtde"
+				},
+				"valor_unitario": {
+					"type": "number",
+					"description": "Campo valor_unitario"
+				},
+				"valor_total": {
+					"type": "number",
+					"description": "Campo valor_total"
+				},
+				"data_hora_emissao": {
+					"type": "date",
+					"description": "Campo data_hora_emissao",
+					"pattern": "\/([0-9]{4})-(?:[0-9]{2})-([0-9]{2})\/",
+					"example": "2023-01-17"
+				},
+				"data_hora_status": {
+					"type": "date",
+					"description": "Campo data_hora_status",
+					"pattern": "\/([0-9]{4})-(?:[0-9]{2})-([0-9]{2})\/",
+					"example": "2023-01-17"
+				},
+				"pedido_item_status": {
+					"type": "string",
+					"description": "Campo pedido_item_status"
+				},
+				"id_produto_precificacao": {
+					"type": "string",
+					"description": "Campo id_produto_precificacao"
+				},
+				"obs": {
+					"type": "string",
+					"description": "Campo obs"
+				}
+			}
+		},
+		"usuario": {
+			"type": "object",
+			"description": "Dados usuario",
+			"required": ["id_usuario"],
+			"properties": {
+				"id_usuario": {
+					"type": "integer",
+					"description": "Campo id_usuario",
+					"format": "int64",
+					"example": "1"
+				},
+				"nome_usuario": {
+					"type": "string",
+					"description": "Campo nome_usuario"
+				},
+				"senha": {
+					"type": "string",
+					"description": "Campo senha"
+				}
+			}
+		},
+		"produto": {
+			"type": "object",
+			"description": "Dados produto",
+			"required": ["id_produto"],
+			"properties": {
+				"id_produto": {
+					"type": "integer",
+					"description": "Campo id_produto",
+					"format": "int64",
+					"example": "1"
+				},
+				"descricao": {
+					"type": "string",
+					"description": "Campo descricao"
+				},
+				"complemento": {
+					"type": "string",
+					"description": "Campo complemento"
+				},
+				"valor_inicial": {
+					"type": "number",
+					"description": "Campo valor_inicial"
+				},
+				"valor_promocao": {
+					"type": "number",
+					"description": "Campo valor_promocao"
+				},
+				"promocao_do_dia": {
+					"type": "boolean",
+					"description": "Campo promocao_do_dia"
+				},
+				"id_grupo": {
+					"type": "integer",
+					"description": "Campo id_grupo",
+					"format": "int64",
+					"example": "1"
+				},
+				"imagem": {
+					"type": "byte",
+					"description": "Campo imagem"
+				},
+				"exibir_app": {
+					"type": "boolean",
+					"description": "Campo exibir_app"
+				}
+			}
+		},
+		"precificacao": {
+			"type": "object",
+			"description": "Dados precificacao",
+			"required": ["id_precificacao"],
+			"properties": {
+				"id_precificacao": {
+					"type": "integer",
+					"description": "Campo id_precificacao",
+					"format": "int64",
+					"example": "1"
+				},
+				"tipo": {
+					"type": "string",
+					"description": "Campo tipo"
+				},
+				"grupo": {
+					"type": "string",
+					"description": "Campo grupo"
+				},
+				"qtde_max_selecao": {
+					"type": "integer",
+					"description": "Campo qtde_max_selecao",
+					"format": "int64",
+					"example": "1"
+				}
+			}
+		},
+		"pessoa": {
+			"type": "object",
+			"description": "Dados pessoa",
+			"required": ["id_pessoa"],
+			"properties": {
+				"id_pessoa": {
+					"type": "integer",
+					"description": "Campo id_pessoa",
+					"format": "int64",
+					"example": "1"
+				},
+				"nome": {
+					"type": "string",
+					"description": "Campo nome"
+				},
+				"cpf_cnpj": {
+					"type": "string",
+					"description": "Campo cpf_cnpj"
+				},
+				"logradouro": {
+					"type": "string",
+					"description": "Campo logradouro"
+				},
+				"numero": {
+					"type": "string",
+					"description": "Campo numero"
+				},
+				"complemento": {
+					"type": "string",
+					"description": "Campo complemento"
+				},
+				"bairro": {
+					"type": "string",
+					"description": "Campo bairro"
+				},
+				"cep": {
+					"type": "string",
+					"description": "Campo cep"
+				},
+				"id_cidade": {
+					"type": "integer",
+					"description": "Campo id_cidade",
+					"format": "int64",
+					"example": "1"
+				},
+				"cidade_codigo_ibge": {
+					"type": "integer",
+					"description": "Campo cidade_codigo_ibge",
+					"format": "int64",
+					"example": "1"
+				},
+				"id_usuario": {
+					"type": "integer",
+					"description": "Campo id_usuario",
+					"format": "int64",
+					"example": "1"
+				}
+			}
+		},
+		"cidade": {
+			"type": "object",
+			"description": "Dados cidade",
+			"required": ["id_cidade"],
+			"properties": {
+				"id_cidade": {
+					"type": "integer",
+					"description": "Campo id_cidade",
+					"format": "int64",
+					"example": "1"
+				},
+				"codigo_ibge": {
+					"type": "integer",
+					"description": "Campo codigo_ibge",
+					"format": "int64",
+					"example": "1"
+				},
+				"nome": {
+					"type": "string",
+					"description": "Campo nome"
+				},
+				"uf": {
+					"type": "string",
+					"description": "Campo uf"
+				}
+			}
+		},
+		"pedido": {
+			"type": "object",
+			"description": "Dados pedido",
+			"required": ["id_pedido"],
+			"properties": {
+				"id_pedido": {
+					"type": "integer",
+					"description": "Campo id_pedido",
+					"format": "int64",
+					"example": "1"
+				},
+				"id_pessoa": {
+					"type": "integer",
+					"description": "Campo id_pessoa",
+					"format": "int64",
+					"example": "1"
+				},
+				"valor_total": {
+					"type": "number",
+					"description": "Campo valor_total"
+				},
+				"nome_cliente": {
+					"type": "string",
+					"description": "Campo nome_cliente"
+				},
+				"numero_celular": {
+					"type": "string",
+					"description": "Campo numero_celular"
+				},
+				"e_mail": {
+					"type": "string",
+					"description": "Campo e_mail"
+				},
+				"id_mesa": {
+					"type": "integer",
+					"description": "Campo id_mesa",
+					"format": "int64",
+					"example": "1"
+				},
+				"numero_comanda": {
+					"type": "integer",
+					"description": "Campo numero_comanda",
+					"format": "int64",
+					"example": "1"
+				},
+				"data_hora_abertura": {
+					"type": "date",
+					"description": "Campo data_hora_abertura",
+					"pattern": "\/([0-9]{4})-(?:[0-9]{2})-([0-9]{2})\/",
+					"example": "2023-01-17"
+				},
+				"data_hora_finalizacao": {
+					"type": "date",
+					"description": "Campo data_hora_finalizacao",
+					"pattern": "\/([0-9]{4})-(?:[0-9]{2})-([0-9]{2})\/",
+					"example": "2023-01-17"
+				},
+				"pedido_status": {
+					"type": "string",
+					"description": "Campo pedido_status"
+				},
+				"fechar_conta": {
+					"type": "boolean",
+					"description": "Campo fechar_conta"
+				}
+			}
+		},
+		"produto_precificacao": {
+			"type": "object",
+			"description": "Dados produto_precificacao",
+			"required": ["id_produto_precificacao"],
+			"properties": {
+				"id_produto_precificacao": {
+					"type": "integer",
+					"description": "Campo id_produto_precificacao",
+					"format": "int64",
+					"example": "1"
+				},
+				"id_precificacao": {
+					"type": "integer",
+					"description": "Campo id_precificacao",
+					"format": "int64",
+					"example": "1"
+				},
+				"id_produto": {
+					"type": "integer",
+					"description": "Campo id_produto",
+					"format": "int64",
+					"example": "1"
+				},
+				"valor": {
+					"type": "number",
+					"description": "Campo valor"
+				}
+			}
+		},
+		"grupo": {
+			"type": "object",
+			"description": "Dados grupo",
+			"required": ["id_grupo"],
+			"properties": {
+				"id_grupo": {
+					"type": "integer",
+					"description": "Campo id_grupo",
+					"format": "int64",
+					"example": "1"
+				},
+				"descricao": {
+					"type": "string",
+					"description": "Campo descricao"
+				}
+			}
+		},
+		"mesa": {
+			"type": "object",
+			"description": "Dados mesa",
+			"required": ["id_mesa"],
+			"properties": {
+				"id_mesa": {
+					"type": "integer",
+					"description": "Campo id_mesa",
+					"format": "int64",
+					"example": "1"
+				},
+				"descricao": {
+					"type": "string",
+					"description": "Campo descricao"
+				},
+				"mesa_uuid": {
+					"type": "string",
+					"description": "Campo mesa_uuid"
+				}
+			}
+		}
+	}
+}

@@ -104,7 +104,6 @@ begin
 //  if WebRequestHandler <> nil then
 //    WebRequestHandler.WebModuleClass := WebModuleClass;
 //  Application.CreateForm(THungerServer, HungerServer);
-  //Application.CreateForm(TForm1, Form1);
 //  Application.Run;
 //  try
 //    if WebRequestHandler <> nil then
@@ -128,10 +127,6 @@ begin
 
   if not Application.DelayInitialize or Application.Installing then
     Application.Initialize;
-//  if WebRequestHandler <> nil then
-//    WebRequestHandler.WebModuleClass := WebModuleClass;
-//  StartClassGroup(TComponent);
-//  ActivateClassGroup(TComponent);
   Application.CreateForm(THungerServer, HungerServer);
   Application.Run;
 end.

@@ -1,0 +1,77 @@
+{
+    "200": {
+        "description": "Resultado da consulta",
+        "schema": {
+            "type": "object",
+            "properties": {
+                "response": {
+                    "type": "object",
+                    "description": "Retornos",
+                    "required": [
+                        "content",
+                        "totalElements",
+                        "totalPages",
+                        "totalPages",
+                        "pageSize",
+                        "pageNumber"
+                    ],
+                    "properties": {
+                        "content": {
+                            "type": "array",
+                            "description": "array de resultados",
+                            "example": []
+                        },
+                        "totalElements": {
+                            "type": "integer",
+                            "description": "total de registros na tabela",
+                            "example": 0
+                        },
+                        "totalPages": {
+                            "type": "integer",
+                            "description": "total de paginas",
+                            "example": 0
+                        },
+                        "pageSize": {
+                            "type": "integer",
+                            "description": "quantidade de paginas exibição",
+                            "example": 0
+                        },
+                        "pageNumbe": {
+                            "type": "integer",
+                            "description": "pagina retornada",
+                            "example": 0
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "500": {
+        "description": "Erro ao realizar processamento",
+        "schema": {
+            "type": "object",
+            "properties": {
+                "response": {
+                    "type": "object",
+                    "description": "Mensagem de erro",
+                    "required": [
+                        "sucesso",
+                        "mensagem"
+                    ],
+                    "properties": {
+                        "sucesso": {
+                            "type": "string",
+                            "description": "Erro do servidor",
+                            "example": false
+                        },
+                        "mensagem": {
+                            "type": "string",
+                            "description": "Erro ao realizar processamento",
+                            "example": "Erro no processamento"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

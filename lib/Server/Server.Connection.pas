@@ -47,7 +47,8 @@ begin
 //      DB.Connected := True;
 //    end;
     Query := TFDQuery.Create(nil);
-    Query.ConnectionName := 'WKServer'
+    Query.ConnectionName := 'WKServer';
+//    writeln('Chamou query');
 //    Query.Connection := DB;
   except
     on E: Exception do

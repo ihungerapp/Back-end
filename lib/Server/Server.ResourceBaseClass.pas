@@ -385,9 +385,20 @@ begin
     begin
       if (RttiField.FieldType.Name = 'TDateTime')then
       begin
+        {$IFDEF LINUX}
+//        writeln(Value);
+//        writeln(StringReplace(Value, '/', '-', [rfReplaceAll]));
+//        writeln(StrToDateTime(DateTimeToStr(Now)).ToString);
+//        writeln(DateTimeToStr(StrToDateTime(StringReplace(Value, '/', '-', [rfReplaceAll]))));
+//        writeln(FormatDateTime('yyyy-mm-dd hh:mm:ss', StrToDateTime(StringReplace(Value, '/', '-', [rfReplaceAll]))));
+//        RttiValue := StrToDateTime(FormatDateTime('yyyy-mm-dd hh:mm:ss',
+//                     StrToDateTime(StringReplace(Value, '/', '-', [rfReplaceAll]))));
+        RttiValue := StrToDateTime(Value);
+        {$ELSE}
         if Pos('T', Value) > 0 then //se data no formato ISO8601 fazer a conversão
           Value := ISO8601ToDate(Value, True).ToString;
-        RttiValue := StrToDateTime(Value)
+        RttiValue := StrToDateTime(Value);
+        {$ENDIF}
       end
       else if (RttiField.FieldType.Name = 'TDate') then
         RttiValue := StrToDate(Value)

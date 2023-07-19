@@ -53,7 +53,7 @@ const
   ' WHERE'+
   ' produto_precificacao.id_precificacao = pf.id_precificacao)'+
   ' from "Cadastros".produto_precificacao join "Cadastros".precificacao pf2 using'+
-  ' (id_precificacao) order by pf2.grupo desc, pf2.tipo desc'+
+  ' (id_precificacao) order by pf2.grupo desc, pf2.tipo'+
   ' ) as produto_precificacao,'+
   ' "Cadastros".produto produto'+
   ' %s'+

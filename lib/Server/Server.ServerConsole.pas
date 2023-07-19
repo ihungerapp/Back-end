@@ -42,6 +42,9 @@ var
 
 implementation
 
+uses
+  Server.Swagger;
+
 procedure TServerConsole.TerminateThreads;
 begin
   if TDSSessionManager.Instance <> nil then
@@ -154,13 +157,24 @@ begin
       Writeln('Conexao ao banco dados falhou ' + e.Message);
 
     end;
-  end;;
+  end;
+
   try
     LServer.DefaultPort := APort;
+
+    sleep(300);
+    // Wait lib Lazy load
+    with TSwagerAPI.Create do
+    begin
+      Writeln('Config Swagger lib ..');
+      MakeReposioty;
+       Writeln('Config Swagger lib update, Swager.json ');
+      free;
+    end;
+
     StartServer(LServer);
     while True do
     begin
-
       Readln(LResponse);
       try
         if LResponse <> '' then

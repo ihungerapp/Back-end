@@ -52,12 +52,12 @@ var
 begin
   {$IFDEF MSWINDOWS}
   var IniFile: TIniFile;
-  //IniFile := TIniFile.Create(TPath.Combine(GetCurrentDir, 'ConfigServer.Ini'));
   IniFile := TIniFile.Create(ChangeFileExt( Application.ExeName, '.ini'));
   {$ENDIF}
   {$IFDEF LINUX} //path quando executa a API como container no Docker
   var IniFile: TMemIniFile;
   IniFile := TMemIniFile.Create('/root/deploy/ConfigServer.ini');
+  //IniFile := TMemIniFile.Create('./ConfigServer.ini');
   {$ENDIF}
   try
     Database := IniFile.ReadString('Config', 'Database', '');
@@ -85,13 +85,15 @@ begin
     FInstance.FDManager := TFDManager.Create(nil);
     FInstance.FDManager.AddConnectionDef('WKServer', 'PG', Params);
     FInstance.FDManager.Active := True;
-//    Writeln('Conectando com o servidor ->> ' + Server);
-//
-//    Writeln(Database + #13,
-//    Server + #13,
-//    UserName + #13,
-//    Password + #13,
-//    Port.ToString + #13)
+
+    {$IFDEF LINUX} //path quando executa a API como container no Docker
+    Writeln('Conectando com o servidor ->> ' + Server);
+    Writeln('BD: ' + Database + #13,
+    Server + #13,
+    UserName + #13,
+    Password + #13,
+    Port.ToString + #13)
+    {$ENDIF}
   finally
     IniFile.Free;
   end;

@@ -82,7 +82,15 @@ uses
   Resources.pedidoItem in '..\..\Resources\Resources.pedidoItem.pas',
   Resources.mesa in '..\..\Resources\Resources.mesa.pas',
   Controller.Mesa in '..\..\Controllers\Controller.Mesa.pas',
-  DAO.Mesa in '..\..\DAO\DAO.Mesa.pas';
+  DAO.Mesa in '..\..\DAO\DAO.Mesa.pas',
+  Server.Swagger in '..\..\lib\Server\Server.Swagger.pas',
+  Swager.Json.Body in '..\..\lib\Swager\Swager.Json.Body.pas',
+  Swager.Json.Definitions in '..\..\lib\Swager\Swager.Json.Definitions.pas',
+  Swager.Json.DTO in '..\..\lib\Swager\Swager.Json.DTO.pas',
+  Swager.Json.Paths in '..\..\lib\Swager\Swager.Json.Paths.pas',
+  Swager.ResourceBaseClass in '..\..\lib\Swager\Swager.ResourceBaseClass.pas',
+  Utils.Strings in '..\..\lib\Utils\Utils.Strings.pas',
+  Server.AngularModel in '..\..\lib\Server\Server.AngularModel.pas';
 
 begin
   try

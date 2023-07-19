@@ -284,6 +284,14 @@
         <DCCReference Include="..\..\Resources\Resources.mesa.pas"/>
         <DCCReference Include="..\..\Controllers\Controller.Mesa.pas"/>
         <DCCReference Include="..\..\DAO\DAO.Mesa.pas"/>
+        <DCCReference Include="..\..\lib\Server\Server.Swagger.pas"/>
+        <DCCReference Include="..\..\lib\Swager\Swager.Json.Body.pas"/>
+        <DCCReference Include="..\..\lib\Swager\Swager.Json.Definitions.pas"/>
+        <DCCReference Include="..\..\lib\Swager\Swager.Json.DTO.pas"/>
+        <DCCReference Include="..\..\lib\Swager\Swager.Json.Paths.pas"/>
+        <DCCReference Include="..\..\lib\Swager\Swager.ResourceBaseClass.pas"/>
+        <DCCReference Include="..\..\lib\Utils\Utils.Strings.pas"/>
+        <DCCReference Include="..\..\lib\Server\Server.AngularModel.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -1150,10 +1158,10 @@
                 </DeployClass>
                 <ProjectRoot Platform="OSX32" Name="$(PROJECTNAME).app"/>
                 <ProjectRoot Platform="OSX64" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
-                <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME).app"/>
-                <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win32" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="OSXARM64" Name="$(PROJECTNAME).app"/>
+                <ProjectRoot Platform="Android64" Name="$(PROJECTNAME)"/>
+                <ProjectRoot Platform="Android" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Win64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="Linux64" Name="$(PROJECTNAME)"/>
                 <ProjectRoot Platform="iOSDevice32" Name="$(PROJECTNAME).app"/>

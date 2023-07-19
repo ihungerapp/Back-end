@@ -1,0 +1,58 @@
+{
+    "200": {
+        "description": "Processamento realizado",
+        "schema": {
+            "type": "object",
+            "properties": {
+                "response": {
+                    "type": "object",
+                    "description": "Retorno sucesso",
+                    "required": [
+                        "sucesso",
+                        "mensagem"
+                    ],
+                    "properties": {
+                        "sucesso": {
+                            "type": "string",
+                            "description": "verdadeiro ou falso",
+                            "example": true
+                        },
+                        "mensagem": {
+                            "type": "string",
+                            "description": "Mensagem do servidor",
+                            "example": "Registro Alterado/Incluido"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "500": {
+        "description": "Erro ao realizar processamento",
+        "schema": {
+            "type": "object",
+            "properties": {
+                "response": {
+                    "type": "object",
+                    "description": "Mensagem de erro",
+                    "required": [
+                        "sucesso",
+                        "mensagem"
+                    ],
+                    "properties": {
+                        "sucesso": {
+                            "type": "string",
+                            "description": "Erro do servidor",
+                            "example": false
+                        },
+                        "mensagem": {
+                            "type": "string",
+                            "description": "Erro ao realizar processamento",
+                            "example": "Erro no processamento"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
