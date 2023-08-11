@@ -3,7 +3,7 @@ unit Server.DAO;
 interface
 
 uses
-  Server.Message, System.Rtti, Server.Attributes, System.SysUtils, FireDAC.Stan.Param, Web.HTTPApp, System.JSON,
+  Server.Message, System.Rtti, Server.Attributes, FireDAC.Stan.Param, Web.HTTPApp, System.JSON,
   System.Generics.Collections, Server.Connection, Server.MessageList, System.DateUtils, System.Classes;
 
 type
@@ -40,12 +40,13 @@ type
     class procedure Delete(Response: TWebResponse; Obj: TObject);
     class function CreateJSONObject(Connection: TConnection; Params: array of TValue):TJSONObject;static;
     class function GetWhere(Search: String; TipoPesquisa:TPesquisa; Response: TWebResponse): String; overload;
+    class function OpenQueryToJSON(const SQL, Where, Servico: String; const Params: array of TValue): TJSONObject;
   end;
 
 implementation
 
 uses
-  Data.DB, System.StrUtils;
+  Data.DB, System.StrUtils, System.SysUtils;
 
 { TDAO }
 class procedure TDAO.Insert(Response: TWebResponse; ListObj: TObjectList<TObject>;
@@ -139,7 +140,9 @@ begin
   TMessage.Create(Mensagem).SendMessage(Response);
 end;
 
-class procedure TDAO.Select(Response: TWebResponse; Obj: TObject; PageNumber: Integer; PageSize: Integer; Direction: String; Sort: String; Search: String; ID: String; WherePadrao: String;Join:string; JSON:TJSONObject);
+class procedure TDAO.Select(Response: TWebResponse; Obj: TObject; PageNumber: Integer;
+PageSize: Integer; Direction: String; Sort: String; Search: String; ID: String;
+WherePadrao: String; Join:string; JSON:TJSONObject);
 const
   SQL = 'SELECT %s FROM %s %s %s %s %s';
 var
@@ -177,7 +180,7 @@ begin
   else
     lFields := GetFields(Obj);
   lTableName := GetTableName(Obj);
-  lWhere := GetWhere(Obj, ID, Search, WherePadrao,LTpPesquisa);
+  lWhere := GetWhere(Obj, ID, Search, WherePadrao, LTpPesquisa);
   lOrder := GetOrder(Obj, Sort, Direction);
   lPagination := ' LIMIT ' + PageSize.ToString + ' OFFSET ' + (PageSize * (PageNumber-1)).ToString;
   lJoin := GetJoin(Join);
@@ -880,7 +883,8 @@ begin
       Result := (RttiAttribute as Table).TableName;
 end;
 
-class function TDAO.GetWhere(Obj: TObject; ID: String; Search: String; WherePadrao: String; TipoPesquisa:TPesquisa): String;
+class function TDAO.GetWhere(Obj: TObject; ID: String; Search: String;
+WherePadrao: String; TipoPesquisa:TPesquisa): String;
 var
   RttiType: TRttiType;
   RttiField: TRttiField;
@@ -1034,6 +1038,35 @@ begin
   except
     on E: Exception do
       TMessage.Create(EErroGeral, 'Erro ao executar a consulta (' + E.Message + ')').SendMessage(Response);
+  end;
+end;
+
+class function TDAO.OpenQueryToJSON(const SQL, Where, Servico: String; const Params: array of TValue): TJSONObject;
+var
+  Connection: TConnection;
+  lJsonString: String;
+  lJsonArray: TJSONArray;
+  lJsonPair: TJSONPair;
+begin
+  Result := TJSONObject.Create;
+  lJsonArray := TJSONArray.Create;
+  lJsonPair := TJSONPair.Create(Servico, lJsonArray);
+
+  Connection := TConnection.Create;
+  Connection.Query.SQL.Add(Format(SQL, [Where]));
+  try
+    Connection.Query.Open;
+    Connection.Query.First;
+    while not Connection.Query.Eof do
+    begin
+      lJsonString := Connection.Query.FieldByName('to_json').Value;
+      lJsonArray.AddElement(TJSONValue.ParseJSONValue(TEncoding.UTF8.GetBytes(LJSONString), 0) as TJSONValue);
+      Connection.Query.Next;
+    end;
+    Result := Result.AddPair(lJsonPair);
+  except
+    on E: Exception do
+      TMessage.Create(EErroGeral, 'Erro ao executar a consulta (' + E.Message + ')').SendMessage(Params[0].AsType<TWebResponse>);
   end;
 end;
 

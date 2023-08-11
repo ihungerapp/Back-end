@@ -24,7 +24,7 @@ uses
  type
     TControllerGrupo = class(TController)
   published
-    procedure ProcedimentoBase;
+    procedure ListarGrupos;
  private
     FJSONObject: TJSONOBject;
     FParams: array of TValue;
@@ -78,9 +78,9 @@ begin
   Result := JSONObject;
 end;
 
-procedure TControllerGrupo.ProcedimentoBase;
+procedure TControllerGrupo.ListarGrupos;
 begin
-  JSONObject := TDAOGrupo.ProcedimentoBase(FParams);
+  JSONObject := TDAOGrupo.ListarGrupos(FParams);
 end;
 
 procedure TControllerGrupo.SetJSONObject(const Value: TJSONOBject);

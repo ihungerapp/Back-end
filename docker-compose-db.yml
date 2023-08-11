@@ -1,16 +1,11 @@
-version: '3'
-db:
+services:
+  postgres:
     container_name: pg_container
     image: postgres
-    restart: always
+    restart: always        
     environment:
-      POSTGRES_USER: postgres
       POSTGRES_PASSWORD: rm045369
-      POSTGRES_DB: HungerApp
     ports:
-      - '5432:5432'
+      - '5455:5432'
     volumes:
-      - $HOME/Desktop/PostgreSql-Snippets/infile:/infile
-      - pg_data:/var/lib/postgresql/data/
-volumes:
-  pg_data:
+      - pg_data:/var/lib/postgresql/data

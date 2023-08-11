@@ -58,44 +58,17 @@ const
   ' "Cadastros".produto produto'+
   ' %s'+
   ' group by produto.id_produto'+
-  ' order by produto.descricao'+
+  ' order by trim(produto.descricao)'+
   ' ) r;';
 var
-  Connection: TConnection;
-  lWhere,
-  lJsonString: String;
-  lJsonArray: TJSONArray;
-  lJsonPair: TJSONPair;
+  lWhere: String;
 begin
-  Result := TJSONObject.Create;
-  Connection := TConnection.Create;
-  lJsonArray := TJSONArray.Create;
-  lJsonPair := TJSONPair.Create('produtos', lJsonArray);
-  try
-    lWhere := TDAO.GetWhere(Params[5].ToString, tpTodoCampo, Params[0].AsType<TWebResponse>);
-    if lWhere = EmptyStr then
-      lWhere := ' where produto.id_produto = produto_precificacao.id_produto '
-    else
-      lWhere := lWhere + ' and produto.id_produto = produto_precificacao.id_produto ';
-    Connection.Query.SQL.Add(Format(lSQL, [lWhere]));
-    try
-      Connection.Query.Open;
-      Connection.Query.First;
-      while not Connection.Query.Eof do
-      begin
-        lJsonString := Connection.Query.FieldByName('to_json').Value;
-        lJsonArray.AddElement(TJSONValue.ParseJSONValue(TEncoding.UTF8.GetBytes(LJSONString), 0) as TJSONValue);
-        Connection.Query.Next;
-      end;
-      Result := Result.AddPair(lJsonPair);
-    except
-      on E: Exception do
-        TMessage.Create(EErroGeral, 'Erro ao executar a consulta (' + E.Message + ')').SendMessage(Params[0].AsType<TWebResponse>);
-    end;
-  finally
-   // Connection.DB.Connected := False;
-   // Connection.Free;
-  end;
+  lWhere := TDAO.GetWhere(Params[5].ToString, tpTodoCampo, Params[0].AsType<TWebResponse>);
+  if lWhere = EmptyStr then
+    lWhere := ' where produto.id_produto = produto_precificacao.id_produto '
+  else
+    lWhere := lWhere + ' and produto.id_produto = produto_precificacao.id_produto ';
+  Result := TDAO.OpenQueryToJSON(lSQL, lWhere, 'produtos', Params);
 end;
 
 end.

@@ -229,7 +229,7 @@ begin
     end;
   end
   else
-    TDAO.Select(Response, Self, PageNumber, PageSize, Direction, Sort, Search, ID, GetWherePadrao,Join,JSON);
+    TDAO.Select(Response, Self, PageNumber, PageSize, Direction, Sort, Search, ID, GetWherePadrao, Join, JSON);
 end;
 
 function TResourceBaseClass.GetWherePadrao: String;

@@ -47,37 +47,10 @@ const
   ' order by pedido.data_hora_abertura desc'+
   ' ) r';
 var
-  Connection: TConnection;
-  lWhere,
-  lJsonString: String;
-  lJsonArray: TJSONArray;
-  lJsonPair: TJSONPair;
+  lWhere: String;
 begin
-  Result := TJSONObject.Create;
-  Connection := TConnection.Create;
-  lJsonArray := TJSONArray.Create;
-  lJsonPair := TJSONPair.Create('pedidos', lJsonArray);
-  try
-    lWhere := TDAO.GetWhere(Params[5].ToString, tpSemIncidencia, Params[0].AsType<TWebResponse>);
-    Connection.Query.SQL.Add(Format(lSQL, [lWhere]));
-    try
-      Connection.Query.Open;
-      Connection.Query.First;
-      while not Connection.Query.Eof do
-      begin
-        lJsonString := Connection.Query.FieldByName('to_json').Value;
-        lJsonArray.AddElement(TJSONValue.ParseJSONValue(TEncoding.ANSI.GetBytes(LJSONString), 0) as TJSONValue);
-        Connection.Query.Next;
-      end;
-      Result := Result.AddPair(lJsonPair);
-    except
-      on E: Exception do
-        TMessage.Create(EErroGeral, 'Erro ao executar a consulta (' + E.Message + ')').SendMessage(Params[0].AsType<TWebResponse>);
-    end;
-  finally
-//    Connection.DB.Connected := False;
-//    Connection.Free;
-  end;
+  lWhere := TDAO.GetWhere(Params[5].ToString, tpSemIncidencia, Params[0].AsType<TWebResponse>);
+  Result := TDAO.OpenQueryToJSON(lSQL, lWhere, 'pedidos', Params);
 end;
 
 class function TDAOPedido.ListarPedidosComProduto(
@@ -111,42 +84,14 @@ const
   ' order by pedido.pedido_status, pedido.data_hora_abertura'+
   ' ) r';
 var
-  Connection: TConnection;
-  lWhere,
-  lJsonString: String;
-  lJsonArray: TJSONArray;
-  lJsonPair: TJSONPair;
+  lWhere: String;
 begin
-  Result := TJSONObject.Create;
-  Connection := TConnection.Create;
-  lJsonArray := TJSONArray.Create;
-  lJsonPair := TJSONPair.Create('pedidos', lJsonArray);
-  try
-    lWhere := TDAO.GetWhere(Params[5].ToString, tpSemIncidencia, Params[0].AsType<TWebResponse>);
-    if lWhere = EmptyStr then
-      lWhere := ' where pedido.id_pedido = pedido_item.id_pedido and pedido.id_mesa = mesa.id_mesa '
-    else
-      lWhere := lWhere + ' and pedido.id_pedido = pedido_item.id_pedido and pedido.id_mesa = mesa.id_mesa ';
-
-    Connection.Query.SQL.Add(Format(lSQL, [lWhere]));
-    try
-      Connection.Query.Open;
-      Connection.Query.First;
-      while not Connection.Query.Eof do
-      begin
-        lJsonString := Connection.Query.FieldByName('to_json').Value;
-        lJsonArray.AddElement(TJSONValue.ParseJSONValue(TEncoding.UTF8.GetBytes(LJSONString), 0) as TJSONValue);
-        Connection.Query.Next;
-      end;
-      Result := Result.AddPair(lJsonPair);
-    except
-      on E: Exception do
-        TMessage.Create(EErroGeral, 'Erro ao executar a consulta (' + E.Message + ')').SendMessage(Params[0].AsType<TWebResponse>);
-    end;
-  finally
-//    Connection.DB.Connected := False;
-//    Connection.Free;
-  end;
+  lWhere := TDAO.GetWhere(Params[5].ToString, tpSemIncidencia, Params[0].AsType<TWebResponse>);
+  if lWhere = EmptyStr then
+    lWhere := ' where pedido.id_pedido = pedido_item.id_pedido and pedido.id_mesa = mesa.id_mesa '
+  else
+    lWhere := lWhere + ' and pedido.id_pedido = pedido_item.id_pedido and pedido.id_mesa = mesa.id_mesa ';
+  Result := TDAO.OpenQueryToJSON(lSQL, lWhere, 'pedidos', Params);
 end;
 
 end.

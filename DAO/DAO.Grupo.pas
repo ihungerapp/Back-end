@@ -18,38 +18,23 @@ type
   TDAOGrupo = class
     private
     public
-      class function ProcedimentoBase(const Params: array of TValue): TJSONObject;
+      class function ListarGrupos(const Params: array of TValue): TJSONObject;
   end;
 
 implementation
 
 { TDAOGrupo }
 
-class function TDAOGrupo.ProcedimentoBase(const Params: array of TValue): TJSONObject;
+class function TDAOGrupo.ListarGrupos(const Params: array of TValue): TJSONObject;
 const
-  lSQL = 'COLOCAR O SQL AQUI';
-var
-  Connection: TConnection;
+  lSQL =
+    ' select to_json(r) FROM (select grupo.id_grupo, grupo.descricao from "Cadastros".grupo grupo'+
+    ' join "Cadastros".produto produto using(id_grupo)'+
+    ' group by grupo.id_grupo'+
+    ' order by trim(grupo.descricao)'+
+    ' ) r';
 begin
-  Result := TJSONObject.Create;
-  Connection := TConnection.Create;
-  try
-    Connection.Query.SQL.Add(lSQL);
-    try
-	  //PASSAGEM DE PARAMETROS ATRAVÉS DOS PARAMS 	
-      //Connection.Query.ParamByName('ID').AsInteger := StrToInt(Params[6].ToString);
-      Connection.Query.Open;
-      Connection.Query.First;
-      
-      Result := TDAO.CreateJSONObject(Connection, Params);
-    except
-      on E: Exception do
-        TMessage.Create(EErroGeral, 'Erro ao executar a consulta (' + E.Message + ')').SendMessage(Params[0].AsType<TWebResponse>);
-    end;
-  finally
-//    Connection.DB.Connected := False;
-//    Connection.Free;
-  end;
+  Result := TDAO.OpenQueryToJSON(lSQL, '', 'grupos', Params);
 end;
 
 end.
