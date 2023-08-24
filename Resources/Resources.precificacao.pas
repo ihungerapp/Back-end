@@ -17,7 +17,7 @@ uses
 type
 
   [Resource('precificacao')]
-  [Table('"Cadastros".precificacao')]
+  [Table('precificacao')]
   [AutoInc('precificacao_id_precificacao_seq')]
   [Controllers(TControllerprecificacao)]
   Tprecificacao = class(TResourceBaseClass)

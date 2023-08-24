@@ -18,46 +18,49 @@ uses
 type
 
   [Resource('pedido')]
-  [Table('"Pedidos".pedido')]
-  [AutoInc('pedido_id_pedido_seq')]
+  [Table('"RECEPCAO"')]
+  [AutoInc('recepcao_sequence')]
   [Controllers(TControllerpedido)]
   Tpedido = class(TResourceBaseClass)
   protected
   public
-    [DBField('ID_PEDIDO', True, True, False, PrimaryKey)]
-    id_pedido: Integer;
+    [DBField('"CODRECEPCAO"', True, True, False, PrimaryKey)]
+    codrecepcao: Integer;
 
-    [DBField('ID_PESSOA', True, True, False, NotNull)]
-    id_pessoa: Integer;
+    [DBField('"CODCLI"', True, True, False, NotNull)]
+    codcli: Integer;
 
-    [DBField('VALOR_TOTAL', True, True, False, NotNull)]
-    valor_total: Currency;
+    [DBField('"VLRTOTAL"', True, True, False, NotNull)]
+    vlrtotal: Currency;
 
-    [DBField('NOME_CLIENTE', True, True, False, Null)]
+    [DBField('"NOME_CLIENTE"', True, True, False, Null)]
     nome_cliente: String;
 
-    [DBField('NUMERO_CELULAR', True, True, False, Null)]
+    [DBField('"NUMERO_CELULAR"', True, True, False, Null)]
     numero_celular: String;
 
-    [DBField('E_MAIL', True, True, False, Null)]
+    [DBField('"E_MAIL"', True, True, False, Null)]
     e_mail: String;
 
-    [DBField('ID_MESA', True, True, False, NotNull)]
-    id_mesa: Integer;
+    [DBField('"CODAP"', True, True, False, NotNull)]
+    codap: Integer;
 
-    [DBField('NUMERO_COMANDA', True, True, False, NotNull)]
-    numero_comanda: Integer;
+    [DBField('"QTDEPAGANTE"', True, True, False, NotNull)]
+    qtdepagante: Integer;
 
-    [DBField('DATA_HORA_ABERTURA', True, True, False, NotNull)]
-    data_hora_abertura: TDateTime;
+    [DBField('"N_COMANDA"', True, True, False, NotNull)]
+    n_comanda: Integer;
 
-    [DBField('DATA_HORA_FINALIZACAO', True, True, False, NotNull)]
-    data_hora_finalizacao: TDateTime;
+    [DBField('"DATA_ENTRADA"', True, True, False, NotNull)]
+    data_entrada: TDateTime;
 
-    [DBField('PEDIDO_STATUS', True, True, False, NotNull)]
-    pedido_status: String;
+    [DBField('"DATA_SAIDA"', True, True, False, NotNull)]
+    data_saida: TDateTime;
 
-    [DBField('FECHAR_CONTA', True, True, False, Null)]
+    [DBField('"SITUACAO"', True, True, False, NotNull)]
+    situacao: String;
+
+    [DBField('"FECHAR_CONTA"', True, True, False, Null)]
     fechar_conta: Boolean;
 
     [DBRelationship('PEDIDOITEM')]

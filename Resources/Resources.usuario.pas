@@ -17,22 +17,20 @@ uses
 type
 
   [Resource('usuario')]
-  [Table('"Acessos".usuario')]
-  [AutoInc('usuario_id_usuario_seq')]
+  [Table('CADUSER')]
+//  [AutoInc('usuario_id_usuario_seq')]
   [Controllers(TControllerusuario)]
   Tusuario = class(TResourceBaseClass)
   protected
   public
-    [DBField('ID_USUARIO', True, True, False, PrimaryKey)]
-    id_usuario: Integer;
+    [DBField('CODUSER', True, True, False, PrimaryKey)]
+    coduser: Integer;
 
     [DBField('NOME_USUARIO', True, True, False, NotNull)]
     nome_usuario: String;
 
     [DBField('SENHA', True, True, False, NotNull)]
     senha: String;
-
-
   end;
 
 implementation

@@ -1,28 +1,28 @@
   export interface PedidoitemReq {
-    id_pedido_item?:number,
-    id_pedido:number,
-    id_produto:number,
+    id_consumo_ap?:number,
+    codrecepcao:number,
+    codprod:number,
+    n_comanda_recepcao:number,
     qtde:number,
-    valor_unitario:number,
-    valor_total:number,
-    data_hora_emissao:Date,
-    data_hora_status:Date,
+    vlrunitario:number,
+    vlrtotalitem:number,
+    data_consumo:Date,
     pedido_item_status:string,
     id_produto_precificacao:string,
-    obs:string
+    complemento:string
   }
   export interface Pedidoitem {
-    id_pedido_item?:number,
-    id_pedido:number,
-    id_produto:number,
+    id_consumo_ap?:number,
+    codrecepcao:number,
+    codprod:number,
+    n_comanda_recepcao:number,
     qtde:number,
-    valor_unitario:number,
-    valor_total:number,
-    data_hora_emissao:Date,
-    data_hora_status:Date,
+    vlrunitario:number,
+    vlrtotalitem:number,
+    data_consumo:Date,
     pedido_item_status:string,
     id_produto_precificacao:string,
-    obs:string
+    complemento:string
   }
   export interface Pedidoitems {  
     content: Pedidoitem[],     
@@ -33,17 +33,17 @@
  }                           
   export interface PedidoitemRes {
     content: {       
-      id_pedido_item?:number,
-      id_pedido:number,
-      id_produto:number,
+      id_consumo_ap?:number,
+      codrecepcao:number,
+      codprod:number,
+      n_comanda_recepcao:number,
       qtde:number,
-      valor_unitario:number,
-      valor_total:number,
-      data_hora_emissao:Date,
-      data_hora_status:Date,
+      vlrunitario:number,
+      vlrtotalitem:number,
+      data_consumo:Date,
       pedido_item_status:string,
       id_produto_precificacao:string,
-      obs:string
+      complemento:string
     },
     mensagem: string,
     sucesso: boolean 

@@ -1,10 +1,10 @@
   export interface UsuarioReq {
-    id_usuario?:number,
+    coduser?:number,
     nome_usuario:string,
     senha:string
   }
   export interface Usuario {
-    id_usuario?:number,
+    coduser?:number,
     nome_usuario:string,
     senha:string
   }
@@ -17,7 +17,7 @@
  }                           
   export interface UsuarioRes {
     content: {       
-      id_usuario?:number,
+      coduser?:number,
       nome_usuario:string,
       senha:string
     },

@@ -98,7 +98,7 @@ begin
     if CheckPort(AServer.DefaultPort) > 0 then
     begin
       AServer.Bindings.Clear;
-      TAuthentication.GetInstance('"Acessos".usuario', 'nome_usuario', 'senha');
+      TAuthentication.GetInstance('"CADUSER"', '"NOME_USUARIO"', '"SENHA"');
       AServer.Active := True;
     end
     else

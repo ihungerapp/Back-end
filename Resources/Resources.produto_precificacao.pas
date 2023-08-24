@@ -17,7 +17,7 @@ uses
 type
 
   [Resource('produto_precificacao')]
-  [Table('"Cadastros".produto_precificacao')]
+  [Table('produto_precificacao')]
   [AutoInc('produto_precificacao_id_produto_precificacao_seq')]
   [Controllers(TControllerproduto_precificacao)]
   Tproduto_precificacao = class(TResourceBaseClass)

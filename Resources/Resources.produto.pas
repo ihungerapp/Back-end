@@ -17,37 +17,37 @@ uses
 type
 
   [Resource('produto')]
-  [Table('"Cadastros".produto')]
-  [AutoInc('produto_id_produto_seq')]
+  [Table('"CADPROD"')]
+  [AutoInc('cadprod_sequence')]
   [Controllers(TControllerproduto)]
   Tproduto = class(TResourceBaseClass)
   protected
   public
-    [DBField('ID_PRODUTO', True, True, False, PrimaryKey)]
+    [DBField('"CODPROD"', True, True, False, PrimaryKey)]
     id_produto: Integer;
 
-    [DBField('DESCRICAO', True, True, False, NotNull)]
+    [DBField('"DESCRICAO"', True, True, False, NotNull)]
     descricao: String;
 
-    [DBField('COMPLEMENTO', True, True, False, Null)]
+    [DBField('"COMPLEMENTO"', True, True, False, Null)]
     complemento: String;
 
-    [DBField('VALOR_INICIAL', True, True, False, NotNull)]
+    [DBField('"VALORF"', True, True, False, NotNull)]
     valor_inicial: Currency;
 
-    [DBField('VALOR_PROMOCAO', True, True, False, NotNull)]
+    [DBField('"VALOR_PROMOCAO"', True, True, False, NotNull)]
     valor_promocao: Currency;
 
-    [DBField('PROMOCAO_DO_DIA', True, True, False, NotNull)]
+    [DBField('"PROMOCAO_DO_DIA"', True, True, False, NotNull)]
     promocao_do_dia: Boolean;
 
-    [DBField('ID_GRUPO', True, True, False, NotNull)]
+    [DBField('"CODGRUPO"', True, True, False, NotNull)]
     id_grupo: Integer;
 
-    [DBField('IMAGEM', True, True, False, Null)]
+    [DBField('"IMAGEM"', True, True, False, Null)]
     imagem: TBytea;
 
-    [DBField('EXIBIR_APP', True, True, False, NotNull)]
+    [DBField('"EXIBIR_HUNGER_APP"', True, True, False, NotNull)]
     exibir_app: Boolean;
   end;
 

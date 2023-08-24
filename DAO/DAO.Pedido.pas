@@ -35,16 +35,16 @@ const
   ' (SELECT'+
   ' array_agg(pi2.*) as pedido_item'+
   ' FROM'+
-  ' "Pedidos".pedido_item pi2'+
+  ' "CONSUMO_AP" pi2'+
   ' WHERE'+
-  ' pedido.id_pedido = pi2.id_pedido AND pi2.pedido_item_status = ''Aguardando'')'+
+  ' pedido."CODRECEPCAO" = pi2."CODRECEPCAO" AND pi2."PEDIDO_ITEM_STATUS" = ''Aguardando'')'+
   ' AS pedido_item'+
   ' FROM'+
-  ' "Pedidos".pedido pedido'+
-  ' inner join "Pedidos".pedido_item pedido_item using (id_pedido)'+
+  ' "RECEPCAO" pedido'+
+  ' inner join "CONSUMO_AP" pedido_item using ("CODRECEPCAO")'+
   ' %s '+
-  ' group by pedido.id_pedido'+
-  ' order by pedido.data_hora_abertura desc'+
+  ' group by pedido."CODRECEPCAO"'+
+  ' order by pedido."DATA_ENTRADA" desc'+
   ' ) r';
 var
   lWhere: String;
@@ -64,33 +64,33 @@ const
   ' from (select *,'+
   ' (SELECT'+
   ' json_build_object('+
-  ' ''id_produto'', pr.id_produto,'+
-  ' ''descricao'', pr.descricao,'+
-  ' ''complemento'', pr.complemento,'+
-  ' ''valor_inicial'', pr.valor_inicial,'+
-  ' ''valor_promocao'', pr.valor_promocao,'+
-  ' ''promocao_do_dia'', pr.promocao_do_dia,'+
-  ' ''id_grupo'', pr.id_grupo,'+
-  ' ''imagem'', encode(pr.imagem, ''escape'')'+
+  ' ''id_produto'', pr."CODPROD",'+
+  ' ''descricao'', pr."DESCRICAO",'+
+  ' ''complemento'', pr."COMPLEMENTO",'+
+  ' ''valor_inicial'', pr."VALORF",'+
+  ' ''valor_promocao'', pr."VALOR_PROMOCAO",'+
+  ' ''promocao_do_dia'', pr."PROMOCAO_DO_DIA",'+
+  ' ''id_grupo'', pr."CODGRUPO",'+
+  ' ''imagem'', encode(pr."IMAGEM", ''base64'')'+
   ' ) as produto'+
   ' FROM'+
-  ' "Cadastros".produto pr'+
+  ' "CADPROD" pr'+
   ' WHERE'+
-  ' pi2.id_produto = pr.id_produto)'+
-  ' FROM "Pedidos".pedido_item pi2) as pedido_item,'+
-  ' "Pedidos".pedido pedido, "Cadastros".mesa mesa'+
+  ' pi2."CODPROD" = pr."CODPROD")'+
+  ' FROM "CONSUMO_AP" pi2) as pedido_item,'+
+  ' "RECEPCAO" pedido, "CADAP" mesa'+
   ' %s '+
-  ' group by pedido.id_pedido'+
-  ' order by pedido.pedido_status, pedido.data_hora_abertura'+
+  ' group by pedido."CODRECEPCAO"'+
+  ' order by pedido."SITUACAO", pedido."DATA_ENTRADA"'+
   ' ) r';
 var
   lWhere: String;
 begin
   lWhere := TDAO.GetWhere(Params[5].ToString, tpSemIncidencia, Params[0].AsType<TWebResponse>);
   if lWhere = EmptyStr then
-    lWhere := ' where pedido.id_pedido = pedido_item.id_pedido and pedido.id_mesa = mesa.id_mesa '
+    lWhere := ' where pedido."CODRECEPCAO" = pedido_item."CODRECEPCAO" and pedido."CODAP" = mesa."CODAP" '
   else
-    lWhere := lWhere + ' and pedido.id_pedido = pedido_item.id_pedido and pedido.id_mesa = mesa.id_mesa ';
+    lWhere := lWhere + ' and pedido."CODRECEPCAO" = pedido_item."CODRECEPCAO" and pedido."CODAP" = mesa."CODAP" ';
   Result := TDAO.OpenQueryToJSON(lSQL, lWhere, 'pedidos', Params);
 end;
 

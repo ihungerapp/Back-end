@@ -30,17 +30,17 @@ const
   lSQL = ' SELECT to_json(r)'+
   ' FROM ('+
   ' SELECT'+
-  ' produto.id_produto,'+
-  ' produto.descricao,'+
-  ' produto.complemento,'+
-  ' produto.valor_inicial,'+
-  ' produto.valor_promocao,'+
-  ' produto.promocao_do_dia,'+
-  ' produto.id_grupo,'+
-  ' encode(produto.imagem, ''escape'') as imagem,'+
-  ' (select json_build_object(''id_grupo'', g.id_grupo, ''descricao'', g.descricao)'+
+  ' produto."CODPROD" id_produto,'+
+  ' trim(produto."DESCRICAO") descricao,'+
+  ' trim(produto."COMPLEMENTO") complemento,'+
+  ' produto."VALORF" valor_inicial,'+
+  ' produto."VALOR_PROMOCAO",'+
+  ' produto."PROMOCAO_DO_DIA",'+
+  ' produto."CODGRUPO" id_grupo,'+
+  ' encode(produto."IMAGEM", ''base64'') as imagem,'+
+  ' (select json_build_object(''id_grupo'', g."CODGRUPO", ''descricao'', trim(g."DESCRICAO"))'+
   ' FROM'+
-  ' "Cadastros".grupo g where produto.id_grupo = g.id_grupo) as grupo'+
+  ' "CADGRUPO" g where produto."CODGRUPO" = g."CODGRUPO") as grupo'+
   ' , array_agg(produto_precificacao.*) as produto_precificacao'+
   ' FROM (select *,'+
   ' (SELECT'+
@@ -49,25 +49,25 @@ const
   ' ''grupo'', pf.grupo,'+
   ' ''qtde_max_selecao'', pf.qtde_max_selecao) as precificacao'+
   ' FROM'+
-  ' "Cadastros".precificacao pf'+
+  ' precificacao pf'+
   ' WHERE'+
   ' produto_precificacao.id_precificacao = pf.id_precificacao)'+
-  ' from "Cadastros".produto_precificacao join "Cadastros".precificacao pf2 using'+
+  ' from produto_precificacao join precificacao pf2 using'+
   ' (id_precificacao) order by pf2.grupo desc, pf2.tipo'+
   ' ) as produto_precificacao,'+
-  ' "Cadastros".produto produto'+
+  ' "CADPROD" produto'+
   ' %s'+
-  ' group by produto.id_produto'+
-  ' order by trim(produto.descricao)'+
+  ' group by produto."CODPROD"'+
+  ' order by trim(produto."DESCRICAO")'+
   ' ) r;';
 var
   lWhere: String;
 begin
   lWhere := TDAO.GetWhere(Params[5].ToString, tpTodoCampo, Params[0].AsType<TWebResponse>);
   if lWhere = EmptyStr then
-    lWhere := ' where produto.id_produto = produto_precificacao.id_produto '
+    lWhere := ' where produto."CODPROD" = produto_precificacao.id_produto '
   else
-    lWhere := lWhere + ' and produto.id_produto = produto_precificacao.id_produto ';
+    lWhere := lWhere + ' and produto."CODPROD" = produto_precificacao.id_produto ';
   Result := TDAO.OpenQueryToJSON(lSQL, lWhere, 'produtos', Params);
 end;
 

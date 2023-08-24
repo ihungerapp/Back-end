@@ -28,10 +28,10 @@ implementation
 class function TDAOGrupo.ListarGrupos(const Params: array of TValue): TJSONObject;
 const
   lSQL =
-    ' select to_json(r) FROM (select grupo.id_grupo, grupo.descricao from "Cadastros".grupo grupo'+
-    ' join "Cadastros".produto produto using(id_grupo)'+
-    ' group by grupo.id_grupo'+
-    ' order by trim(grupo.descricao)'+
+    ' select to_json(r) FROM (select grupo."CODGRUPO" id_grupo, trim(grupo."DESCRICAO") descricao from "CADGRUPO" grupo'+
+    ' join "CADPROD" produto using("CODGRUPO")'+
+    ' group by grupo."CODGRUPO"'+
+    ' order by trim(grupo."DESCRICAO")'+
     ' ) r';
 begin
   Result := TDAO.OpenQueryToJSON(lSQL, '', 'grupos', Params);

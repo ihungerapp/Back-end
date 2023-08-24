@@ -14,7 +14,7 @@ type
   private
     class function GetRttiType(Obj: TObject): TRttiType; static;
     class function GetTableName(Obj: TObject): String; static;
-    class function GetRelationship(Obj: TObject): TObjectList<TObject>; static;
+    class function GetRelationship(Obj: TObject; var NameRelationship: String): TObjectList<TObject>; static;
     class function GetFields(Obj: TObject; ListHeader: Boolean = False; ListSelect: Boolean = False): String;
     class function GetWhere(Obj: TObject; ID: String; Search: String; WherePadrao: String; TipoPesquisa:TPesquisa): String; overload;
     class function GetOrder(Obj: TObject; Sort: String; Direction: String): String;
@@ -28,7 +28,7 @@ type
     class procedure InsertAplicativosLojas(ID: Integer; Dados: TJSONObject; Connection: TConnection); static;
     class function GetID(Obj: TObject): Integer; static;
     class function GetJoin(AJoin:string):string;static;
-    class function OpenQuery(Response: TWebResponse; lSQL: string): TJSONArray; overload;
+    class function OpenQuery(Response: TWebResponse; lSQL: string; Obj: TObject): TJSONArray; overload;
     class function OpenQuery(Response: TWebResponse; lSQL: string; Connection: TConnection): TConnection; overload;
     class function GetPrimaryKeyName(Instance: TObject): String;
     class function IsValidGuid(GUID: String): Boolean;
@@ -56,12 +56,14 @@ var
   TableName: String;
   FieldsName: String;
   ParamsName: String;
+  ParamsValues: String;
   PrimaryKeyName: String;
   SQL: String;
   LChave: String;
   Params: TFDParams;
   lParam: TFDParam;
   ParamsRelationship: TFDParams;
+  LNameRelationship: String;
   Mensagem: TMessageType;
   Obj: TObject;
   RttiType: TRttiType;
@@ -85,13 +87,35 @@ begin
         TableName := GetTableName(Obj);
         SetFieldsAndParams(teInsert, Obj, FieldsName, ParamsName, Params);
         Connection.Query.SQL.Clear;
-        Connection.Query.SQL.Add(Format(SQL, [TableName, FieldsName, ParamsName]));
-        Connection.Query.Params := Params;
+
+        ParamsValues := EmptyStr;
+        for I := 0 to Pred(Params.Count) do
+        begin
+          if I > 0 then
+            ParamsValues := ParamsValues + ', ';
+          if Params[I].DataType in [ftString, ftDateTime, ftDate] then
+            ParamsValues := ParamsValues + QuotedStr(Params[I].Value)
+          else
+          if Params[I].DataType in [ftFloat] then
+            ParamsValues := ParamsValues + StringReplace(FloatToStr(Params[I].Value), ',', '.', [rfReplaceAll])
+          else
+          if Params[I].DataType in [ftBoolean] then
+            ParamsValues := ParamsValues + QuotedStr(Params[I].Value)
+          else
+            ParamsValues := ParamsValues + IntToStr(Params[I].Value)
+        end;
+
+        Connection.Query.SQL.Add(Format(SQL, [TableName, FieldsName, ParamsValues]));
+//        Connection.Query.SQL.Add(Format(SQL, [TableName, FieldsName, ParamsName]));
+//        Connection.Query.Params.Clear;
+//        Connection.Query.SQL.Add(Format(SQL, [TableName, FieldsName,
+//                                 StringReplace(ParamsName, '"', '', [rfReplaceAll])]));
+//        Connection.Query.Params := Params;
         Connection.Query.Open;
-        LChave := Connection.Query.FieldByName(PrimaryKeyName).AsString;
+        LChave := Connection.Query.FieldByName(StringReplace(PrimaryKeyName, '"', '', [rfReplaceAll])).AsString;
 
         ListRelationship := nil;
-        ListRelationship := GetRelationship(Obj);
+        ListRelationship := GetRelationship(Obj, LNameRelationship);
         if Assigned(ListRelationship) and (ListRelationship.Count > 0) then
         begin
           for I := 0 to Pred(ListRelationship.Count) do
@@ -185,7 +209,7 @@ begin
   lPagination := ' LIMIT ' + PageSize.ToString + ' OFFSET ' + (PageSize * (PageNumber-1)).ToString;
   lJoin := GetJoin(Join);
   lSQL := Format(SQL, [lFields, lTableName, lJoin, lWhere, lOrder, lPagination]);
-  lDados := OpenQuery(Response, lSQL);
+  lDados := OpenQuery(Response, lSQL, Obj);
 
   Response.ContentType  := 'application/json;charset=UTF-8';
   if ID = 'list-select' then
@@ -739,11 +763,19 @@ begin
   end;
 end;
 
-class function TDAO.OpenQuery(Response: TWebResponse; lSQL: string): TJSONArray;
+class function TDAO.OpenQuery(Response: TWebResponse; lSQL: string; Obj: TObject): TJSONArray;
 var
   lItem: TJSONObject;
+  lItemRelacionado: TJSONArray;
+  lItemObjRelacionado: TJSONObject;
   Field: TField;
   Connection: TConnection;
+  ListRelationship: TObjectList<TObject>;
+  LNameRelationship: String;
+  RttiAttribute: TCustomAttribute;
+  RttiType: TRttiType;
+  InstanceObj: TObject;
+  RttiField: TRttiField;
 begin
   Result := TJSONArray.Create;
   Connection := TConnection.Create;
@@ -765,6 +797,29 @@ begin
             lItem.AddPair(LowerCase(Field.FieldName), Copy(DateToISO8601(Field.Value), 1, 10))
           else
             lItem.AddPair(LowerCase(Field.FieldName), Field.AsString);
+
+        //Insere array de objetos se existir relacionamento entre tabelas
+//        ListRelationship := GetRelationship(Obj, LNameRelationship);
+//        RttiType := GetRttiType(Obj);
+//        for RttiField in RttiType.GetFields do
+//        begin
+//          for RttiAttribute in RttiField.GetAttributes do
+//            if (RttiAttribute is DBRelationship) then
+//            begin
+//              (RttiAttribute as DBRelationship).NameRelationship := LNameRelationship;
+//              if Assigned((RttiAttribute as DBRelationship).ListRelationship) then
+//                DBRelationship(RttiAttribute).ListRelationship.Add(InstanceObj);
+//            end;
+//        end;
+//        ListRelationship := nil;
+//        ListRelationship := GetRelationship(Obj, LNameRelationship);
+//        if Assigned(ListRelationship) and (ListRelationship.Count > 0) then
+//        begin
+//          lItemRelacionado := TJSONArray.Create;
+//          lItemObjRelacionado := TJSONObject.Create;
+//          lItemRelacionado.AddElement(lItemObjRelacionado);
+//          lItem.AddPair(LowerCase(LNameRelationship), lItemRelacionado);
+//        end;
         Connection.Query.Next;
       end;
     except
@@ -792,6 +847,7 @@ var
   RttiType: TRttiType;
   LJSONArray: TJSONArray;
   ListRelationship: TObjectList<TObject>;
+  LNameRelationship: String;
 begin
   Response.ContentType  := 'application/json;charset=UTF-8';
   Mensagem := IRegistroAlterado;
@@ -815,7 +871,7 @@ begin
           InsertAplicativosLojas(GetID(Obj), Dados, Connection);
 
         ListRelationship := nil;
-        ListRelationship := GetRelationship(Obj);
+        ListRelationship := GetRelationship(Obj, LNameRelationship);
         if Assigned(ListRelationship) and (ListRelationship.Count > 0) then
         begin
           Params.Clear;
@@ -849,7 +905,7 @@ begin
   TMessage.Create(Mensagem).SendMessage(Response);
 end;
 
-class function TDAO.GetRelationship(Obj: TObject): TObjectList<TObject>;
+class function TDAO.GetRelationship(Obj: TObject; var NameRelationship: String): TObjectList<TObject>;
 var
   RttiType: TRttiType;
   RttiAttribute: TCustomAttribute;
@@ -860,7 +916,10 @@ begin
   for RttiField in RttiType.GetFields do
     for RttiAttribute in RttiField.GetAttributes do
       if (RttiAttribute is DBRelationship) then
+      begin
         Result := (RttiAttribute as DBRelationship).ListRelationship;
+        NameRelationship := (RttiAttribute as DBRelationship).NameRelationship;
+      end;
 end;
 
 class function TDAO.GetRttiType(Obj: TObject): TRttiType;
@@ -1028,7 +1087,8 @@ begin
   end;
 end;
 
-class function TDAO.OpenQuery(Response: TWebResponse; lSQL: string; Connection: TConnection): TConnection;
+class function TDAO.OpenQuery(Response: TWebResponse; lSQL: string;
+Connection: TConnection): TConnection;
 begin
   Result := Connection;
   Connection.Query.SQL.Clear;

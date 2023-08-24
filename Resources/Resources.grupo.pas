@@ -17,16 +17,16 @@ uses
 type
 
   [Resource('grupo')]
-  [Table('"Cadastros".grupo')]
+  [Table('"CADGRUPO"')]
   [AutoInc('grupo_id_grupo_seq')]
   [Controllers(TControllergrupo)]
   Tgrupo = class(TResourceBaseClass)
   protected
   public
-    [DBField('ID_GRUPO', True, True, False, PrimaryKey)]
+    [DBField('"CODGRUPO"', True, True, False, PrimaryKey)]
     id_grupo: Integer;
 
-    [DBField('DESCRICAO', True, True, False, NotNull)]
+    [DBField('"DESCRICAO"', True, True, False, NotNull)]
     descricao: String;
 
 

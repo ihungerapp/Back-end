@@ -17,44 +17,44 @@ uses
 type
 
   [Resource('pedidoItem')]
-  [Table('"Pedidos".pedido_item')]
-  [AutoInc('pedido_item_id_pedido_item_seq')]
+  [Table('"CONSUMO_AP"')]
+  [AutoInc('consumoap_sequence')]
   [Controllers(TControllerpedido_item)]
   TpedidoItem = class(TResourceBaseClass)
   protected
   public
-    [DBField('ID_PEDIDO_ITEM', True, True, False, PrimaryKey)]
-    id_pedido_item: Integer;
+    [DBField('"ID_CONSUMO_AP"', True, True, False, PrimaryKey)]
+    id_consumo_ap: Integer;
 
-    [DBField('ID_PEDIDO', True, True, False, NotNull)]
-    id_pedido: Integer;
+    [DBField('"CODRECEPCAO"', True, True, False, NotNull)]
+    codrecepcao: Integer;
 
-    [DBField('ID_PRODUTO', True, True, False, NotNull)]
-    id_produto: Integer;
+    [DBField('"CODPROD"', True, True, False, NotNull)]
+    codprod: Integer;
 
-    [DBField('QTDE', True, True, False, NotNull)]
+    [DBField('"N_COMANDA_RECEPCAO"', True, True, False, NotNull)]
+    n_comanda_recepcao: Integer;
+
+    [DBField('"QTDE"', True, True, False, NotNull)]
     qtde: Currency;
 
-    [DBField('VALOR_UNITARIO', True, True, False, NotNull)]
-    valor_unitario: Currency;
+    [DBField('"VLRUNITARIO"', True, True, False, NotNull)]
+    vlrunitario: Currency;
 
-    [DBField('VALOR_TOTAL', True, True, False, NotNull)]
-    valor_total: Currency;
+    [DBField('"VLRTOTALITEM"', True, True, False, NotNull)]
+    vlrtotalitem: Currency;
 
-    [DBField('DATA_HORA_EMISSAO', True, True, False, NotNull)]
-    data_hora_emissao: TDateTime;
+    [DBField('"DATA_CONSUMO"', True, True, False, NotNull)]
+    data_consumo: TDateTime;
 
-    [DBField('DATA_HORA_STATUS', True, True, False, NotNull)]
-    data_hora_status: TDateTime;
-
-    [DBField('PEDIDO_ITEM_STATUS', True, True, False, NotNull)]
+    [DBField('"PEDIDO_ITEM_STATUS"', True, True, False, NotNull)]
     pedido_item_status: String;
 
-    [DBField('ID_PRODUTO_PRECIFICACAO', True, True, False, NotNull)]
+    [DBField('"ID_PRODUTO_PRECIFICACAO"', True, True, False, NotNull)]
     id_produto_precificacao: String;
 
-    [DBField('OBS', True, True, False, Null)]
-    obs: String;
+    [DBField('"COMPLEMENTO"', True, True, False, Null)]
+    complemento: String;
   end;
 
 implementation

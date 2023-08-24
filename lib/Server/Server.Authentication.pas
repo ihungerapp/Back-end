@@ -68,7 +68,7 @@ begin
     OpenQuery(SQL_GetPrimaryKeyName, lFields, lTableName, lWhere, Connection);
     lTableName := LAutParameters[0];
     lPrimaryKeyName := Connection.Query.FieldByName('attname').AsString;
-    lFields := LAutParameters[1] + ', ' + lPrimaryKeyName;
+    lFields := LAutParameters[1] + ', ' + '"' + lPrimaryKeyName + '"';
     lWhere := LAutParameters[1] + ' = ' + QuotedStr(User) + ' AND ' +
               LAutParameters[2] + ' = ' + QuotedStr(Password);
     OpenQuery(SQL, lFields, lTableName, lWhere, Connection);

@@ -30,14 +30,14 @@ const
   lSQL = ' SELECT to_json(r)'+
   ' FROM ('+
   ' SELECT'+
-  ' mesa.*,'+
+  ' mesa."CODAP" id_mesa, mesa."DESCRICAO", mesa."CADAP_UUID" mesa_uuid,'+
   ' array_agg(pedido.*) as pedido'+
-  ' from "Cadastros".mesa mesa'+
-  ' left outer join "Pedidos".pedido pedido on pedido.id_mesa = mesa.id_mesa'+
-  ' and pedido.pedido_status = ''Em aberto'' '+
+  ' from "CADAP" mesa'+
+  ' left outer join "RECEPCAO" pedido on pedido."CODAP" = mesa."CODAP"'+
+  ' and pedido."SITUACAO" = ''Em aberto'''+
   ' %s'+
-  ' group by mesa.id_mesa'+
-  ' order by mesa.id_mesa'+
+  ' group by mesa."CODAP"'+
+  ' order by mesa."CODAP"'+
   ' ) r';
 var
   lWhere: String;
