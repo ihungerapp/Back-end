@@ -67,3 +67,5 @@ __recovery/
 
 # Boss dependency manager vendor folder https://github.com/HashLoad/boss
 modules/
+deploy/postgresql-15.3.tar.gz
+deploy/postgresql-libs-15.3-2-x86_64.pkg.tar.zst

@@ -56,33 +56,53 @@ end;
 class function TDAOPedido.ListarPedidosComProduto(
   const Params: array of TValue): TJSONObject;
 const
-  lSQL = ' SELECT to_json(r)'+
-  ' FROM ('+
-  ' SELECT'+
-  ' pedido.*,'+
-  ' array_agg(pedido_item.*) as pedido_item'+
-  ' from (select *,'+
-  ' (SELECT'+
-  ' json_build_object('+
-  ' ''id_produto'', pr."CODPROD",'+
-  ' ''descricao'', pr."DESCRICAO",'+
-  ' ''complemento'', pr."COMPLEMENTO",'+
-  ' ''valor_inicial'', pr."VALORF",'+
-  ' ''valor_promocao'', pr."VALOR_PROMOCAO",'+
-  ' ''promocao_do_dia'', pr."PROMOCAO_DO_DIA",'+
-  ' ''id_grupo'', pr."CODGRUPO",'+
-  ' ''imagem'', encode(pr."IMAGEM", ''base64'')'+
-  ' ) as produto'+
-  ' FROM'+
-  ' "CADPROD" pr'+
-  ' WHERE'+
-  ' pi2."CODPROD" = pr."CODPROD")'+
-  ' FROM "CONSUMO_AP" pi2) as pedido_item,'+
+//  lSQL = ' SELECT to_json(r)'+
+//  ' FROM ('+
+//  ' SELECT'+
+//  ' pedido.*,'+
+//  ' array_agg(pedido_item.*) as pedido_item'+
+//  ' from (select *,'+
+//  ' (SELECT'+
+//  ' json_build_object('+
+//  ' ''id_produto'', pr."CODPROD",'+
+//  ' ''descricao'', pr."DESCRICAO",'+
+//  ' ''complemento'', pr."COMPLEMENTO",'+
+//  ' ''valor_inicial'', pr."VALORF",'+
+//  ' ''valor_promocao'', pr."VALOR_PROMOCAO",'+
+//  ' ''promocao_do_dia'', pr."PROMOCAO_DO_DIA",'+
+//  ' ''id_grupo'', pr."CODGRUPO",'+
+//  ' ''imagem'', encode(pr."IMAGEM", ''base64'')'+
+//  ' ) as produto'+
+//  ' FROM'+
+//  ' "CADPROD" pr'+
+//  ' WHERE'+
+//  ' pi2."CODPROD" = pr."CODPROD")'+
+//  ' FROM "CONSUMO_AP" pi2) as pedido_item,'+
+//  ' "RECEPCAO" pedido, "CADAP" mesa'+
+//  ' %s '+
+//  ' group by pedido."CODRECEPCAO"'+
+//  ' order by pedido."SITUACAO", pedido."DATA_ENTRADA"'+
+//  ' ) r';
+  lSQL = ' SELECT to_json(r) FROM ('+
+  ' SELECT pedido.*, array_agg(pedido_item.*) as pedido_item'+
+  ' from (select pi2.*,'+
+  ' (SELECT json_build_object( ''id_produto'', pr."CODPROD", ''descricao'', pr."DESCRICAO", ''complemento'', pr."COMPLEMENTO", ''valor_inicial'','+
+  ' pr."VALORF", ''valor_promocao'', pr."VALOR_PROMOCAO", ''promocao_do_dia'', pr."PROMOCAO_DO_DIA", ''id_grupo'', pr."CODGRUPO", ''imagem'', encode(pr."IMAGEM", ''base64'') ) as produto'+
+  ' from "CADPROD" pr WHERE pi2."CODPROD" = pr."CODPROD"),'+
+  ' (select'+
+  ' array_agg(produto_precificacao.*) as produto_precificacao from (select pp.*, (select json_build_object(''id_precificacao'', pf.id_precificacao, ''tipo'', pf.tipo,'+
+  ' ''grupo'', pf.grupo,''qtde_max_selecao'', pf.qtde_max_selecao) as precificacao from precificacao pf2 where pf2.id_precificacao = pp.id_precificacao)'+
+  ' from precificacao pf, produto_precificacao pp WHERE pp.id_precificacao = pf.id_precificacao and pi2."CODPROD" = pp.id_produto'+
+  ' and pp.id_produto_precificacao in ('+
+  ' select UNNEST(ARRAY[string_to_array(pi2."ID_PRODUTO_PRECIFICACAO", '','')])::INT from "CONSUMO_AP" ca where ca."ID_CONSUMO_AP" = pi2."ID_CONSUMO_AP"'+
+  ' ) ) as produto_precificacao'+
+  ' )'+
+  ' from "CONSUMO_AP" pi2) as pedido_item,'+
   ' "RECEPCAO" pedido, "CADAP" mesa'+
   ' %s '+
   ' group by pedido."CODRECEPCAO"'+
-  ' order by pedido."SITUACAO", pedido."DATA_ENTRADA"'+
-  ' ) r';
+  ' order by pedido."SITUACAO", pedido."DATA_ENTRADA" ) r';
+
 var
   lWhere: String;
 begin
