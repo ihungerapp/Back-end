@@ -69,7 +69,7 @@ var
   RttiType: TRttiType;
   LJSONArray: TJSONArray;
   ListRelationship: TObjectList<TObject>;
-  I: Integer;
+  I, J: Integer;
 begin
   Response.ContentType  := 'application/json;charset=UTF-8';
   Mensagem := IRegistroInserido;
@@ -133,8 +133,27 @@ begin
             SetFieldsAndParams(teInsert, ListRelationship.Items[I], FieldsName,
               ParamsName, ParamsRelationship, Params);
             Connection.Query.SQL.Clear;
-            Connection.Query.SQL.Add(Format(SQL, [TableName, FieldsName, ParamsName]));
-            Connection.Query.Params := ParamsRelationship;
+
+            ParamsValues := EmptyStr;
+            for J := 0 to Pred(ParamsRelationship.Count) do
+            begin
+              if J > 0 then
+                ParamsValues := ParamsValues + ', ';
+              if ParamsRelationship[J].DataType in [ftString, ftDateTime, ftDate] then
+                ParamsValues := ParamsValues + QuotedStr(ParamsRelationship[J].Value)
+              else
+              if ParamsRelationship[J].DataType in [ftFloat] then
+                ParamsValues := ParamsValues + StringReplace(FloatToStr(ParamsRelationship[J].Value), ',', '.', [rfReplaceAll])
+              else
+              if ParamsRelationship[J].DataType in [ftBoolean] then
+                ParamsValues := ParamsValues + QuotedStr(ParamsRelationship[J].Value)
+              else
+                ParamsValues := ParamsValues + IntToStr(ParamsRelationship[J].Value)
+            end;
+
+            Connection.Query.SQL.Add(Format(SQL, [TableName, FieldsName, ParamsValues]));
+//            Connection.Query.SQL.Add(Format(SQL, [TableName, FieldsName, ParamsName]));
+//            Connection.Query.Params := ParamsRelationship;
             Connection.Query.Open;
           end;
           ListRelationship.Clear;
