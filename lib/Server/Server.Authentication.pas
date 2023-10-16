@@ -3,22 +3,26 @@ unit Server.Authentication;
 interface
 
 uses
-  System.SysUtils, Web.HTTPApp, Server.Connection;
+  System.SysUtils, Web.HTTPApp, Server.Connection, FireDAC.Comp.Client;
 
 type
   TAuthentication = class
-    private
-      FParameters: String;
+  private
+    FParameters: String;
     FUserID: Integer;
-      constructor Create(aNameResource, aNameFieldUser, aNameFieldPassword: String);
-      procedure OpenQuery(SQL, Fields, TableName, Where: String; Connection: TConnection);
-    procedure SetUserID(const Value: Integer);
-    public
-      destructor Destroy; override;
-      class function GetInstance(aNameResource, aNameFieldUser, aNameFieldPassword: String): TAuthentication;
-      class function NewInstance: TObject; override;
-      function Authenticate(Request: TWebRequest; Response: TWebResponse) : Boolean;
-      property UserID: Integer read FUserID write SetUserID;
+    FCpfCnpj: String;
+    FDataBaseName: String;
+    constructor Create(aNameResource, aNameFieldUser, aNameFieldPassword, aCPFCNPJ: String);
+    procedure OpenQuery(SQL, Fields, TableName, Where: String; Query: TFDQuery);
+  procedure SetUserID(const Value: Integer);
+  public
+    destructor Destroy; override;
+    class function GetInstance(aNameResource, aNameFieldUser, aNameFieldPassword, aCPFCNPJ: String): TAuthentication;
+    class function NewInstance: TObject; override;
+    function Authenticate(Request: TWebRequest; Response: TWebResponse) : Boolean;
+    property UserID: Integer read FUserID write SetUserID;
+    property CpfCnpj: String read FCpfCnpj write FCpfCnpj;
+    property DataBaseName: String read FDataBaseName write FDataBaseName;
   end;
 
 var
@@ -27,7 +31,7 @@ var
 implementation
 
 uses
-  System.JSON, System.Rtti;
+  System.JSON, System.Rtti, Server.Config;
 
 { TAuthentication }
 
@@ -64,14 +68,34 @@ begin
     LJSONValue := TJSONObject.ParseJSONValue(Request.Content);
     User := LJSONValue.GetValue<string>('user');
     Password := LJSONValue.GetValue<string>('password');
+    CpfCnpj := LJSONValue.GetValue<string>('cpfCnpj');
+
+    //Obter nome do banco de dados para conexão com o banco correto do usuário
+    TServerConfig.GetInstance('EmpresaConDef', 'EMPRESA');
+    lFields := '"DATABASE_NAME"';
+    lTableName := '"CADEMP"';
+    lWhere := LAutParameters[3] + ' = ' + QuotedStr(CpfCnpj);
+    OpenQuery(SQL, lFields, lTableName, lWhere, Connection.QueryEmpresa);
+    if (Connection.QueryEmpresa.RecordCount = 0)
+    or (Connection.QueryEmpresa.FieldByName('DATABASE_NAME').AsString = EmptyStr) then
+    begin
+      Result := False;
+      Exit;
+    end
+    else
+      FDataBaseName := Connection.QueryEmpresa.FieldByName('DATABASE_NAME').AsString;
+
+    TServerConfig.GetInstance('ServerConDef', FDataBaseName);
     lTableName := QuotedStr(LAutParameters[0]);
-    OpenQuery(SQL_GetPrimaryKeyName, lFields, lTableName, lWhere, Connection);
+    lFields := EmptyStr;
+    lWhere := EmptyStr;
+    OpenQuery(SQL_GetPrimaryKeyName, lFields, lTableName, lWhere, Connection.Query);
     lTableName := LAutParameters[0];
     lPrimaryKeyName := Connection.Query.FieldByName('attname').AsString;
     lFields := LAutParameters[1] + ', ' + '"' + lPrimaryKeyName + '"';
     lWhere := LAutParameters[1] + ' = ' + QuotedStr(User) + ' AND ' +
               LAutParameters[2] + ' = ' + QuotedStr(Password);
-    OpenQuery(SQL, lFields, lTableName, lWhere, Connection);
+    OpenQuery(SQL, lFields, lTableName, lWhere, Connection.Query);
     UserID := Connection.Query.FieldByName(lPrimaryKeyName).AsInteger;
     Result := Connection.Query.RecordCount > 0;
   finally
@@ -80,9 +104,9 @@ begin
   end;
 end;
 
-constructor TAuthentication.Create(aNameResource, aNameFieldUser, aNameFieldPassword: String);
+constructor TAuthentication.Create(aNameResource, aNameFieldUser, aNameFieldPassword, aCPFCNPJ: String);
 begin
-  FParameters := aNameResource + ';' + aNameFieldUser + ';' + aNameFieldPassword;
+  FParameters := aNameResource + ';' + aNameFieldUser + ';' + aNameFieldPassword + ';' + aCPFCNPJ;
 end;
 
 destructor TAuthentication.Destroy;
@@ -91,9 +115,9 @@ begin
   inherited;
 end;
 
-class function TAuthentication.GetInstance(aNameResource, aNameFieldUser, aNameFieldPassword: String): TAuthentication;
+class function TAuthentication.GetInstance(aNameResource, aNameFieldUser, aNameFieldPassword, aCPFCNPJ: String): TAuthentication;
 begin
-  Result := Self.Create(aNameResource, aNameFieldUser, aNameFieldPassword);
+  Result := Self.Create(aNameResource, aNameFieldUser, aNameFieldPassword, aCPFCNPJ);
 end;
 
 class function TAuthentication.NewInstance: TObject;
@@ -103,11 +127,11 @@ begin
   Result := Authentication;
 end;
 
-procedure TAuthentication.OpenQuery(SQL, Fields, TableName, Where: String; Connection: TConnection);
+procedure TAuthentication.OpenQuery(SQL, Fields, TableName, Where: String; Query: TFDQuery);
 begin
-  Connection.Query.SQL.Clear;
-  Connection.Query.SQL.Add(Format(SQL, [Fields, TableName, Where]));
-  Connection.Query.Open;
+  Query.SQL.Clear;
+  Query.SQL.Add(Format(SQL, [Fields, TableName, Where]));
+  Query.Open;
 end;
 
 procedure TAuthentication.SetUserID(const Value: Integer);

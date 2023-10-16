@@ -14,10 +14,14 @@ type
   private
     FQuery: TFDQuery;
     FDB: TFDConnection;
+    FQueryEmpresa: TFDQuery;
+    FDBEmpresa: TFDConnection;
     Fdriver: TFDPhysPGDriverLink;
   public
     property DB: TFDConnection read FDB write FDB;
     property Query: TFDQuery read FQuery write FQuery;
+    property DBEmpresa: TFDConnection read FDBEmpresa write FDBEmpresa;
+    property QueryEmpresa: TFDQuery read FQueryEmpresa write FQueryEmpresa;
     constructor Create;
     destructor Destroy; override;
   end;
@@ -47,7 +51,9 @@ begin
 //      DB.Connected := True;
 //    end;
     Query := TFDQuery.Create(nil);
-    Query.ConnectionName := 'WKServer';
+    Query.ConnectionName := 'ServerConDef';
+    QueryEmpresa := TFDQuery.Create(nil);
+    QueryEmpresa.ConnectionName := 'EmpresaConDef';
 //    writeln('Chamou query');
 //    Query.Connection := DB;
   except

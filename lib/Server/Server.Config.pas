@@ -19,34 +19,37 @@ type
   TServerConfig = class
   private
     FDManager: TFDManager;
-    procedure ConfigDB;
+    procedure ConfigDB(NameConnectionDef, DataBaseName: String);
     class var
       FInstance: TServerConfig;
   public
-    class function GetInstance: TServerConfig;
+    class function GetInstance(NameConnectionDef, DataBaseName: String): TServerConfig;
   end;
 
 implementation
 
 { TServer }
 
-class function TServerConfig.GetInstance: TServerConfig;
+class function TServerConfig.GetInstance(NameConnectionDef, DataBaseName: String): TServerConfig;
 begin
   if FInstance = nil then
   begin
     FInstance := TServerConfig.Create;
-    FInstance.ConfigDB;
+    FInstance.ConfigDB(NameConnectionDef, DataBaseName);
   end;
+  if FInstance.FDManager.ConnectionCount = 1 then
+    FInstance.ConfigDB(NameConnectionDef, DataBaseName);
   Result := FInstance;
 end;
 
-procedure TServerConfig.ConfigDB;
+procedure TServerConfig.ConfigDB(NameConnectionDef, DataBaseName: String);
 var
   Database: string;
   Server: string;
   UserName: string;
   Password: string;
   Params: TStrings;
+  ParamsEmpresa: TStrings;
   Port: Integer;
   LPath: string;
 begin
@@ -60,7 +63,10 @@ begin
   //IniFile := TMemIniFile.Create('./ConfigServer.ini');
   {$ENDIF}
   try
-    Database := IniFile.ReadString('Config', 'Database', '');
+    if not Assigned(FInstance.FDManager) then
+      FInstance.FDManager := TFDManager.Create(nil)
+    else
+      FInstance.FDManager.Active := False;
     Server := IniFile.ReadString('Config', 'Server', '');
     UserName := IniFile.ReadString('Config', 'UserName', '');
     Password := 'rm045369';//TCriptografia.Descriptografar(IniFile.ReadString('Config', 'Password', ''));
@@ -68,7 +74,7 @@ begin
     Params := TStringList.Create;
     Params.AddPair('DriverID', 'PG');
     Params.AddPair('Server', Server);
-    Params.AddPair('Database', Database);
+    Params.AddPair('Database', DataBaseName);
     Params.AddPair('User_Name', UserName);
     Params.AddPair('Password', Password);
     Params.AddPair('Port', Port.ToString);
@@ -82,8 +88,7 @@ begin
 //POOL_ExpireTimeout	O tempo (msecs) após o qual a conexão inativa pode ser excluída do pool e destruída. O valor padrão é 90.000 ms (90 segundos).	600000
 //POOL_MaximumItems	O número máximo de conexões no pool. Quando o aplicativo requer mais conexões, uma exceção é gerada. O valor padrão é 50.	100
 
-    FInstance.FDManager := TFDManager.Create(nil);
-    FInstance.FDManager.AddConnectionDef('WKServer', 'PG', Params);
+    FInstance.FDManager.AddConnectionDef(NameConnectionDef, 'PG', Params);
     FInstance.FDManager.Active := True;
 
     {$IFDEF LINUX} //path quando executa a API como container no Docker

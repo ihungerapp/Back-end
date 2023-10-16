@@ -98,7 +98,7 @@ begin
     if CheckPort(AServer.DefaultPort) > 0 then
     begin
       AServer.Bindings.Clear;
-      TAuthentication.GetInstance('"CADUSER"', '"NOME_USUARIO"', '"SENHA"');
+      TAuthentication.GetInstance('"CADUSER"', '"NOME_USUARIO"', '"SENHA"', '"CPF"');
       AServer.Active := True;
     end
     else
@@ -147,7 +147,7 @@ begin
   LServer := TIdHTTPWebBrokerBridge.Create(nil);
   try
     Writeln('Iniciando conexao ao banco de dados');
-    TServerConfig.GetInstance;
+    TServerConfig.GetInstance('EmpresaConDef', 'EMPRESA');
     Writeln('Conexao concluida');
   except
     on e: exception do
@@ -155,7 +155,6 @@ begin
       LResponse := e.Message;
       LResponse := '';
       Writeln('Conexao ao banco dados falhou ' + e.Message);
-
     end;
   end;
 

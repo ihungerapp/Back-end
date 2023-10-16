@@ -128,7 +128,7 @@ begin
   ClassFinder := TClassFinder.Create(Nil);
   try
     ClassFinder.GetClasses(GetClassesProc);
-    TServerConfig.GetInstance;
+    //TServerConfig.GetInstance;
   finally
     ClassFinder.Free;
   end;
